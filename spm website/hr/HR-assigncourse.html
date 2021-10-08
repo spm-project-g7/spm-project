@@ -27,6 +27,11 @@
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
+  
+  <!-- jQuery & Popper.js -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
   <!-- =======================================================
   * Template Name: Mentor - v4.4.0
@@ -73,9 +78,40 @@
 <form>
 <div class="container">
   <label for="exampleDataList" class="form-label">Search For Learner</label>
-  <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-  <datalist id="datalistOptions">
-    <option value = "example"></option>
+  <input class="form-control" list="engineerlist" id="exampleDataList" placeholder="Type to search...">
+  <datalist id="engineerlist">
+      <script>
+        $(async () => {
+              
+            var serviceURL = "http://127.0.0.1:5002/engineer";
+            // var response = fetch(serviceURL);
+            // console.log(response);
+            try {
+                const response =
+                await fetch(
+                    serviceURL, { method: 'GET' }
+                );
+                const result = await response.json();
+                console.log(result);
+                if (response.status == 200) {
+                    // success case
+                    var allEngineers = result.data.engineers; 
+                    var options = "";
+                    for (const engineer of allEngineers) {
+                        options += "<option value = '" + engineer.EmployeeName + "''></option>";
+                    }
+                    var dropdownelem = document.getElementById('engineerlist');
+                    dropdownelem.innerHTML = options;
+                    console.log(options);
+                }
+            }
+            catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                alert('There is a problem fetching the list of engineers, please try again later.');
+            } // error
+        });
+      </script>
   </datalist>
 </div>
 
@@ -83,9 +119,79 @@
 
   <div class="container">
     <label for="exampleDataList" class="form-label">Search For Course</label>
-    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-    <datalist id="datalistOptions">
-      <option value = "example"></option>
+    <input class="form-control" list="courselist" id="exampleDataList" placeholder="Type to search...">
+    <datalist id="courselist">
+        <script>
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5002/course";
+                // var response = fetch(serviceURL);
+                // console.log(response);
+                try {
+                    const response =
+                    await fetch(
+                        serviceURL, { method: 'GET' }
+                    );
+                    const result = await response.json();
+                    console.log(result);
+                    if (response.status == 200) {
+                        // success case
+                        var allCourses = result.data.courses; 
+                        var options = "";
+                        for (const course of allCourses) {
+                            options += "<option value = '" + course.CourseName + "''></option>";
+                        }
+                        var dropdownelem = document.getElementById('courselist');
+                        dropdownelem.innerHTML = options;
+                        console.log(options);
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    alert('There is a problem fetching the list of courses, please try again later.');
+                } // error
+            });
+          </script>    
+    </datalist>
+  </div>
+
+  <br>
+
+  <div class="container">
+    <label for="exampleDataList" class="form-label">Search For Class</label>
+    <input class="form-control" list="classlist" id="exampleDataList" placeholder="Type to search...">
+    <datalist id="classlist">
+        <script>
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5004/class";
+                // var response = fetch(serviceURL);
+                // console.log(response);
+                try {
+                    const response =
+                    await fetch(
+                        serviceURL, { method: 'GET' }
+                    );
+                    const result = await response.json();
+                    console.log(result);
+                    if (response.status == 200) {
+                        // success case
+                        var allClasses = result.data.classes; 
+                        var options = "";
+                        for (const oneclass of allClasses) {
+                            options += "<option value = '" + oneclass.ClassName + "''></option>";
+                        }
+                        var dropdownelem = document.getElementById('classlist');
+                        dropdownelem.innerHTML = options;
+                        console.log(options);
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    alert('There is a problem fetching the list of classes, please try again later.');
+                } // error
+            });
+          </script>    
     </datalist>
   </div>
 
