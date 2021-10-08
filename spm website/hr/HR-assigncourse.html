@@ -27,6 +27,11 @@
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
+  
+  <!-- jQuery & Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
   <!-- =======================================================
   * Template Name: Mentor - v4.4.0
@@ -75,6 +80,56 @@
   <label for="exampleDataList" class="form-label">Search For Learner</label>
   <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
   <datalist id="datalistOptions">
+      <script>
+          $(async () => {
+              
+        //   async function allLearners
+            // var email = localStorage.email;
+            var serviceURL = "http://127.0.0.1:5002/engineer";
+            // var response = fetch(serviceURL);
+            // console.log(response);
+            console.log(serviceURL);
+            try {
+                const response =
+                await fetch(
+                    serviceURL, { method: 'GET' }
+                );
+                console.log(response);
+                const result = await response.json();
+                console.log(result);
+                if (response.status === 200) {
+                    // success case
+                    var allEngineers = result.data.engineers; 
+                    var options = "";
+                    for (const engineer of allEngineers) {
+                        options += "<option value = " + engineer.EmployeeName + "></option>";
+                    //     if (hint.hintID == null){
+                    //         eachRow ="<td>" + hint.paidDescription + "</td>" +
+                    //             "<td> PAID </td>";
+                    //     } else {
+                    //         eachRow ="<td>" + hint.dailyDescription + "</td>" +
+                    //             "<td> DAILY </td>";
+                    //     }
+                       
+                    //    rows += "<tbody><tr>" + eachRow + "</tr></tbody>";
+                    }
+                    var dropdownelem = document.getElementById('datalistOptions');
+                    dropdownelem.append(options);
+            //     else {
+            //         return 0;
+            //     }
+                }
+            }
+            catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                alert('There is a problem fetching the list of engineers, please try again later.');
+            } // error
+        });
+
+        // };
+
+      </script>
     <option value = "example"></option>
   </datalist>
 </div>
