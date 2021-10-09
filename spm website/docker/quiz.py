@@ -16,13 +16,14 @@ CORS(app)
 class Quiz(db.Model):
     __tablename__ = 'quiz'
 
-    QuizID = db.Column(db.Integer, nullable=False)
+    QuizID = db.Column(db.Integer, primary_key=True)
     LastUpdated = db.Column(db.Date, nullable=False)
     GradedQuiz = db.Column(db.SmallInteger, nullable=False)
     PassingGrade = db.Column(db.Intger, nullable=False)
     LessonID = db.Column(db.Integer, nullable=False)
-    QuizScore = db.Column(db.Integer, nullable=False)
+    QuizScore = db.Column(db.Integer, nullable=True)
     CompleteStatus = db.Column(db.String(255), nullable=False)
+    QuizName = db.Column(db.String(255), nullable=True)
 
     def __init__(self, QuizID, LastUpdated, GradedQuiz, PassingGrade, LessonID, QuizScore, CompleteStatus):
         self.QuizID = QuizID
