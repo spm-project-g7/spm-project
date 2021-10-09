@@ -13,68 +13,60 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 db = SQLAlchemy(app)
 CORS(app)
 
-class Classes(db.Model):
-    __tablename__ = 'class'
+class Course(db.Model):
+    __tablename__ = 'course'
 
-    ClassID = db.Column(db.Integer, primary_key=True)
-    TrainerID = db.Column(db.Integer, nullable=False)
-    CourseID = db.Column(db.Integer, nullable=False)
-    StartDate = db.Column(db.Date, nullable=False)
-    EndDate = db.Column(db.Date, nullable=False)
-    StartTime = db.Column(db.String(255), nullable=False)
-    EndTime = db.Column(db.String(255), nullable=False)
-    ClassSize = db.Column(db.Integer, nullable=False)    
+    CourseID = db.Column(db.Integer, primary_key=True)
+    CourseName = db.Column(db.String(255), nullable=False)
+    CourseValidStartDate = db.Column(db.Date, nullable=False)
+    CourseValidEndDate = db.Column(db.Date, nullable=False)
+    CreatedBy = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, ClassID, TrainerID, CourseID, StartDate, EndDate, StartTime, EndTime, ClassSize):
-        self.ClassID = ClassID
-        self.TrainerID = TrainerID
+    def __init__(self, CourseID, CourseName, CourseValidStartDate, CourseValidEndDate, CreatedBy):
         self.CourseID = CourseID
-        self.StartDate = StartDate
-        self.EndDate = EndDate
-        self.StartTime = StartTime
-        self.EndTime = EndTime
-        self.ClassSize = ClassSize
+        self.CourseName = CourseName
+        self.CourseValidStartDate = CourseValidStartDate
+        self.CourseValidEndDate = CourseValidEndDate
+        self.CreatedBy = CreatedBy
 
     def json(self):
-        return {"ClassID": self.ClassID, "TrainerID": self.TrainerID, "CourseID": self.CourseID, "StartDate": self.StartDate, 
-                "EndDate": self.EndDate, "StartTime": self.StartTime, "EndTime": self.EndTime, "ClassSize": self.ClassSize}
+        return {"CourseID": self.CourseID, "CourseName": self.CourseName, "CourseValidStartDate": self.CourseValidStartDate, 
+                "CourseValidEndDate": self.CourseValidEndDate, "CreatedBy": self.CreatedBy}
 
 
-@app.route("/class")
+@app.route("/course")
 def get_all():
-    classlist = Classes.query.all()
-    if len(classlist):
+    courselist = Course.query.all()
+    if len(courselist):
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "classes": [classname.json() for classname in classlist]
+                    "courses": [course.json() for course in courselist]
                 }
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "No classes found."
+            "message": "No courses found."
         }
     ), 404
 
-@app.route("/class/<string:trainer>")
-def find_by_trainer(TrainerID):
-    classlist = Classes.query.filter_by(TrainerID=TrainerID)
-    if classlist:
+@app.route("/course/<string:CourseID>")
+def find_by_course(CourseID):
+    course = Course.query.filter_by(CourseID=CourseID).first()
+    if course:
         return jsonify(
             {
                 "code": 200,
-                "data": {
-                    "classes": [classname.json() for classname in classlist]
-                }
+                "data": course.json()
             }
         ), 200
     return jsonify(
         {
             "code": 404,
-            "message": "No classes found."
+            "message": "No course found."
         }
     ), 404
 
@@ -117,4 +109,4 @@ def create_class(classname):
     ), 201
 
 if __name__ == '__main__':
-    app.run(port=5005, debug=True)
+    app.run(port=5004, debug=True)

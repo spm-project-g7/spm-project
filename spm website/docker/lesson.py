@@ -21,7 +21,8 @@ class Lesson(db.Model):
     CurrentDesignation = db.Column(db.SmallInteger, nullable=False)
     Department = db.Column(db.Integer, nullable=False)
     ClassID = db.Column(db.Integer, nullable=False)
-    PrerequisiteLessonID = db.Column(db.Integer, nullable=False)
+    PrerequisiteLessonID = db.Column(db.Integer, nullable=True)
+    LessonName = db.Column(db.String(255), nullable=False)
 
     def __init__(self, LessonID, EmployeeName, CurrentDesignation, Department, ClassID, PrerequisiteLessonID):
         self.LessonID = LessonID
