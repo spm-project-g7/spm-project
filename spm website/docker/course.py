@@ -54,7 +54,7 @@ def get_all():
     ), 404
 
 @app.route("/course/<string:CourseID>")
-def find_by_course(CourseID):
+def find_by_courseID(CourseID):
     course = Course.query.filter_by(CourseID=CourseID).first()
     if course:
         return jsonify(
@@ -69,6 +69,23 @@ def find_by_course(CourseID):
             "message": "No course found."
         }
     ), 404
+
+# @app.route("/course/name/<string:CourseName>")
+# def find_by_courseName(CourseName):
+#     course = Course.query.filter_by(CourseName=CourseName).first()
+#     if course:
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": course.json()
+#             }
+#         ), 200
+#     return jsonify(
+#         {
+#             "code": 404,
+#             "message": "No course found."
+#         }
+#     ), 404
 
 # dk abt this part need edit
 @app.route("/user/<string:classname>", methods=['POST'])
