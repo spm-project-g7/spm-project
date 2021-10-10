@@ -27,6 +27,11 @@
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
+  
+  <!-- jQuery & Popper.js -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
   <!-- =======================================================
   * Template Name: Mentor - v4.4.0
@@ -70,31 +75,199 @@
 <br>
 
     <!-- ======= HR Section ======= -->
-<form>
+<form action="" method="post" id="assigncourse">
 <div class="container">
   <label for="exampleDataList" class="form-label">Search For Learner</label>
-  <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-  <datalist id="datalistOptions">
-    <option value = "example"></option>
-  </datalist>
+  <input class="form-control" list="engineerlist" id="engineerval" placeholder="Type to search...">
+  <datalist id="engineerlist">  </datalist>
 </div>
 
 <br>
 
   <div class="container">
     <label for="exampleDataList" class="form-label">Search For Course</label>
-    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-    <datalist id="datalistOptions">
-      <option value = "example"></option>
-    </datalist>
+    <input class="form-control" list="courselist" id="courseval" placeholder="Type to search...">
+    <datalist id="courselist">    </datalist>
+  </div>
+
+  <br>
+
+  <div class="container">
+    <label for="exampleDataList" class="form-label">Search For Class</label>
+    <input class="form-control" list="classlist" id="classval" placeholder="Type to search...">
+    <datalist id="classlist"></datalist>
   </div>
 
 <br> 
 
   <div class="col-auto" style="text-align: center;">
-    <button type="submit" class="btn btn-primary">Confirm Assignment</button>
+    <button type="submit" class="btn btn-primary" onclick="assign()">Confirm Assignment</button>
   </div>
 </form>
+
+  <script>
+        $(async () => {
+        
+        var serviceURL = "http://127.0.0.1:5002/engineer";
+        try {
+            const response =
+            await fetch(
+                serviceURL, { method: 'GET' }
+            );
+            const result = await response.json();
+            if (response.status == 200) {
+                // success case
+                var allEngineers = result.data.engineers; 
+                var options = "";
+                for (const engineer of allEngineers) {
+                    options += "<option value = '" + engineer.EmployeeName + ", ID: " + engineer.EngineerID + "''></option>";
+                }
+                var dropdownelem = document.getElementById('engineerlist');
+                dropdownelem.innerHTML = options;
+            }
+        }
+        catch (error) {
+            // Errors when calling the service; such as network error, 
+            // service offline, etc
+            alert('There is a problem fetching the list of engineers, please try again later.');
+        } // error
+    });
+
+    var months = {"Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", 
+                "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"}
+  
+    $(async () => {
+        var serviceURL = "http://127.0.0.1:5004/course";
+        try {
+            const response =
+            await fetch(
+                serviceURL, { method: 'GET' }
+            );
+            const result = await response.json();
+            if (response.status == 200) {
+                // success case
+                var allCourses = result.data.courses; 
+                var options = "";
+                for (const course of allCourses) {
+                    var startDateArr = course.CourseValidStartDate.split(" ").slice(1,4);
+                    var startDateString = startDateArr[2] + "-" + months[startDateArr[1]] + "-" + startDateArr[0];
+                    var endDateArr = course.CourseValidEndDate.split(" ").slice(1,4);
+                    var endDateString = endDateArr[2] + "-" + months[endDateArr[1]] + "-" + endDateArr[0];
+
+                    options += "<option value = '" + course.CourseName + ", ID: " + course.CourseID +  ", Start: " + startDateString + 
+                                ", End: " + endDateString + "''></option>";
+                }
+                var dropdownelem = document.getElementById('courselist');
+                dropdownelem.innerHTML = options;
+            }
+        }
+        catch (error) {
+            // Errors when calling the service; such as network error, 
+            // service offline, etc
+            alert('There is a problem fetching the list of courses, please try again later.');
+        } // error
+    });
+
+
+    $(async () => {
+        var serviceURL = "http://127.0.0.1:5005/class";
+        try {
+            const response =
+            await fetch(
+                serviceURL, { method: 'GET' }
+            );
+            const result = await response.json();
+            if (response.status == 200) {
+                // success case
+                var allClasses = result.data.classes; 
+                var options = "";
+                for (const oneclass of allClasses) {
+                    options += "<option value = '" + oneclass.ClassID + "''></option>";
+                }
+                var dropdownelem = document.getElementById('classlist');
+                dropdownelem.innerHTML = options;
+            }
+        }
+        catch (error) {
+            // Errors when calling the service; such as network error, 
+            // service offline, etc
+            alert('There is a problem fetching the list of classes, please try again later.');
+        } // error
+    });
+
+    function findCourseDetails(courseID) {
+        $(async () => {
+            // course = course.replace(/ /g, "%20");
+            // alert(course);
+            var serviceURL = "http://127.0.0.1:5004/course/" + courseID;
+            alert(serviceURL);
+            try {
+                const response =
+                await fetch(
+                    serviceURL, { method: 'GET' }
+                );
+                const result = await response.json();
+                // alert.log(result);
+                if (response.status == 200) {
+                    // success case
+                    // var courseID = result.data.CourseID;
+                    var courseValidStartDate = result.data.CourseValidStartDate; 
+                    var courseValidEndDate = result.data.CourseValidStartDate;
+                    console.log(courseValidStartDate, courseValidEndDate);
+                    return courseValidStartDate, courseValidEndDate
+                }
+            }
+            catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                alert('There is a problem fetching the course details, please try again later.');
+            } // error
+        });
+    }
+
+    function assign() {
+        $(async () => {
+            var courseval = $('#courseval').val().split(",");
+            var courseID = courseval[1].trim().slice(-2);
+            var courseStart = courseval[2].trim().split(" ")[1];
+            var courseEnd = courseval[3].trim().split(" ")[1];
+            var engineerval = $('#engineerval').val().split(",");
+            var engineer = engineerval[0];
+            var engineerID = engineerval[1].trim().slice(-2);
+            var serviceURL = "http://127.0.0.1:5006/enrol/" + courseID + "/" + engineerID;
+            var jsondata = JSON.stringify({ StartDate: courseStart, EndDate: courseEnd, 
+                                        AssignedHR: null, CourseCompleteRate: 0, CompleteStatus: "Not Complete", FinalQuizScore: 0 })
+            // console.log(jsondata);
+            try {
+                const response =
+                await fetch(
+                    serviceURL, {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: jsondata,
+                });
+                const data = await response.json();
+                console.log(data);
+                const information = await data;
+                console.log(information);
+                if(response.ok){
+                    alert("Engineer successfully enrolled!");
+                } else {
+                    // alert(data.message);
+                    alert("An error occurred.");
+                }
+                
+            }
+            catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                console.log(error);
+                alert('There is a problem enrolling the engineer, please try again later.');
+            } // error
+        });
+
+    }
+  </script>    
 
 
     </section><!-- End HR Section -->
@@ -102,13 +275,6 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-
-
-
-
-
-  
-
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -121,6 +287,10 @@
 
   <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
 </body>
 
