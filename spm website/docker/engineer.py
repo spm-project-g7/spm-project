@@ -50,7 +50,7 @@ def get_all():
     ), 404
 
 @app.route("/learner/<string:EngineerID>")
-def find_by_trainer(EngineerID):
+def find_by_learner(EngineerID):
     engineer = Engineer.query.filter_by(EngineerID=EngineerID).first()
     if engineer:
         return jsonify(
