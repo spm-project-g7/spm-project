@@ -62,7 +62,7 @@ def get_all():
         }
     ), 404
 
-@app.route("/class/<string:TrainerID>")
+@app.route("/class/trainer/<string:TrainerID>")
 def find_by_trainer(TrainerID):
     classlist = Classes.query.filter_by(TrainerID=TrainerID)
     if classlist:
@@ -80,6 +80,26 @@ def find_by_trainer(TrainerID):
             "message": "No classes found."
         }
     ), 404
+
+@app.route("/class/course/<string:CourseID>")
+def find_by_CourseID(CourseID):
+    classlist = Classes.query.filter_by(CourseID=CourseID)
+    if classlist:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "classes": [classname.json() for classname in classlist]
+                }
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No classes found."
+        }
+    ), 404
+
 
 if __name__ == '__main__':
     app.run(port=5005, debug=True)

@@ -172,6 +172,7 @@
         $(async () => {
             var courseval = $('#courseval').val().split(",");
             var courseID = courseval[1].trim().slice(-2);
+            console.log(courseID);
             var serviceURL = "http://127.0.0.1:5005/class/course/" + courseID;
             try {
                 const response =
