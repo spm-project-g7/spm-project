@@ -86,7 +86,7 @@
 
   <div class="container">
     <label for="exampleDataList" class="form-label">Search For Course</label>
-    <input class="form-control" list="courselist" id="courseval" placeholder="Type to search...">
+    <input class="form-control" list="courselist" id="courseval" placeholder="Type to search..." onchange="getClasses()">
     <datalist id="courselist">    </datalist>
   </div>
 
@@ -106,7 +106,7 @@
 </form>
 
   <script>
-        $(async () => {
+    $(async () => {
         
         var serviceURL = "http://127.0.0.1:5002/engineer";
         try {
@@ -168,32 +168,36 @@
         } // error
     });
 
-
-    $(async () => {
-        var serviceURL = "http://127.0.0.1:5005/class";
-        try {
-            const response =
-            await fetch(
-                serviceURL, { method: 'GET' }
-            );
-            const result = await response.json();
-            if (response.status == 200) {
-                // success case
-                var allClasses = result.data.classes; 
-                var options = "";
-                for (const oneclass of allClasses) {
-                    options += "<option value = '" + oneclass.ClassID + "''></option>";
+    function getClasses() {
+        $(async () => {
+            var courseval = $('#courseval').val().split(",");
+            var courseID = courseval[1].trim().slice(-2);
+            console.log(courseID);
+            var serviceURL = "http://127.0.0.1:5005/class/course/" + courseID;
+            try {
+                const response =
+                await fetch(
+                    serviceURL, { method: 'GET' }
+                );
+                const result = await response.json();
+                if (response.status == 200) {
+                    // success case
+                    var allClasses = result.data.classes; 
+                    var options = "";
+                    for (const oneclass of allClasses) {
+                        options += "<option value = '" + oneclass.ClassID + "''>" + oneclass.ClassName + "</option>";
+                    }
+                    var dropdownelem = document.getElementById('classlist');
+                    dropdownelem.innerHTML = options;
                 }
-                var dropdownelem = document.getElementById('classlist');
-                dropdownelem.innerHTML = options;
             }
-        }
-        catch (error) {
-            // Errors when calling the service; such as network error, 
-            // service offline, etc
-            alert('There is a problem fetching the list of classes, please try again later.');
-        } // error
-    });
+            catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                alert('There is a problem fetching the list of classes, please try again later.');
+            } // error
+        });
+    }
 
     function findCourseDetails(courseID) {
         $(async () => {

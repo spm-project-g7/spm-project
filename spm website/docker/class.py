@@ -23,9 +23,10 @@ class Classes(db.Model):
     EndDate = db.Column(db.Date, nullable=False)
     StartTime = db.Column(db.String(255), nullable=False)
     EndTime = db.Column(db.String(255), nullable=False)
-    ClassSize = db.Column(db.Integer, nullable=False)    
+    ClassName = db.Column(db.String(255), nullable=False)
+    ClassSize = db.Column(db.Integer, nullable=False)   
 
-    def __init__(self, ClassID, TrainerID, CourseID, StartDate, EndDate, StartTime, EndTime, ClassSize):
+    def __init__(self, ClassID, TrainerID, CourseID, StartDate, EndDate, StartTime, EndTime, ClassName, ClassSize):
         self.ClassID = ClassID
         self.TrainerID = TrainerID
         self.CourseID = CourseID
@@ -33,11 +34,13 @@ class Classes(db.Model):
         self.EndDate = EndDate
         self.StartTime = StartTime
         self.EndTime = EndTime
+        self.ClassName = ClassName
         self.ClassSize = ClassSize
 
     def json(self):
         return {"ClassID": self.ClassID, "TrainerID": self.TrainerID, "CourseID": self.CourseID, "StartDate": self.StartDate, 
-                "EndDate": self.EndDate, "StartTime": self.StartTime, "EndTime": self.EndTime, "ClassSize": self.ClassSize}
+                "EndDate": self.EndDate, "StartTime": self.StartTime, "EndTime": self.EndTime, "ClassName": self.ClassName, 
+                "ClassSize": self.ClassSize}
 
 
 @app.route("/class")
@@ -59,7 +62,7 @@ def get_all():
         }
     ), 404
 
-@app.route("/class/<string:trainer>")
+@app.route("/class/trainer/<string:TrainerID>")
 def find_by_trainer(TrainerID):
     classlist = Classes.query.filter_by(TrainerID=TrainerID)
     if classlist:
@@ -78,43 +81,25 @@ def find_by_trainer(TrainerID):
         }
     ), 404
 
-# dk abt this part need edit
-@app.route("/user/<string:classname>", methods=['POST'])
-def create_class(classname):
-    if (Classes.query.filter_by(ClassID=ClassID).first()):
+@app.route("/class/course/<string:CourseID>")
+def find_by_CourseID(CourseID):
+    classlist = Classes.query.filter_by(CourseID=CourseID)
+    if classlist:
         return jsonify(
             {
-                "code": 400,
+                "code": 200,
                 "data": {
-                    "email": email
-                },
-                "message": "Email already exists."
+                    "classes": [classname.json() for classname in classlist]
+                }
             }
-        ), 400
-
-    data = request.get_json()
-    user = User(email, **data)
-
-    try:
-        db.session.add(user)
-        db.session.commit()
-    except:
-        return jsonify(
-            {
-                "code": 500,
-                "data": {
-                    "user": user.json()
-                },
-                "message": "An error occurred creating the user."
-            }
-        ), 500
-
+        ), 200
     return jsonify(
         {
-            "code": 201,
-            "data": user.json()
+            "code": 404,
+            "message": "No classes found."
         }
-    ), 201
+    ), 404
+
 
 if __name__ == '__main__':
     app.run(port=5005, debug=True)
