@@ -38,7 +38,7 @@ class Enrollment(db.Model):
 
     def json(self):
         return {"CourseID": self.CourseID, "EngineerID": self.EngineerID, "StartDate": self.StartDate, "EndDate": self.EndDate, 
-                "AssignedHR?": self.AssignedHR, "CourseCompleteRate": self.CourseCompleteRate, "CompleteStatus": self.CompleteStatus, 
+                "AssignedHR": self.AssignedHR, "CourseCompleteRate": self.CourseCompleteRate, "CompleteStatus": self.CompleteStatus, 
                 "FinalQuizScore": self.FinalQuizScore}
 
 
@@ -69,7 +69,7 @@ def find_by_engineer(EngineerID):
             {
                 "code": 200,
                 "data": {
-                    "enrollment": [enrol.json() for enrol in allenrollment]
+                    "enrollment": [enrol.json() for enrol in engineer]
                 }
             }
         ), 200
@@ -82,8 +82,8 @@ def find_by_engineer(EngineerID):
 
 @app.route("/class/<string:CourseID>")
 def find_by_course(CourseID):
-    course = Enrollment.query.filter_by(CourseID=CourseID)
-    if course:
+    course = Enrollment.query.filter_by(CourseID=CourseID).all()
+    if len(course):
         return jsonify(
             {
                 "code": 200,

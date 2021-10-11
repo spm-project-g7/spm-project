@@ -113,6 +113,7 @@
                         <button class="btn btn-outline-secondary" type="button" id="section-name">Create Lesson/Chapter</button>
                     </div>
                 </div>
+                <a href="upload.html" class="col-3 btn btn-outline-secondary ml-5" id="upload">Upload Materials</a>
                 <a href="class-quiz.html" class="col-3 btn btn-outline-secondary ml-5" id="create-quiz">View all Quizzes for Class</a>
             </div>
             <div class="row mt-3 mb-3">
@@ -131,15 +132,13 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="materials-tab1" data-toggle="tab" href="#material1" role="tab" aria-controls="materials" aria-selected="true">Materials</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="upload-tab1" data-toggle="tab" href="#upload1" role="tab" aria-controls="upload" aria-selected="false">Upload</a>
-                                </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" id="delete-tab1" data-toggle="tab" href="#delete1" role="tab" aria-controls="delete" aria-selected="false">Delete Lesson</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="material1" role="tabpanel" aria-labelledby="materials-tab">
+                                <div class="tab-pane fade show active" id="lesson1" role="tabpanel" aria-labelledby="materials-tab">
                                     <table class="table table-responsive table-hover">
                                         <thead>
                                             <tr>
@@ -177,81 +176,7 @@
                                     </table>
                                 </div>
 
-                                <div class="tab-pane fade" id="upload1" role="tabpanel" aria-labelledby="upload-tab">
-                                    <form  id="form1"  enctype="multipart/form-data" class="needs-validation" novalidate>
-                                        <div class="form-row">
-                                            <label for="MaterialTitle">Material Title <span class="required">*</span></label>
-                                            <input type="text" class="form-control" id="MaterialTitle" name="MaterialTitle" required>
-                                            <div class="invalid-feedback">
-                                                Please provide Material Title
-                                            </div>   
-                                        </div>
-
-                                            <div class="form-row">
-                                                <label for="MaterialDescription">Material Description<span class="required">*</span></label>
-                                                <input type="text" class="form-control" id="MaterialDescription" name="MaterialDescription" required>
-                                                <div class="invalid-feedback">
-                                                    Please provide Material Description
-                                                </div>
-                                            </div>
-                                        
-
-                                        <div class="form-row">
-                                            <!-- Position -->
-                                        
-                                                <div class="form-row">
-                                                    <label for="MaterialType">Material Type<span class="required">*</span></label>
-                                                    <select class="custom-select" id="MaterialType" name='MaterialType"' v-model='selected' aria-describedby="positionFeedback" required>
-                                                    <option selected disabled value="">Choose...</option>
-                                                    <option value='Hyperlink'>Hyperlink</option>
-                                                    <option value='Docx'>Docx</option>
-                                                    <option value='Pptx'>Pptx</option>
-                                                    <option value='Pdf'>Pdf</option>
-                                                    <option value='mp4'>mp4</option>
-                                                    <option value='mpeg'>mpeg</option>
-                                                    <option value='avi'>avi</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                       
-
-                                            <div v-if='selected == "Hyperlink"'>
-                                                
-                                                <div class="form-row mb-3">
-                                                    <label for="hyperlink">Please provide Hyperlink<span class="required">*</span></label>
-                                                    <textarea class="form-control" id="MaterialURL" name='MaterialURL'  required></textarea>
-                                                    <div class="invalid-feedback">
-                                                        Please enter hyperlink.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-
-                                            <div v-else>
-                                                <div class="form-row">
-                                                        <label for="file">Please provide File<span class="required">*</span></label>
-                                                        <div class="custom-file">
-                                                            <input type="file" class="form-control-file" name="file" id="file" onchange="return fileValidation()">
-                                                        </div>
-                                                    </div>
-                                                </div> 
-                                            
-
-                                                <div v-if='selected == "Hyperlink"'>
-                                                    <button class="btn btn-primary my-3" id="submit" name="submit" value="link">Upload</button>
-                                                </div>
-                                                
-                                                
-                                                <div v-else>
-                                                    <button class="btn btn-primary my-3" type="submit" name="submit" value="file">Upload</button>
-                                                </div>
-                            
-                                            </form>
-                                        
-
-
-
-
+                                
 
                                             
 
@@ -264,9 +189,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="material-tab2" data-toggle="tab" href="#material2" role="tab" aria-controls="materials" aria-selected="true">Materials</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="upload-tab2" data-toggle="tab" href="#upload2" role="tab" aria-controls="upload" aria-selected="false">Upload</a>
-                                </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" id="delete-tab2" data-toggle="tab" href="#delete2" role="tab" aria-controls="delete" aria-selected="false">Delete Lesson</a>
                                 </li>
@@ -304,23 +227,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="tab-pane fade" id="upload2" role="tabpanel" aria-labelledby="upload-tab">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="formGroupExampleInput">File Name</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name of file">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button" id="upload2">Upload</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="delete-tab">...</div>
                             </div>
                         </div>
@@ -426,60 +333,7 @@
     <!-- Template Main JS File -->
     <script src="../assets/js/main.js"></script>
 
-    <!-- INTERNAL JS -->
-		<script>
-            // Check position
-            const vm = new Vue({
-                el: '#form1',
-                data: {
-                    selected: '',
-                }
-            });
-
-
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
-            (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // Loop over them and prevent submission
-                    var validation = Array.prototype.filter.call(forms, function(form) {
-                        form.addEventListener('submit', function(event) {
-                            console.log(event);
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                                //   console.log(form)
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                    
-                }, false);
-            })();
-
-        
-        </script>
-
-
-<script>
-    function fileValidation() {
-        var fileInput = 
-            document.getElementById('file');
-          
-        var filePath = fileInput.value;
-        // Allowing file type
-        var allowedExtensions = /(\.pptx|\.docx|\.mpeg|\.pdf|\.mp4)$/i;
-          
-        if (!allowedExtensions.exec(filePath)) {
-            alert('Invalid file type. Please upload .docx, .pptx, .mpeg, .mp4 or .pdf');
-            fileInput.value = '';
-            return false;
-        } 
-    }
-</script>
-
+   
 </body>
 
 </html>
