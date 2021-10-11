@@ -106,27 +106,40 @@
                         </select>
                     </div>
                     <div class="row mt-3">
-                        <input type="text" class="form-control col-5 mr-4" id="quiz-name" placeholder="Pick a Date">
+                        <input type="date" class="form-control col-5 mr-4" id="quiz-name" placeholder="Pick a Date"> 
                         <input type="text" class="form-control col-5" id="quiz-name" placeholder="Set duration for quiz">
                     </div>
                     <div class="row mt-3">
                         <label for="quiz-name" class="form-label"></label>Quiz Name</label>
                         <input type="text" class="form-control" id="quiz-name" placeholder="Quiz Name">
                     </div>
+                    <div class="row mt-3">
+                        <label for="quiz-type" class="form-label"></label>Quiz Type</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="graded">Graded</option>
+                            <option value="ungraded">Ungraded</option>
+                            
+                          </select>
+                    </div>
+                    
+                </div>
+
                     <div class="row mt-3 mb-3" id="question-block">
                         <div class="card" style="padding-left: 0; padding-right: 0;">
                             <div class="card-header">
-                                <label for="exampleFormControlTextarea1">Question:</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <label for="Question">Question:</label>
+                                <textarea class="form-control" id="Question" rows="3"></textarea>
+                                <label for="Answer">Answer:</label>
+                                <textarea class="form-control" id="Answer" rows="3"></textarea>
                             </div>
                             <div class="card-body">
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle mb-3" type="button" id="quiz-option" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Quiz Type
+                                        Question Type
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#true-false">True/False</a>
-                                        <a class="dropdown-item" href="#">Multiple Choice Question</a>
+                                        <a class="dropdown-item" href="#MCQ">Multiple Choice Question</a>
                                     </div>
                                     <!-- <div id="true-false">
                                         test
@@ -154,17 +167,19 @@
                         "<div class='row mt-3 mb-3' id='question-block'>" +
                             "<div class='card' style='padding-left: 0; padding-right: 0;''>" +
                                 "<div class='card-header'>" +
-                                    "<label for='exampleFormControlTextarea1'>Question:</label>" +
-                                    "<textarea class='form-control' id='exampleFormControlTextarea1' rows='3'></textarea>" +
+                                    "<label for='Question'>Question:</label>" +
+                                    "<textarea class='form-control' id='Question' rows='3'></textarea>" +
+                                    "<label for='Answer'>Answer:</label>" +
+                                    "<textarea class='form-control' id='Answer' rows='3'></textarea>" +
                                 "</div>" +
                                 "<div class='card-body'>" +
                                     "<div class='dropdown'>" +
                                         "<button class='btn btn-secondary dropdown-toggle mb-3' type='button' id='quiz-option' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-                                            "Quiz Type" +
+                                            "Question Type" +
                                         "</button>" +
                                         "<div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>" +
                                             "<a class='dropdown-item' href='#true-false'>True/False</a>" +
-                                            "<a class='dropdown-item' href='#'>Multiple Choice Question</a>" +
+                                            "<a class='dropdown-item' href='#MCQ'>Multiple Choice Question</a>" +
                                         "</div>" +
                                         "<div id='true-false'>" +
                                             "test" + 
