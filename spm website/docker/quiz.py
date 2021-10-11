@@ -19,13 +19,13 @@ class Quiz(db.Model):
     QuizID = db.Column(db.Integer, primary_key=True)
     LastUpdated = db.Column(db.Date, nullable=False)
     GradedQuiz = db.Column(db.SmallInteger, nullable=False)
-    PassingGrade = db.Column(db.Intger, nullable=False)
+    PassingGrade = db.Column(db.Integer, nullable=False)
     LessonID = db.Column(db.Integer, nullable=False)
     QuizScore = db.Column(db.Integer, nullable=True)
     CompleteStatus = db.Column(db.String(255), nullable=False)
     QuizName = db.Column(db.String(255), nullable=True)
 
-    def __init__(self, QuizID, LastUpdated, GradedQuiz, PassingGrade, LessonID, QuizScore, CompleteStatus):
+    def __init__(self, QuizID, LastUpdated, GradedQuiz, PassingGrade, LessonID, QuizScore, CompleteStatus, QuizName):
         self.QuizID = QuizID
         self.LastUpdated = LastUpdated
         self.GradedQuiz = GradedQuiz
@@ -33,14 +33,15 @@ class Quiz(db.Model):
         self.LessonID = LessonID
         self.QuizScore = QuizScore
         self.CompleteStatus = CompleteStatus
+        self.QuizName = QuizName
 
     def json(self):
         return {"QuizID": self.QuizID, "LastUpdated": self.LastUpdated, "GradedQuiz": self.GradedQuiz, 
                 "PassingGrade": self.PassingGrade, "LessonID": self.LessonID, "QuizScore": self.QuizScore,
-                "CompleteStatus": self.CompleteStatus}
+                "CompleteStatus": self.CompleteStatus, "QuizName": self.QuizName}
 
 # get all quizzes in database
-@app.route("/allquizzes")
+@app.route("/quiz")
 def get_all():
     quizlist = Quiz.query.all()
     if len(quizlist):
@@ -48,7 +49,7 @@ def get_all():
             {
                 "code": 200,
                 "data": {
-                    "classes": [quiz.json() for quiz in quizlist]
+                    "quizzes": [quiz.json() for quiz in quizlist]
                 }
             }
         )
@@ -61,7 +62,7 @@ def get_all():
 
 # get quiz by lesson
 @app.route("/quiz/<string:lessonID>")
-def find_by_trainer(LessonID):
+def find_by_lessonID(LessonID):
     quiz = Quiz.query.filter_by(LessonID=LessonID).first()
     if quiz:
         return jsonify(
@@ -78,26 +79,26 @@ def find_by_trainer(LessonID):
     ), 404
 
 # get questions by quiz
-@app.route("/quiz/<string:lessonID>")
-def find_by_trainer(LessonID):
-    quiz = Quiz.query.filter_by(LessonID=LessonID).first()
-    if quiz:
-        return jsonify(
-            {
-                "code": 200,
-                "data": quiz.json()
-            }
-        ), 200
-    return jsonify(
-        {
-            "code": 404,
-            "message": "No quiz found."
-        }
-    ), 404
+# @app.route("/quiz/<string:lessonID>")
+# def find_questions(LessonID):
+#     quiz = Quiz.query.filter_by(LessonID=LessonID).first()
+#     if quiz:
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": quiz.json()
+#             }
+#         ), 200
+#     return jsonify(
+#         {
+#             "code": 404,
+#             "message": "No quiz found."
+#         }
+#     ), 404
 
 # create quiz
 @app.route("/quiz/<string:lessonID>", methods=['POST'])
-def create_class(LessonID):
+def create_quiz(LessonID):
     if (Quiz.query.filter_by(LessonID=LessonID).first()):
         return jsonify(
             {
