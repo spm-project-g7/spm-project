@@ -26,8 +26,6 @@ session_start();
 <?php
 
 $uploaddao = new UploadDAO;
-
-    
     $user = $_POST["submit"];
     if ($user=="link"){
 
@@ -37,8 +35,7 @@ $uploaddao = new UploadDAO;
             "MaterialType" => $_POST["MaterialType"],
             "MaterialURL" => $_POST["MaterialURL"],
         );
-
-       
+     
 
     } else {
     
@@ -50,6 +47,72 @@ $uploaddao = new UploadDAO;
         );
        
 } 
+
+<?php
+
+class material{
+
+    private $MaterialTitle;
+    private $MaterialDescription;
+    private $MaterialType;
+    private $MaterialURL;
+    private $LessonID;
+
+    public function __construct($MaterialTitle, $MaterialDescription, $MaterialType, $MaterialURL) {
+      
+        $this->MaterialTitle = $MaterialTitle;
+        $this->MaterialDescription = $MaterialDescription;
+        $this->MaterialType = $MaterialType;
+        $this->MaterialURL = $MaterialURL;
+        $this->LessonID = $LessonID;
+
+    } 
+
+    public function getMaterialTitle(){
+        return $this->MaterialTitle;
+    }
+
+    public function getMaterialDescription(){
+        return $this->MaterialDescription;
+    }
+
+    public function getMaterialType(){
+        return $this->MaterialType;
+    }
+
+    public function getMaterialURL(){
+        return $this->MaterialURL;
+    }
+
+    public function getLessonID(){
+        return $this->LessonID;
+    }
+
+
+    public function setLessonID($LessonID){
+        $this->LessonID;
+    }
+    
+
+    public function setMaterialTitle($MaterialTitle){
+        $this->email;
+    }
+  
+    public function MaterialDescription($MaterialDescription){
+        $this->MaterialDescription;
+    }
+
+    public function setMaterialType($MaterialType){
+        $this->postal;
+    }
+
+    public function setMaterialURL($MaterialURL){
+        $this->MaterialURL;
+    }
+
+}
+
+?>
 
 
     
