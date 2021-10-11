@@ -95,7 +95,7 @@
 
         <!-- ======= Specific Course Details Section ======= -->
         <div class="container">
-            <form>
+            <form action='' method='POST'>
                 <div id="quiz-portion">
                     <div class="row mt-3" id="create-quiz">
                         <select class="custom-select col-5 mr-4" id="selectcourse" onchange="getClasses()"></select>
@@ -104,15 +104,19 @@
                         </select>
                     </div>
                     <div class="row mt-3">
-                        <input type="text" class="form-control col-5 mr-4" id="quiz-name" placeholder="Pick a Date (YYYY-MM-DD)">
+                        <input type="text" class="form-control col-5 mr-4" id="quizdate" placeholder="Pick a Date (YYYY-MM-DD)">
                         <select class="custom-select col-5" id="selectgraded">
                             <option value='1' selected>Graded</option>
                             <option value='0'>Ungraded</option>
                         </select> 
                     </div>
                     <div class="row mt-3">
-                        <label for="quiz-name" class="form-label"></label>Quiz Name</label>
-                        <input type="text" class="form-control" id="quiz-name" placeholder="Quiz Name">
+                        <input type="text" class="form-control col-5 mr-4" id="quiz-name" placeholder="Quiz Name">
+                        <input type="text" class="form-control col-5 mr-4" id="quiz-grade" placeholder="Passing Grade for Quiz">
+                    </div>
+                    <div class="row mt-3">
+                        <input type="text" class="form-control col-5 mr-4" id="quiz-score" placeholder="Quiz Score">
+                        <!-- <input type="text" class="form-control col-5 mr-4" id="quiz-grade" placeholder="Passing Grade for Quiz"> -->
                     </div>
                     <div class="row mt-3 mb-3" id="question-block1">
                         <div class="card" style="padding-left: 0; padding-right: 0;">
@@ -190,6 +194,7 @@
                         .append("<label>"+message+"</label>");
                 }
 
+                // get classes for course
                 $(async () => {
                     var serviceURL = "http://127.0.0.1:5004/course";
                     try {
@@ -231,7 +236,7 @@
                                 var allClasses = result.data.classes; 
                                 var options = "<option selected>Select a class</option>";
                                 for (const oneclass of allClasses) {
-                                    options += "<option value = 'ClassName: " + oneclass.ClassName + ", ClassID: " + oneclass.ClassID + "'>" + oneclass.ClassName + "</option>";
+                                    options += "<option value = '" + oneclass.ClassID + "'>" + oneclass.ClassName + "</option>";
                                 }
                                 var dropdownelem = document.getElementById('selectclass');
                                 dropdownelem.innerHTML = options;
@@ -300,6 +305,47 @@
                     var element = document.getElementById('mcqoption' + qnscount.toString() + mcqoption.toString());
                     element.remove();
                     mcqoption -= 1;
+                }
+
+                function createQuiz() {
+                    $(async () => {
+                        var lessonID = $('#selectclass').val();
+                        var lastUpdated = $('#quizdate').val();
+                        var graded = $('#selectgraded').val();
+                        var passing = $('#quiz-grade').val();
+                        var quizName = $('#quiz-name').val();
+                        var quizScore = $('#quiz-score').val();
+                        var serviceURL = "http://127.0.0.1:5003/quiz/" + lessonID;
+                        var jsondata = JSON.stringify({ LastUpdated: lastUpdated, GradedQuiz: graded, PassingGrade: passing, LessonID: lessonID, 
+                                                        QuizScore: quizScore, CompleteStatus: "Not Attempted", QuizName: quizName })
+                        // console.log(jsondata);
+                        try {
+                            const response =
+                            await fetch(
+                                serviceURL, {
+                                method: 'POST',
+                                headers: { "Content-Type": "application/json" },
+                                body: jsondata,
+                            });
+                            const data = await response.json();
+                            console.log(data);
+                            const information = await data;
+                            console.log(information);
+                            if(response.ok){
+                                alert("Quiz successfully created!");
+                            } else {
+                                // alert(data.message);
+                                alert("An error occurred.");
+                            }
+                            
+                        }
+                        catch (error) {
+                            // Errors when calling the service; such as network error, 
+                            // service offline, etc
+                            console.log(error);
+                            alert('There is a problem creating the quiz, please try again later.');
+                        } // error
+                    });
                 }
             
             </script>        
