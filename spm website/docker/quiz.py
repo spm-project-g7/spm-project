@@ -61,7 +61,7 @@ def get_all():
     ), 404
 
 # get quiz by lesson
-@app.route("/quiz/<string:lessonID>")
+@app.route("/quiz/<string:LessonID>")
 def find_by_lessonID(LessonID):
     quiz = Quiz.query.filter_by(LessonID=LessonID).first()
     if quiz:
@@ -97,7 +97,7 @@ def find_by_lessonID(LessonID):
 #     ), 404
 
 # create quiz
-@app.route("/quiz/<string:lessonID>", methods=['POST'])
+@app.route("/quiz/create/<string:LessonID>", methods=['POST'])
 def create_quiz(LessonID):
     if (Quiz.query.filter_by(LessonID=LessonID).first()):
         return jsonify(
