@@ -104,7 +104,7 @@
                         </select>
                     </div>
                     <div class="row mt-3">
-                        <input type="text" class="form-control col-5 mr-4" id="quizdate" placeholder="Pick a Date (YYYY-MM-DD)">
+                        <input type="date" class="form-control col-5 mr-4" id="quizdate" placeholder="Pick a Date (YYYY-MM-DD)">
                         <select class="custom-select col-5" id="selectgraded">
                             <option value='1' selected>Graded</option>
                             <option value='0'>Ungraded</option>
@@ -121,8 +121,10 @@
                     <div class="row mt-3 mb-3" id="question-block1">
                         <div class="card" style="padding-left: 0; padding-right: 0;">
                             <div class="card-header">
-                                <label for="exampleFormControlTextarea1">Question:</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <label for="Question">Question:</label>
+                                <textarea class="form-control" id="Question" rows="3"></textarea>
+                                <label for="Answer">Answer:</label>
+                                <textarea class="form-control" id="Answer" rows="3"></textarea>
                             </div>
                             <div class="card-body" id='optiondetalis'>
                                 <select class="custom-select col-5" id="selectquiztype1" onchange="showQnsType()">
@@ -156,8 +158,10 @@
                         "<div class='row mt-3 mb-3' id='question-block" + qnscount.toString() + "'>" +
                             "<div class='card' style='padding-left: 0; padding-right: 0;''>" +
                                 "<div class='card-header'>" +
-                                    "<label for='exampleFormControlTextarea1'>Question:</label>" +
-                                    "<textarea class='form-control' id='exampleFormControlTextarea1' rows='3'></textarea>" +
+                                    "<label for='Question'>Question:</label>" +
+                                    "<textarea class='form-control' id='Question' rows='3'></textarea>" +
+                                    "<label for='Answer'>Answer:</label>" +
+                                    "<textarea class='form-control' id='Answer' rows='3'></textarea>" +
                                 "</div>" +
                                 "<div class='card-body'>" +
                                     "<div class='dropdown'>" +
