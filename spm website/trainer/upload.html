@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Course Details</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Vuejs -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Template Main CSS File -->
+    <link href="../assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Mentor - v4.4.0
+    * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+
+        <h1 class="logo me-auto"><a href="index.html">Learning Portal</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="active" href="homepage.html">Home</a></li>
+                <li><a href="quiz.html">Quizzes</a></li>
+                <li><a href="#">Assignments</a></li>
+                <li><a href="#">Forum</a></li>
+                <li><a href="#">Chats</a></li>
+                <!-- <li><a href="events.html">Events</a></li>
+                <li><a href="pricing.html">Pricing</a></li> -->
+                <li class="dropdown"><a href="#"><span>Courses</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="all-courses.html">All Courses</a></li>
+                        <li><a href="current-courses.html">Current Courses</a></li>
+                        <li><a href="past-courses.html">Past Courses</a></li>        
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#"><span>Trainer Name</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                    <li><a href="#">Profile</a></li>
+                    <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                        <ul>
+                        <li><a href="#">Deep Drop Down 1</a></li>
+                        <li><a href="#">Deep Drop Down 2</a></li>
+                        <li><a href="#">Deep Drop Down 3</a></li>
+                        <li><a href="#">Deep Drop Down 4</a></li>
+                        <li><a href="#">Deep Drop Down 5</a></li>
+                        </ul>
+                    </li> -->
+                    <li><a href="#">Settings</a></li>
+                    <!-- <li><a href="#">Logout</a></li>
+                    <li><a href="#">Drop Down 4</a></li> -->
+                    </ul>
+                </li>
+                <!-- <li><a href="contact.html">Contact</a></li> -->
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        <a href="../Homepage.html" class="get-started-btn">Logout</a>
+
+        </div>
+    </header>
+    <!-- End Header -->
+
+    <main id="main">
+
+<div class="container">
+    <form  id="form"  enctype="multipart/form-data" class="needs-validation" novalidate>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="form-row">
+            <label for="LessonID">Lesson Number<span class="required">*</span></label>
+            <input type="text" class="form-control" id="LessonID" name="LessonID" required>
+            <div class="invalid-feedback">
+                Please provide Lesson Number
+            </div>   
+        </div>
+
+        <div class="form-row">
+            <label for="MaterialTitle">Material Title <span class="required">*</span></label>
+            <input type="text" class="form-control" id="MaterialTitle" name="MaterialTitle" required>
+            <div class="invalid-feedback">
+                Please provide Material Title
+            </div>   
+        </div>
+
+            <div class="form-row">
+                <label for="MaterialDescription">Material Description<span class="required">*</span></label>
+                <input type="text" class="form-control" id="MaterialDescription" name="MaterialDescription" required>
+                <div class="invalid-feedback">
+                    Please provide Material Description
+                </div>
+            </div>
+        
+            <div class="form-row">
+                <label for="MaterialType">Material Type<span class="required">*</span></label>
+                <select class="custom-select" id="MaterialType" name='MaterialType"' v-model='selected' aria-describedby="positionFeedback" required>
+                <option selected disabled value="">Choose...</option>
+                <option value='File'>Others (Docx, Pptx, Pdf, mp4, mpeg, avi)</option>
+                <option value='Hyperlink'>Hyperlink</option>
+                
+                </select>
+            </div>
+
+            <div v-if='selected == "Hyperlink"'>
+                                                
+                <div class="form-row mb-3">
+                    <label for="hyperlink">Please provide Hyperlink<span class="required">*</span></label>
+                    <textarea class="form-control" id="MaterialURL" name='MaterialURL'  required></textarea>
+                    <div class="invalid-feedback">
+                        Please enter hyperlink.
+                    </div>
+                </div>
+            </div>
+     
+           
+            <div v-else>
+                <div class="form-row">
+                        <label for="file">Please provide File<span class="required">*</span></label>
+                        <div class="custom-file">
+                            <input type="file" class="form-control-file" name="file" id="file" onchange="return fileValidation()">
+                        </div>
+                    </div>
+                </div> 
+            
+
+                
+                
+                <div >
+                    <button class="btn btn-primary my-3" type="submit" name="submit" value="file">Upload</button>
+                </div>
+
+            </form>
+  </div>
+
+    <!-- Vendor JS Files -->
+    <script src="../assets/vendor/aos/aos.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
+    <script src="../assets/vendor/purecounter/purecounter.js"></script>
+    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+       
+ <!-- INTERNAL JS -->
+ <script>
+    // Check position
+    const vm = new Vue({
+        el: '#form',
+        data: {
+            selected: '',
+        }
+    });
+
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    console.log(event);
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        //   console.log(form)
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+            
+        }, false);
+    })();
+
+
+</script>
+
+
+<script>
+function fileValidation() {
+var fileInput = 
+    document.getElementById('MaterialURL');
+  
+var filePath = fileInput.value;
+// Allowing file type
+var allowedExtensions = /(\.pptx|\.docx|\.mpeg|\.pdf|\.mp4)$/i;
+  
+if (!allowedExtensions.exec(filePath)) {
+    alert('Invalid file type. Please upload .docx, .pptx, .mpeg, .mp4 or .pdf');
+    fileInput.value = '';
+    return false;
+} 
+}
+</script>
+
+
