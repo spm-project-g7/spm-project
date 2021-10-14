@@ -13,6 +13,9 @@
     <link href="../assets/img/favicon.png" rel="icon">
     <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+    <!-- Vuejs -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -173,22 +176,85 @@
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <div class="tab-pane fade" id="upload1" role="tabpanel" aria-labelledby="upload-tab">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="filename">File Name</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name of file">
+                                    <form  id="form1"  enctype="multipart/form-data" class="needs-validation" novalidate>
+                                        <div class="form-row">
+                                            <label for="MaterialTitle">Material Title <span class="required">*</span></label>
+                                            <input type="text" class="form-control" id="MaterialTitle" name="MaterialTitle" required>
+                                            <div class="invalid-feedback">
+                                                Please provide Material Title
+                                            </div>   
                                         </div>
-                                        <div class="input-group mb-3">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                                <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon01">Choose file</label>
+
+                                            <div class="form-row">
+                                                <label for="MaterialDescription">Material Description<span class="required">*</span></label>
+                                                <input type="text" class="form-control" id="MaterialDescription" name="MaterialDescription" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide Material Description
+                                                </div>
                                             </div>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button" id="upload1">Upload</button>
+                                        
+
+                                        <div class="form-row">
+                                            <!-- Position -->
+                                        
+                                                <div class="form-row">
+                                                    <label for="MaterialType">Material Type<span class="required">*</span></label>
+                                                    <select class="custom-select" id="MaterialType" name='MaterialType"' v-model='selected' aria-describedby="positionFeedback" required>
+                                                    <option selected disabled value="">Choose...</option>
+                                                    <option value='Hyperlink'>Hyperlink</option>
+                                                    <option value='Docx'>Docx</option>
+                                                    <option value='Pptx'>Pptx</option>
+                                                    <option value='Pdf'>Pdf</option>
+                                                    <option value='mp4'>mp4</option>
+                                                    <option value='mpeg'>mpeg</option>
+                                                    <option value='avi'>avi</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>    
-                                    </form>
+                                       
+
+                                            <div v-if='selected == "Hyperlink"'>
+                                                
+                                                <div class="form-row mb-3">
+                                                    <label for="hyperlink">Please provide Hyperlink<span class="required">*</span></label>
+                                                    <textarea class="form-control" id="MaterialURL" name='MaterialURL'  required></textarea>
+                                                    <div class="invalid-feedback">
+                                                        Please enter hyperlink.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+
+                                            <div v-else>
+                                                <div class="form-row">
+                                                        <label for="file">Please provide File<span class="required">*</span></label>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="form-control-file" name="file" id="file" onchange="return fileValidation()">
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            
+
+                                                <div v-if='selected == "Hyperlink"'>
+                                                    <button class="btn btn-primary my-3" id="submit" name="submit" value="link">Upload</button>
+                                                </div>
+                                                
+                                                
+                                                <div v-else>
+                                                    <button class="btn btn-primary my-3" type="submit" name="submit" value="file">Upload</button>
+                                                </div>
+                            
+                                            </form>
+                                        
+
+
+
+
+
+                                            
+
                                 </div>
                                 <div class="tab-pane fade" id="delete1" role="tabpanel" aria-labelledby="delete-tab">popup to show "do you wish to confirm and delete this lesson?</div>
                             </div>
