@@ -46,51 +46,21 @@
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
 
-        <h1 class="logo me-auto"><a href="index.html">Learning Portal</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-        <nav id="navbar" class="navbar order-last order-lg-0">
-            <ul>
-                <li><a class="active" href="homepage.html">Home</a></li>
-                <li><a href="quiz.html">Quizzes</a></li>
-                <li><a href="#">Assignments</a></li>
-                <li><a href="#">Forum</a></li>
-                <li><a href="#">Chats</a></li>
-                <!-- <li><a href="events.html">Events</a></li>
-                <li><a href="pricing.html">Pricing</a></li> -->
-                <li class="dropdown"><a href="#"><span>Courses</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="all-courses.html">All Courses</a></li>
-                        <li><a href="current-courses.html">Current Courses</a></li>
-                        <li><a href="past-courses.html">Past Courses</a></li>        
-                    </ul>
-                </li>
-                <li class="dropdown"><a href="#"><span>Trainer Name</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                    <li><a href="#">Profile</a></li>
-                    <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                        <ul>
-                        <li><a href="#">Deep Drop Down 1</a></li>
-                        <li><a href="#">Deep Drop Down 2</a></li>
-                        <li><a href="#">Deep Drop Down 3</a></li>
-                        <li><a href="#">Deep Drop Down 4</a></li>
-                        <li><a href="#">Deep Drop Down 5</a></li>
-                        </ul>
-                    </li> -->
-                    <li><a href="#">Settings</a></li>
-                    <!-- <li><a href="#">Logout</a></li>
-                    <li><a href="#">Drop Down 4</a></li> -->
-                    </ul>
-                </li>
-                <!-- <li><a href="contact.html">Contact</a></li> -->
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-        <a href="../Homepage.html" class="get-started-btn">Logout</a>
-
-        </div>
+            <h1 class="logo me-auto"><a href="learner-homepage.html">Learning Portal</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      
+            <nav id="navbar" class="navbar order-last order-lg-0">
+              <ul>          
+                <li><a href="learner-homepage.html">Home</a></li>
+                <li><a class="active" href="learner-coursepage.html">Courses</a></li>
+                <li><a href="learner-course-enrollment.html">Enrollment</a></li>
+                <li><a href="">Chats</a></li>
+              </ul>
+              <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+            <a href="../Homepage.html" class="get-started-btn">Logout</a>
+          </div>
     </header>
     <!-- End Header -->
 
@@ -106,15 +76,7 @@
 
         <!-- ======= Specific Course Details Section ======= -->
         <div class="container">
-            <div class="row mt-3">
-                <div class="input-group col-5">
-                    <input type="text" class="form-control" placeholder="Lesson or Chapter Name" aria-label="section-name" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="section-name">Create Lesson/Chapter</button>
-                    </div>
-                </div>
-                <a href="class-quiz.html" class="col-3 btn btn-outline-secondary ml-5" id="create-quiz">View all Quizzes for Class</a>
-            </div>
+            
             <div class="row mt-3 mb-3">
                 <div class="col-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -132,196 +94,144 @@
                                     <a class="nav-link active" id="materials-tab1" data-toggle="tab" href="#material1" role="tab" aria-controls="materials" aria-selected="true">Materials</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="upload-tab1" data-toggle="tab" href="#upload1" role="tab" aria-controls="upload" aria-selected="false">Upload</a>
+                                    <a class="nav-link" id="quiz-tab1" data-toggle="tab" href="#quiz1" role="tab" aria-controls="quiz" aria-selected="false">Quiz</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="delete-tab1" data-toggle="tab" href="#delete1" role="tab" aria-controls="delete" aria-selected="false">Delete Lesson</a>
+                                    <a class="nav-link" id="asg-tab1" data-toggle="tab" href="#asg1" role="tab" aria-controls="upload" aria-selected="false">Assignments</a>
                                 </li>
+                                
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="material1" role="tabpanel" aria-labelledby="materials-tab">
+                                <div class="tab-pane fade show active" id="material1" role="tabpanel" aria-labelledby="materials-tab1">
                                     <table class="table table-responsive table-hover">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Link</th>
                                                 <th scope="col">Upload Date</th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <th scope="row">1</th>
-                                                <td>Mark</td>
+                                                <td>Vid</td>
                                                 <td>12/12/2021</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">2</th>
-                                                <td>Jacob</td>
+                                                <td>PPT</td>
                                                 <td>12/12/2021</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
+                                               
                                             </tr>
                                             <tr>
                                                 <th scope="row">3</th>
-                                                <td>Larry</td>
+                                                <td>Word</td>
                                                 <td>12/12/2021</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
-                                <div class="tab-pane fade" id="upload1" role="tabpanel" aria-labelledby="upload-tab">
-                                    <form  id="form1"  enctype="multipart/form-data" class="needs-validation" novalidate>
-                                        <div class="form-row">
-                                            <label for="MaterialTitle">Material Title <span class="required">*</span></label>
-                                            <input type="text" class="form-control" id="MaterialTitle" name="MaterialTitle" required>
-                                            <div class="invalid-feedback">
-                                                Please provide Material Title
-                                            </div>   
-                                        </div>
-
-                                            <div class="form-row">
-                                                <label for="MaterialDescription">Material Description<span class="required">*</span></label>
-                                                <input type="text" class="form-control" id="MaterialDescription" name="MaterialDescription" required>
-                                                <div class="invalid-feedback">
-                                                    Please provide Material Description
-                                                </div>
-                                            </div>
-                                        
-
-                                        <div class="form-row">
-                                            <!-- Position -->
-                                        
-                                                <div class="form-row">
-                                                    <label for="MaterialType">Material Type<span class="required">*</span></label>
-                                                    <select class="custom-select" id="MaterialType" name='MaterialType"' v-model='selected' aria-describedby="positionFeedback" required>
-                                                    <option selected disabled value="">Choose...</option>
-                                                    <option value='Hyperlink'>Hyperlink</option>
-                                                    <option value='Docx'>Docx</option>
-                                                    <option value='Pptx'>Pptx</option>
-                                                    <option value='Pdf'>Pdf</option>
-                                                    <option value='mp4'>mp4</option>
-                                                    <option value='mpeg'>mpeg</option>
-                                                    <option value='avi'>avi</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                       
-
-                                            <div v-if='selected == "Hyperlink"'>
-                                                
-                                                <div class="form-row mb-3">
-                                                    <label for="hyperlink">Please provide Hyperlink<span class="required">*</span></label>
-                                                    <textarea class="form-control" id="MaterialURL" name='MaterialURL'  required></textarea>
-                                                    <div class="invalid-feedback">
-                                                        Please enter hyperlink.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-
-                                            <div v-else>
-                                                <div class="form-row">
-                                                        <label for="file">Please provide File<span class="required">*</span></label>
-                                                        <div class="custom-file">
-                                                            <input type="file" class="form-control-file" name="file" id="file" onchange="return fileValidation()">
-                                                        </div>
-                                                    </div>
-                                                </div> 
-                                            
-
-                                                <div v-if='selected == "Hyperlink"'>
-                                                    <button class="btn btn-primary my-3" id="submit" name="submit" value="link">Upload</button>
-                                                </div>
-                                                
-                                                
-                                                <div v-else>
-                                                    <button class="btn btn-primary my-3" type="submit" name="submit" value="file">Upload</button>
-                                                </div>
-                            
-                                            </form>
-                                        
-
-
-
-
-
-                                            
+                                <div class="tab-pane fade" id="quiz1" role="tabpanel" aria-labelledby="quiz-tab1">
+                                    <h3>Quiz details</h3>
+                                    <div class="row mt-3">
+                                        <a href="learner-quiz.html" class="col-3 btn btn-outline-secondary" type="button" id="section-name">Take Quiz</a>
+                                    </div>
 
                                 </div>
-                                <div class="tab-pane fade" id="delete1" role="tabpanel" aria-labelledby="delete-tab">popup to show "do you wish to confirm and delete this lesson?</div>
+
+                                <div class="tab-pane fade" id="asg1" role="tabpanel" aria-labelledby="asg-tab1">
+                                    <h3>Assignment details</h3>
+                                    <div class="row mt-3">
+                                        <form>
+                                            Submit Assignment:
+                                            <div class="input-group mb-3">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                                    <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" type="button" id="upload1">Upload</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-section2" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <div class="tab-pane fade" id="v-pills-section2" role="tabpanel" aria-labelledby="v-pills-home-tab">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="material-tab2" data-toggle="tab" href="#material2" role="tab" aria-controls="materials" aria-selected="true">Materials</a>
+                                    <a class="nav-link active" id="materials-tab2" data-toggle="tab" href="#material2" role="tab" aria-controls="materials" aria-selected="true">Materials</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="upload-tab2" data-toggle="tab" href="#upload2" role="tab" aria-controls="upload" aria-selected="false">Upload</a>
+                                    <a class="nav-link" id="quiz-tab2" data-toggle="tab" href="#quiz2" role="tab" aria-controls="quiz" aria-selected="false">Quiz</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="delete-tab2" data-toggle="tab" href="#delete2" role="tab" aria-controls="delete" aria-selected="false">Delete Lesson</a>
+                                    <a class="nav-link" id="asg-tab2" data-toggle="tab" href="#asg2" role="tab" aria-controls="upload" aria-selected="false">Assignments</a>
                                 </li>
+                                
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="material2" role="tabpanel" aria-labelledby="materials-tab">
+                                <div class="tab-pane fade show active" id="material2" role="tabpanel" aria-labelledby="materials-tab2">
                                     <table class="table table-responsive table-hover">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Link</th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
+                                                <th scope="col">Upload Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
+                                                <th scope="row">1</th>
+                                                <td>Vid</td>
+                                                <td>12/12/2021</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>PPT</td>
+                                                <td>12/12/2021</td>
+                                               
                                             </tr>
                                             <tr>
                                                 <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
+                                                <td>Word</td>
+                                                <td>12/12/2021</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="tab-pane fade" id="upload2" role="tabpanel" aria-labelledby="upload-tab">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="formGroupExampleInput">File Name</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name of file">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button" id="upload2">Upload</button>
-                                            </div>
-                                        </div>
-                                    </form>
+
+                                <div class="tab-pane fade" id="quiz2" role="tabpanel" aria-labelledby="quiz-tab2">
+                                    <h3>Quiz details</h3>
+                                    <div class="row mt-3">
+                                        <a href="learner-quiz.html" class="col-3 btn btn-outline-secondary" type="button" id="section-name">Take Quiz</a>
+                                    </div>
+
                                 </div>
-                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="delete-tab">...</div>
+
+                                <div class="tab-pane fade" id="asg2" role="tabpanel" aria-labelledby="asg-tab2">
+                                    <h3>Assignment details</h3>
+                                    <div class="row mt-3">
+                                        <form>
+                                            Submit Assignment:
+                                            <div class="input-group mb-3">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                                    <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" type="button" id="upload1">Upload</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                         <!-- <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
