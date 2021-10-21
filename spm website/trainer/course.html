@@ -116,6 +116,7 @@
                 <a href="upload.html" class="col-3 btn btn-outline-secondary ml-5" id="upload">Upload Materials</a>
                 <a href="class-quiz.html" class="col-3 btn btn-outline-secondary ml-5" id="create-quiz">View all Quizzes for Class</a>
             </div>
+           
             <div class="row mt-3 mb-3">
                 <div class="col-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -138,7 +139,7 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="lesson1" role="tabpanel" aria-labelledby="materials-tab">
+                                <div class="tab-pane fade show active" id="material1" role="tabpanel" aria-labelledby="materials-tab">
                                     <table class="table table-responsive table-hover">
                                         <thead>
                                             <tr>
@@ -175,11 +176,22 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-                                
-
-                                            
-
+                                <div class="tab-pane fade" id="upload1" role="tabpanel" aria-labelledby="upload-tab">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="filename">File Name</label>
+                                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name of file">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                                <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon01">Choose file</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="upload1">Upload</button>
+                                            </div>
+                                        </div>    
+                                    </form>
                                 </div>
                                 <div class="tab-pane fade" id="delete1" role="tabpanel" aria-labelledby="delete-tab">popup to show "do you wish to confirm and delete this lesson?</div>
                             </div>
@@ -189,7 +201,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="material-tab2" data-toggle="tab" href="#material2" role="tab" aria-controls="materials" aria-selected="true">Materials</a>
                                 </li>
-                                
+                               
                                 <li class="nav-item">
                                     <a class="nav-link" id="delete-tab2" data-toggle="tab" href="#delete2" role="tab" aria-controls="delete" aria-selected="false">Delete Lesson</a>
                                 </li>
@@ -227,7 +239,23 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                
+                                <div class="tab-pane fade" id="upload2" role="tabpanel" aria-labelledby="upload-tab">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput">File Name</label>
+                                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name of file">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="upload2">Upload</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="delete-tab">...</div>
                             </div>
                         </div>
@@ -334,6 +362,8 @@
     <script src="../assets/js/main.js"></script>
 
    
+</script>
+
 </body>
 
 </html>
