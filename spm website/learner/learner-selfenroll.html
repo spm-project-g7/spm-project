@@ -116,29 +116,68 @@
         <div class="container" style="margin-top: 20px;margin-bottom: 20px;">
             <div class="row mt-12">
                 <div class="input-group col-8" style="margin: auto;">
-                    <div class="dropdown show" style="margin: auto;">
+                    <div class="dropdown show" >
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            onclick="showdropdown()" aria-haspopup="true" aria-expanded="false"
                             style="background-color :#5fcf80;">
                             ------------------Select Courses------------------
                         </a>
 
-                        <div class="dropdown-menu selectcourse" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu" visibility="visible" id="selectcourse" aria-labelledby="dropdownMenuLink">
                         </div>
                     </div>
-                    <!--<div class="input-group-append">
+                    <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="section-name">Enroll to course</button>
-                    </div>-->
+                    </div>
                 </div>
                 <!--<a href="class-quiz.html" class="col-3 btn btn-outline-secondary ml-5" id="create-quiz">View all Quizzes for Class</a>-->
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6" style="border-radius:5px;display: inline-block;  ">
+                <label style="margin:20px;">Course Name:</label><label id="courseName"></label>
+                <br>
+                <label style="margin:20px;">Class Name:</label><label id="className"></label>
+                <br>
+                <label style="margin:20px;">Start Date:</label><label id="startDate"></label>
+                <br>
+                <label style="margin:20px;">End Date:</label><label id="endDate"></label>
+
+            </div>
+            <div class="col-md-6" style="border-radius:5px;">
+                <label style="margin:20px;">Class Start Time:</label><label id="classStart"></label>
+                <br>
+                <label style="margin:20px;">Class End Time:</label><label id="classEnd"></label>
+                <br>
+                <label style="margin:20px;">Trainer:</label><label id="trainerName"></label>
+                <br>
+                <label style="margin:20px;">Class Day:</label><label id="classDay"></label>
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+        
 
     </main>
     <!-- End #main -->
 
     <script>
-
+        var selectedValue = "" 
+        //var selectedName = ""
         function loadCourses() {
 
             $(async () => {
@@ -155,7 +194,7 @@
                         var allCourses = result.data.courses;
                         var dropdownitem = "";
                         for (const course of allCourses) {
-                            dropdownitem += "<a value = '" + course.CourseID + "'>" + course.CourseName + "</a>";
+                            dropdownitem += "<a class='dropdown-item' href='#' onclick='selectIndex(" + course.CourseID + ")' value = '" + course.CourseID + "'>" + course.CourseName + "</a>";
                         }
                         var dropdownelem = document.getElementById('selectcourse');
                         dropdownelem.innerHTML = dropdownitem;
@@ -164,10 +203,61 @@
                 catch (error) {
                     // Errors when calling the service; such as network error, 
                     // service offline, etc
+                    console.log(error)
                     alert('There is a problem fetching the list of courses, please try again later.');
                 } // error
             });
+
         }
+        function showdropdown() {
+            var dropdownclass = document.getElementById("selectcourse");
+            if(dropdownclass.classList.contains("show")){
+                $(dropdownclass).removeClass("show");
+            }else{
+                $(dropdownclass).addClass("show");
+            }
+        }
+        function selectIndex(selectedCourseIndex){
+            var dropdownclass = document.getElementById("selectcourse");
+            if(dropdownclass.classList.contains("show")){
+                $(dropdownclass).removeClass("show");
+            }else{
+                $(dropdownclass).addClass("show");
+            }
+            selectedValue = selectedCourseIndex;
+            //selectedName = selectedCourseName;
+            //showLabel();
+        }
+
+        /*function showLabel(){
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5005/class/course/" + selectedValue;
+                try {
+                    const response =
+                        await fetch(
+                            serviceURL, { method: 'GET' }
+
+                        );
+                    const result = await response.json();
+                    if (response.status == 200) {
+                        // success case
+                        var allClasses = result.data.classes;
+                        var dropdownitem = "";
+                        for (const classobj of allClasses) {
+                            $(document.getElementById("selectcourse")).innerHTML = 
+                        }
+                        var dropdownelem = document.getElementById('selectcourse');
+                        dropdownelem.innerHTML = dropdownitem;
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    console.log(error)
+                    alert('There is a problem fetching the list of courses, please try again later.');
+                } // error
+            }); 
+        } */
 
     </script>
 
