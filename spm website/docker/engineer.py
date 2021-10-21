@@ -45,7 +45,7 @@ def get_all():
     return jsonify(
         {
             "code": 404,
-            "message": "No engineers found."
+            "message": "No engineer found."
         }
     ), 404
 
@@ -62,7 +62,7 @@ def find_by_learner(EngineerID):
     return jsonify(
         {
             "code": 404,
-            "message": "No classes found."
+            "message": "No engineer found."
         }
     ), 404
 
