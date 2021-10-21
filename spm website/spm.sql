@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2021 at 10:35 AM
+-- Generation Time: Oct 21, 2021 at 03:36 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -49,18 +49,19 @@ CREATE TABLE `class` (
   `StartTime` varchar(255) NOT NULL,
   `EndTime` varchar(255) NOT NULL,
   `ClassName` varchar(255) NOT NULL,
-  `ClassSize` int(255) NOT NULL
+  `ClassSize` int(255) NOT NULL,
+  `ClassDay` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `class`
 --
 
-INSERT INTO `class` (`ClassID`, `TrainerID`, `CourseID`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `ClassName`, `ClassSize`) VALUES
-(1, 2, 3, '2021-10-08', '2022-04-29', '8am', '11am', 'Class001', 15),
-(2, 3, 2, '2021-10-08', '2022-04-29', '3pm', '6pm', 'Class002', 15),
-(3, 1, 4, '2021-10-08', '2022-04-29', '1pm', '4pm', 'Class003', 15),
-(4, 4, 1, '2021-10-08', '2022-04-29', '10am', '1pm', 'Class004', 15);
+INSERT INTO `class` (`ClassID`, `TrainerID`, `CourseID`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `ClassName`, `ClassSize`, `ClassDay`) VALUES
+(1, 2, 3, '2021-10-08', '2022-04-29', '8am', '11am', 'Class001', 15, 'Wed'),
+(2, 3, 2, '2021-10-08', '2022-04-29', '3pm', '6pm', 'Class002', 15, 'Thurs'),
+(3, 1, 4, '2021-10-08', '2022-04-29', '1pm', '4pm', 'Class003', 15, 'Mon'),
+(4, 4, 1, '2021-10-08', '2022-04-29', '10am', '1pm', 'Class004', 15, 'Fri');
 
 -- --------------------------------------------------------
 
