@@ -106,54 +106,7 @@
         </div><!-- End Breadcrumbs -->
 
         <!-- ======= Course Details Section ======= -->
-        <section id="course-details" class="course-details">
-            <!-- <div class='row row-cols-1 row-cols-md-5' style="margin: 0px;" id="row1"> -->
-                <!-- <div class="col-lg mb-4" style="padding: 30px;">
-                    <div class="card h-100" style="width: 15rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Course 1</h5>
-                            <p class="card-text jumbotron">Course description</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="course.html" class="btn btn-primary" name="mentorEmail" value="'. $email .'">Course Details</a>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- <div class="col-lg mb-4" style="padding: 30px;">
-                    <div class="card h-100" style="width: 15rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Course 2</h5>
-                            <p class="card-text jumbotron">Course description</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="course.html" class="btn btn-primary" name="mentorEmail" value="'. $email .'">Course Details</a>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- <div class="col-lg mb-4" style="padding: 30px;">
-                    <div class="card h-100" style="width: 15rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Course 3</h5>
-                            <p class="card-text jumbotron">Course description</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="course.html" class="btn btn-primary" name="mentorEmail" value="'. $email .'">Course Details</a>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- <div class="col-lg mb-4" style="padding: 30px;">
-                    <div class="card h-100" style="width: 15rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Course 4</h5>
-                            <p class="card-text jumbotron">Course description</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="course.html" class="btn btn-primary" name="mentorEmail" value="'. $email .'">Course Details</a>
-                        </div>
-                    </div>
-                </div> -->
-            <!-- </div> -->
-        </section>
+        <section id="course-details" class="course-details"></section>
 
         <script>
             var months = {"Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", 
@@ -168,9 +121,7 @@
                     );
                     const result = await response.json();
                     if (response.status == 200) {
-                        // success case
-                        // var courseElem = document.getElementById('course-details');
-                        
+                        // success case                        
                         row = 0
                         courses = 0
 
@@ -195,7 +146,7 @@
                                                             "<p class='card-text jumbotron'>" + startDateString + " to " + endDateString + "</p>" +
                                                         "</div>" +
                                                         "<div class='card-footer'>" +
-                                                            "<a href='course.html' class='btn btn-primary'>Course Details</a>" +
+                                                            "<a href='course.html' class='btn btn-primary' id='courseID' " + "value='" + courseID + "' onclick='goToCourse()'>Course Details</a>" +
                                                         "</div>" +
                                                     "</div>" +
                                                 "</div>";
@@ -207,12 +158,7 @@
                                 courses = 0;
                                 row += 1;
                             }
-                            
-                            // "<option value = '" + course.CourseName + ", ID: " + course.CourseID +  ", Start: " + startDateString + 
-                            //             ", End: " + endDateString + "''></option>";
                         }
-                        var dropdownelem = document.getElementById('courselist');
-                        dropdownelem.innerHTML = options;
                     }
                 }
                 catch (error) {
@@ -221,6 +167,12 @@
                     alert('There is a problem fetching the list of courses, please try again later.');
                 } // error
             });
+
+            function goToCourse() {
+                // Save data to sessionStorage
+                var courseIDval = document.getElementById('courseID').value()
+                sessionStorage.setItem('CourseID', courseIDval);
+            }
         </script>
     </main><!-- End #main -->
 
