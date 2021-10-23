@@ -124,6 +124,7 @@
                         // success case                        
                         row = 0
                         courses = 0
+                        coursenum = 0
 
                         var allCourses = result.data.courses; 
                         for (const course of allCourses) {
@@ -146,12 +147,12 @@
                                                             "<p class='card-text jumbotron'>" + startDateString + " to " + endDateString + "</p>" +
                                                         "</div>" +
                                                         "<div class='card-footer'>" +
-                                                            "<a href='course.html' class='btn btn-primary' id='courseID' " + "value='" + courseID + "' onclick='goToCourse()'>Course Details</a>" +
+                                                            "<a href='classes.html' class='btn btn-primary' id='courseID" + coursenum + "' " + "value='" + courseID + "' onclick='goToClasses(this.value)'>Course Details</a>" +
                                                         "</div>" +
                                                     "</div>" +
                                                 "</div>";
                                 courses += 1;
-                                // var rowstr = 'row' + row;
+                                coursenum += 1;
                                 $('#row' + row).append(courseDetails);
                             }
                             else {
@@ -168,10 +169,13 @@
                 } // error
             });
 
-            function goToCourse() {
+            function goToClasses(CourseID) {
                 // Save data to sessionStorage
-                var courseIDval = document.getElementById('courseID').value()
-                sessionStorage.setItem('CourseID', courseIDval);
+                // var courseIDval = document.getElementById(CourseID).value;
+                // console.log(CourseID);
+                console.log(CourseID);
+                // console.log(courseIDval);
+                localStorage.CourseID = courseIDval;
             }
         </script>
     </main><!-- End #main -->
