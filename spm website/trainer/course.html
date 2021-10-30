@@ -267,12 +267,25 @@
         </div>
 
         <script>
+            function GetURLParameter(sParam)
+            {
+                var sPageURL = window.location.search.substring(1);
+                var sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++) 
+                {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam) 
+                    {
+                        return sParameterName[1];
+                    }
+                }
+            }
+            
+            var classID = GetURLParameter('course');
+
             function showLesson() {
-                // Get saved data from localStorage
-                let courseID = localStorage.getItem('CourseID');
-                courseID = 1
                 $(async () => {
-                    var serviceURL = "http://127.0.0.1:5007/materials/" + courseID;
+                    var serviceURL = "http://127.0.0.1:5000/materials/" + classID;
                     try {
                         const response =
                         await fetch(

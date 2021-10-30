@@ -112,12 +112,24 @@
             var months = {"Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", 
             "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"}
 
-            // Get saved data from sessionStorage
-            let courseID = localStorage.getItem('CourseID');
+            function GetURLParameter(sParam)
+            {
+                var sPageURL = window.location.search.substring(1);
+                var sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++) 
+                {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam) 
+                    {
+                        return sParameterName[1];
+                    }
+                }
+            }
+            
+            var courseID = GetURLParameter('course');
 
             $(async () => {
-                console.log(courseID);
-                var serviceURL = "http://127.0.0.1:5005/class/course/" + courseID;
+                var serviceURL = "http://127.0.0.1:5000/class/course/" + courseID;
                 try {
                     const response =
                     await fetch(
@@ -128,7 +140,6 @@
                         // success case                        
                         row = 0
                         classes = 0
-                        console.log(result);
 
                         var allClasses = result.data.classes; 
                         for (const classGroup of allClasses) {
@@ -137,7 +148,7 @@
                                 classRow = "<div class='row row-cols-1 row-cols-md-5' style='margin: 0px;' id='row" + row + "'></div>";
                                 $('#class-details').append(classRow);
                             }
-                            if (courses < 4) {
+                            if (classes < 4) {
                                 var startDateArr = classGroup.StartDate.split(" ").slice(1,4);
                                 var startDateString = startDateArr[2] + "-" + months[startDateArr[1]] + "-" + startDateArr[0];
                                 var startTime = classGroup.StartTime;
@@ -153,7 +164,7 @@
                                                             "<p class='card-text jumbotron'>" + startDateString + " " + startTime + " to " + endDateString + " " + endTime + "</p>" +
                                                         "</div>" +
                                                         "<div class='card-footer'>" +
-                                                            "<a href='course.html' class='btn btn-primary' id='classID' " + "value='" + classID + "' onclick='goToLessons()'>Class Details</a>" +
+                                                            "<button class='btn btn-primary' id='classID' " + "value='" + classID + "' onclick='goToLesson(this.value)'>Class Details</a>" +
                                                         "</div>" +
                                                     "</div>" +
                                                 "</div>";
@@ -174,10 +185,8 @@
                 } // error
             });
 
-            function goToLesson() {
-                // Save data to sessionStorage
-                var lessonIDval = $('#courseID').val();
-                localStorage.LessonID = lessonIDval;
+            function goToLesson(classID) {
+                window.location = 'course.html?class=' + classID;
             }
         </script>
     </main><!-- End #main -->
