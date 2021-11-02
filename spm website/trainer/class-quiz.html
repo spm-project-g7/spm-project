@@ -29,6 +29,11 @@
     <!-- Template Main CSS File -->
     <link href="../assets/css/style.css" rel="stylesheet">
 
+    <!-- jQuery & Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>    
+
     <!-- =======================================================
     * Template Name: Mentor - v4.4.0
     * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
@@ -97,51 +102,70 @@
         <div class="breadcrumbs" data-aos="fade-in">
         <div class="container">
             <h2>Quizzes</h2>
-            <p>All quizzes for the class</p>
+            <p>All quizzes</p>
         </div>
         </div><!-- End Breadcrumbs -->
 
         <!-- ======= Specific Course Details Section ======= -->
         <div class="container">
             <div class="row mt-3">
-                <a href="create-quiz.html" class="col-3 btn btn-outline-secondary" type="button" id="section-name">Create Quiz</a>
+                <button class="col-3 btn btn-outline-secondary" type="button" id="section-name" onclick="goCreateQuiz()">Create Quiz</button>
             </div>
-            <div class="row mt-3 mb-3">
-                <table class="table table-responsive table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Quiz</th>
-                        <th scope="col">Deadline</th>
-                        <th scope="col">No. of Submissions</th>
-                        <th scope="col"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>bin icon</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>bin icon</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>bin icon</td>
-                      </tr>
-                    </tbody>
-                  </table>
-            </div>
+            <div class="row mt-3 mb-3" id="quiz-table"></div>
         </div>
+
+        <script>
+            var latestQuizID = 0;
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5000/quiz";
+                try {
+                    const response =
+                    await fetch(
+                        serviceURL, { method: 'GET' }
+                    );
+                    const result = await response.json();
+                    if (response.status == 200) {
+                        // success case                        
+                        var quiztable = "<table class='table table-responsive table-hover'>" + 
+                                            "<thead>" +
+                                            "<tr>" +
+                                                "<th scope='col'>Quiz Name</th>" +
+                                                "<th scope='col'>Lesson ID</th>" +
+                                                "<th scope='col'>Last Updated</th>" +
+                                                "<th scope='col'>Graded Quiz</th>" +
+                                                "<th scope='col'>Passing Grade</th>" +
+                                                "<th scope='col'>Quiz Score</th>" +
+                                            "</tr>" +
+                                            "</thead>" +
+                                            "<tbody>" 
+                        var allQuizzes = result.data.quizzes; 
+                        for (const quiz of allQuizzes) {
+                            quiztable += "<tr>" +
+                                            "<th scope='row'>" + quiz.QuizName + "</th>" +
+                                            "<td>" + quiz.LessonID + "</td>" +
+                                            "<td>" + quiz.LastUpdated + "</td>" +
+                                            "<td>" + quiz.GradedQuiz + "</td>" +
+                                            "<td>" + quiz.PassingGrade + "</td>" +
+                                            "<td>" + quiz.QuizScore + "</td>" +
+                                        "</tr>" 
+                        }
+                        quiztable += "</tbody>" + "</table>"           
+                        var tableElem = document.getElementById('quiz-table');
+                        tableElem.innerHTML = quiztable;
+                        latestQuizID = allQuizzes[allQuizzes.length - 1].QuizID;
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    alert('There is a problem fetching the list of courses, please try again later.');
+                } // error
+            });
+
+            function goCreateQuiz() {
+                window.location = "tcreate-quiz.html?quiz=" + latestQuizID.toString();
+            }
+        </script>
 
     </main>
     <!-- End #main -->

@@ -32,6 +32,11 @@
     <!-- Template Main CSS File -->
     <link href="../assets/css/style.css" rel="stylesheet">
 
+    <!-- jQuery & Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>        
+
     <!-- =======================================================
     * Template Name: Mentor - v4.4.0
     * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
@@ -113,9 +118,10 @@
                         <button class="btn btn-outline-secondary" type="button" id="section-name">Create Lesson/Chapter</button>
                     </div>
                 </div>
-                <a href="upload.html" class="col-3 btn btn-outline-secondary ml-5" id="upload">Upload Materials</a>
+                <a href="upload.html" class="col-2 btn btn-outline-secondary ml-5" id="upload">Upload Materials</a>
                 <a href="class-quiz.html" class="col-3 btn btn-outline-secondary ml-5" id="create-quiz">View all Quizzes for Class</a>
             </div>
+           
             <div class="row mt-3 mb-3">
                 <div class="col-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -138,50 +144,29 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="lesson1" role="tabpanel" aria-labelledby="materials-tab">
-                                    <table class="table table-responsive table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Link</th>
-                                                <th scope="col">Upload Date</th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>12/12/2021</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>12/12/2021</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>12/12/2021</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="tab-pane fade show active" id="material1" role="tabpanel" aria-labelledby="materials-tab">
+                                    <div class="row mt-3 mb-3" id="mat-table"></div>
                                 </div>
-
-                                
-
-                                            
-
+                                <div class="tab-pane fade" id="upload1" role="tabpanel" aria-labelledby="upload-tab">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="filename">File Name</label>
+                                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name of file">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                                <label class="custom-file-label" for="inputGroupFile01" aria-describedby="inputGroupFileAddon01">Choose file</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="upload1">Upload</button>
+                                            </div>
+                                        </div>    
+                                    </form>
                                 </div>
-                                <div class="tab-pane fade" id="delete1" role="tabpanel" aria-labelledby="delete-tab">popup to show "do you wish to confirm and delete this lesson?</div>
+                                <div class="tab-pane fade" id="delete1" role="tabpanel" aria-labelledby="delete-tab">
+                                    <button class='btn btn-outline-secondary' type='button' id='deleteLesson' onclick='deleteLesson()'>Delete Lesson</a>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-section2" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -189,45 +174,32 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="material-tab2" data-toggle="tab" href="#material2" role="tab" aria-controls="materials" aria-selected="true">Materials</a>
                                 </li>
-                                
+                               
                                 <li class="nav-item">
                                     <a class="nav-link" id="delete-tab2" data-toggle="tab" href="#delete2" role="tab" aria-controls="delete" aria-selected="false">Delete Lesson</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="material2" role="tabpanel" aria-labelledby="materials-tab">
-                                    <table class="table table-responsive table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Link</th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>edit</td>
-                                                <td>insert dustbin jpg</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="row mt-3 mb-3" id="mat-table"></div>
                                 </div>
-                                
+                                <div class="tab-pane fade" id="upload2" role="tabpanel" aria-labelledby="upload-tab">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput">File Name</label>
+                                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name of file">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="upload2">Upload</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="delete-tab">...</div>
                             </div>
                         </div>
@@ -237,6 +209,71 @@
                 </div>
             </div>        
         </div>
+
+        <script>
+            function GetURLParameter(sParam)
+            {
+                var sPageURL = window.location.search.substring(1);
+                var sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++) 
+                {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam) 
+                    {
+                        return sParameterName[1];
+                    }
+                }
+            }
+            
+            var classID = GetURLParameter('class');
+            
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5000/materials/" + classID;
+                try {
+                    const response =
+                    await fetch(
+                        serviceURL, { method: 'GET' }
+                    );
+                    const result = await response.json();
+                    if (response.status == 200) {
+                        // success case                        
+                        var materialTable = "<table class='table table-responsive table-hover'>" + 
+                                            "<thead>" +
+                                            "<tr>" +
+                                                "<th scope='col'>Material Name</th>" +
+                                                "<th scope='col'>Description</th>" +
+                                                "<th scope='col'>Last Updated</th>" +
+                                                "<th scope='col'>MaterialURL</th>" +
+                                                "<th scope='col'>CompleteStatus</th>" +
+                                            "</tr>" +
+                                            "</thead>" +
+                                            "<tbody>" 
+                        var allMaterials = result.data.material; 
+                        for (const mat of allMaterials) {
+                            materialTable += "<tr>" +
+                                            "<th scope='row'>" + mat.MaterialTitle + "</th>" +
+                                            "<td>" + mat.MaterialDescription + "</td>" +
+                                            "<td>" + mat.LastUpdated + "</td>" +
+                                            "<td>" + mat.MaterialURL + "</td>" +
+                                            "<td>" + mat.CompleteStatus + "</td>" +
+                                        "</tr>" 
+                        }
+                        materialTable += "</tbody>" + "</table>"           
+                        var tableElem = document.getElementById('mat-table');
+                        tableElem.innerHTML = materialTable;
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    alert('There is a problem fetching the list of courses, please try again later.');
+                } // error
+            });
+
+            function deleteLesson() {
+                alert("Lesson successfully deleted");
+            }
+        </script>
 
     </main>
     <!-- End #main -->
@@ -334,6 +371,8 @@
     <script src="../assets/js/main.js"></script>
 
    
+</script>
+
 </body>
 
 </html>

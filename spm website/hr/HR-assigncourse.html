@@ -31,6 +31,7 @@
   <link href="../assets/css/style.css" rel="stylesheet">
 
   <!-- jQuery & Popper.js -->
+  <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
     integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
@@ -99,45 +100,32 @@
 
       <br>
 
-      <div class="container">
-        <label for="exampleDataList" class="form-label">Search For Class</label>
-        <input class="form-control" list="classlist" id="classval" placeholder="Type to search...">
-        <datalist id="classlist"></datalist>
-      </div>
-
-      <br>
-
-      <div class="col-auto" style="text-align: center;">
-        <button type="button" class="btn btn-primary" onclick="assign()">Confirm Assignment</button>
-      </div>
-    </form>
-
-
-    </section><!-- End HR Section -->
-
-  </main><!-- End #main -->
+  <div class="col-auto" style="text-align: center;">
+    <button type="button" class="btn btn-primary" onclick="assign()">Confirm Assignment</button>
+  </div>
+</form>
 
   <script>
     $(async () => {
-
-      var serviceURL = "http://127.0.0.1:5002/engineer";
-      try {
-        const response =
-          await fetch(
-            serviceURL, { method: 'GET' }
-          );
-        const result = await response.json();
-        if (response.status == 200) {
-          // success case
-          var allEngineers = result.data.engineers;
-          var options = "";
-          for (const engineer of allEngineers) {
-            options += "<option value = '" + engineer.EmployeeName + ", ID: " + engineer.EngineerID + "''></option>";
-          }
-          var dropdownelem = document.getElementById('engineerlist');
-          dropdownelem.innerHTML = options;
+        
+        var serviceURL = "http://127.0.0.1:5000/engineer";
+        try {
+            const response =
+            await fetch(
+                serviceURL, { method: 'GET' }
+            );
+            const result = await response.json();
+            if (response.status == 200) {
+                // success case
+                var allEngineers = result.data.engineers; 
+                var options = "";
+                for (const engineer of allEngineers) {
+                    options += "<option value = '" + engineer.EmployeeName + ", ID: " + engineer.EngineerID + "''></option>";
+                }
+                var dropdownelem = document.getElementById('engineerlist');
+                dropdownelem.innerHTML = options;
+            }
         }
-      }
       catch (error) {
         // Errors when calling the service; such as network error, 
         // service offline, etc
@@ -151,43 +139,7 @@
     }
 
     $(async () => {
-      var serviceURL = "http://127.0.0.1:5004/course";
-      try {
-        const response =
-          await fetch(
-            serviceURL, { method: 'GET' }
-          );
-        const result = await response.json();
-        if (response.status == 200) {
-          // success case
-          var allCourses = result.data.courses;
-          var options = "";
-          for (const course of allCourses) {
-            var startDateArr = course.CourseValidStartDate.split(" ").slice(1, 4);
-            var startDateString = startDateArr[2] + "-" + months[startDateArr[1]] + "-" + startDateArr[0];
-            var endDateArr = course.CourseValidEndDate.split(" ").slice(1, 4);
-            var endDateString = endDateArr[2] + "-" + months[endDateArr[1]] + "-" + endDateArr[0];
-
-            options += "<option value = '" + course.CourseName + ", ID: " + course.CourseID + ", Start: " + startDateString +
-              ", End: " + endDateString + "''></option>";
-          }
-          var dropdownelem = document.getElementById('courselist');
-          dropdownelem.innerHTML = options;
-        }
-      }
-      catch (error) {
-        // Errors when calling the service; such as network error, 
-        // service offline, etc
-        alert('There is a problem fetching the list of courses, please try again later.');
-      } // error
-    });
-
-    function getClasses() {
-      $(async () => {
-        var courseval = $('#courseval').val().split(",");
-        var courseID = courseval[1].trim().slice(-2);
-        console.log(courseID);
-        var serviceURL = "http://127.0.0.1:5005/class/course/" + courseID;
+        var serviceURL = "http://127.0.0.1:5000/course";
         try {
           const response =
             await fetch(
@@ -210,72 +162,113 @@
           // service offline, etc
           alert('There is a problem fetching the list of classes, please try again later.');
         } // error
-      });
+    });
+
+    function getClasses() {
+        $(async () => {
+            var courseval = $('#courseval').val().split(",");
+            var courseID = courseval[1].trim().slice(-2);
+            console.log(courseID);
+            var serviceURL = "http://127.0.0.1:5000/class/course/" + courseID;
+            try {
+                const response =
+                await fetch(
+                    serviceURL, { method: 'GET' }
+                );
+                const result = await response.json();
+                if (response.status == 200) {
+                    // success case
+                    var allClasses = result.data.classes; 
+                    var options = "";
+                    for (const oneclass of allClasses) {
+                        options += "<option value = '" + oneclass.ClassID + "''>" + oneclass.ClassName + "</option>";
+                    }
+                    var dropdownelem = document.getElementById('classlist');
+                    dropdownelem.innerHTML = options;
+                }
+            }
+            catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                alert('There is a problem fetching the list of classes, please try again later.');
+            } // error
+        });
     }
 
     function findCourseDetails(courseID) {
-      $(async () => {
-        // course = course.replace(/ /g, "%20");
-        // alert(course);
-        var serviceURL = "http://127.0.0.1:5004/course/" + courseID;
-        alert(serviceURL);
-        try {
-          const response =
-            await fetch(
-              serviceURL, { method: 'GET' }
-            );
-          const result = await response.json();
-          // alert.log(result);
-          if (response.status == 200) {
-            // success case
-            // var courseID = result.data.CourseID;
-            var courseValidStartDate = result.data.CourseValidStartDate;
-            var courseValidEndDate = result.data.CourseValidStartDate;
-            console.log(courseValidStartDate, courseValidEndDate);
-            return courseValidStartDate, courseValidEndDate
-          }
-        }
-        catch (error) {
-          // Errors when calling the service; such as network error, 
-          // service offline, etc
-          alert('There is a problem fetching the course details, please try again later.');
-        } // error
-      });
+        $(async () => {
+            // course = course.replace(/ /g, "%20");
+            // alert(course);
+            var serviceURL = "http://127.0.0.1:5000/course/" + courseID;
+            alert(serviceURL);
+            try {
+                const response =
+                await fetch(
+                    serviceURL, { method: 'GET' }
+                );
+                const result = await response.json();
+                // alert.log(result);
+                if (response.status == 200) {
+                    // success case
+                    // var courseID = result.data.CourseID;
+                    var courseValidStartDate = result.data.CourseValidStartDate; 
+                    var courseValidEndDate = result.data.CourseValidStartDate;
+                    console.log(courseValidStartDate, courseValidEndDate);
+                    return courseValidStartDate, courseValidEndDate
+                }
+            }
+            catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                alert('There is a problem fetching the course details, please try again later.');
+            } // error
+        });
     }
 
     function assign() {
-      $(async () => {
-        var courseval = $('#courseval').val().split(",");
-        var courseID = courseval[1].trim().slice(-2);
-        var courseStart = courseval[2].trim().split(" ")[1];
-        var courseEnd = courseval[3].trim().split(" ")[1];
-        var engineerval = $('#engineerval').val().split(",");
-        var engineer = engineerval[0];
-        var engineerID = engineerval[1].trim().slice(-2);
-        var serviceURL = "http://127.0.0.1:5006/enrol/" + courseID + "/" + engineerID;
-        var jsondata = JSON.stringify({
-          StartDate: courseStart, EndDate: courseEnd,
-          AssignedHR: null, CourseCompleteRate: 0, CompleteStatus: "Not Complete", FinalQuizScore: 0
-        })
-        // console.log(jsondata);
-        try {
-          const response =
-            await fetch(
-              serviceURL, {
-              method: 'POST',
-              headers: { "Content-Type": "application/json" },
-              body: jsondata,
-            });
-          const data = await response.json();
-          console.log(data);
-          const information = await data;
-          console.log(information);
-          if (response.ok) {
-            alert("Engineer successfully enrolled!");
-          } else {
-            // alert(data.message);
-            alert("An error occurred.");
-          }
+        $(async () => {
+            var courseval = $('#courseval').val().split(",");
+            var courseID = courseval[1].trim().slice(-2);
+            var courseStart = courseval[2].trim().split(" ")[1];
+            var courseEnd = courseval[3].trim().split(" ")[1];
+            var engineerval = $('#engineerval').val().split(",");
+            var engineer = engineerval[0];
+            var engineerID = engineerval[1].trim().slice(-2);
+            var serviceURL = "http://127.0.0.1:5000/enrol/" + courseID + "/" + engineerID;
+            var jsondata = JSON.stringify({ StartDate: courseStart, EndDate: courseEnd, 
+                                        AssignedHR: null, CourseCompleteRate: 0, CompleteStatus: "Not Complete", FinalQuizScore: 0 })
+            // console.log(jsondata);
+            try {
+                const response =
+                await fetch(
+                    serviceURL, {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: jsondata,
+                });
+                const data = await response.json();
+                const information = await data;
+                if(response.ok){
+                    alert("Engineer successfully enrolled!");
+                } else {
+                    // alert(data.message);
+                    alert("An error occurred.");
+                }
+                
+            }
+            catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                console.log(error);
+                alert('There is a problem enrolling the engineer, please try again later.');
+            } // error
+        });
+
+    }
+  </script>    
+
+
+    </section><!-- End HR Section -->
 
         }
         catch (error) {
