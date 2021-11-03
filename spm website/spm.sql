@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2021 at 03:34 PM
+-- Generation Time: Oct 21, 2021 at 03:36 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `attempt` (
   `QuizID` int(255) NOT NULL,
   `QuestionID` int(255) NOT NULL,
-  `SelectedOption` varchar(255) NOT NULL,
-  `EngineerID` int(255) NOT NULL
+  `EngineerID` int(255) NOT NULL,
+  `CompleteStatus` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -49,18 +49,19 @@ CREATE TABLE `class` (
   `StartTime` varchar(255) NOT NULL,
   `EndTime` varchar(255) NOT NULL,
   `ClassName` varchar(255) NOT NULL,
-  `ClassSize` int(255) NOT NULL
+  `ClassSize` int(255) NOT NULL,
+  `ClassDay` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `class`
 --
 
-INSERT INTO `class` (`ClassID`, `TrainerID`, `CourseID`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `ClassName`, `ClassSize`) VALUES
-(1, 2, 3, '2021-10-08', '2022-04-29', '8am', '11am', 'Class001', 15),
-(2, 3, 2, '2021-10-08', '2022-04-29', '3pm', '6pm', 'Class002', 15),
-(3, 1, 4, '2021-10-08', '2022-04-29', '1pm', '4pm', 'Class003', 15),
-(4, 4, 1, '2021-10-08', '2022-04-29', '10am', '1pm', 'Class004', 15);
+INSERT INTO `class` (`ClassID`, `TrainerID`, `CourseID`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `ClassName`, `ClassSize`, `ClassDay`) VALUES
+(1, 2, 3, '2021-10-08', '2022-04-29', '8am', '11am', 'Class001', 15, 'Wed'),
+(2, 3, 2, '2021-10-08', '2022-04-29', '3pm', '6pm', 'Class002', 15, 'Thurs'),
+(3, 1, 4, '2021-10-08', '2022-04-29', '1pm', '4pm', 'Class003', 15, 'Mon'),
+(4, 4, 1, '2021-10-08', '2022-04-29', '10am', '1pm', 'Class004', 15, 'Fri');
 
 -- --------------------------------------------------------
 
@@ -219,10 +220,7 @@ INSERT INTO `lesson` (`LessonID`, `TrainerID`, `ClassID`, `PrerequisiteLessonID`
 CREATE TABLE `question` (
   `QuizID` int(11) NOT NULL,
   `QuestionID` int(11) NOT NULL,
-  `FirstOption` varchar(255) NOT NULL,
-  `SecondOption` varchar(255) NOT NULL,
-  `ThirdOption` varchar(255) NOT NULL,
-  `ForthOption` varchar(255) NOT NULL,
+  `Options` varchar(255) NOT NULL,
   `Answer` varchar(255) NOT NULL,
   `Question` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -231,11 +229,11 @@ CREATE TABLE `question` (
 -- Dumping data for table `question`
 --
 
-INSERT INTO `question` (`QuizID`, `QuestionID`, `FirstOption`, `SecondOption`, `ThirdOption`, `ForthOption`, `Answer`, `Question`) VALUES
-(1, 1, 'math.h', 'conio.h', 'dos.h', 'stdio.h', '1', 'In the standard library of C programming language, which of the following header file is designed for basic mathematical operations?\r\n'),
-(2, 1, 'Yes', 'Standard error streams', 'Standard error types', 'Standard error function', '2', '“Stderr” is a standard error.'),
-(3, 1, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', 'stddef.h, locale.h, math.h, stdlib.h, string.h', 'time.h, wchar.h, math.h, locale.h', 'math.h', '1', 'Which of the following header file can be used to define the NULL macro?'),
-(4, 1, 'Code segment', 'Stack segment', 'Heap segment', 'None of the above', '2', 'A local variable is stored in ___');
+INSERT INTO `question` (`QuizID`, `QuestionID`, `Options`, `Answer`, `Question`) VALUES
+(1, 1, 'math.h,studio.h,home.h,sudo.h', '1', 'In the standard library of C programming language, which of the following header file is designed for basic mathematical operations?\r\n'),
+(2, 1, 'Yes,No,I dont know', '2', '“Stderr” is a standard error.'),
+(3, 1, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '1', 'Which of the following header file can be used to define the NULL macro?'),
+(4, 1, 'True,False', '2', 'The size of both stack and heap remains the same during run time.');
 
 -- --------------------------------------------------------
 
@@ -250,7 +248,6 @@ CREATE TABLE `quiz` (
   `PassingGrade` int(255) NOT NULL,
   `LessonID` int(255) NOT NULL,
   `QuizScore` int(255) DEFAULT NULL,
-  `CompleteStatus` varchar(255) NOT NULL,
   `QuizName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -258,11 +255,11 @@ CREATE TABLE `quiz` (
 -- Dumping data for table `quiz`
 --
 
-INSERT INTO `quiz` (`QuizID`, `LastUpdated`, `GradedQuiz`, `PassingGrade`, `LessonID`, `QuizScore`, `CompleteStatus`, `QuizName`) VALUES
-(1, '2021-10-08', 0, 50, 1, NULL, 'Not Attempted', 'Quiz001'),
-(2, '2021-10-08', 0, 50, 2, NULL, 'Not Attempted', 'Quiz001'),
-(3, '2021-10-08', 0, 50, 3, NULL, 'Not Attempted', 'Quiz001'),
-(4, '2021-10-08', 0, 50, 4, NULL, 'Not Attempted', 'Quiz001');
+INSERT INTO `quiz` (`QuizID`, `LastUpdated`, `GradedQuiz`, `PassingGrade`, `LessonID`, `QuizScore`, `QuizName`) VALUES
+(1, '2021-10-08', 0, 50, 1, NULL, 'Quiz001'),
+(2, '2021-10-08', 0, 50, 2, NULL, 'Quiz001'),
+(3, '2021-10-08', 0, 50, 3, NULL, 'Quiz001'),
+(4, '2021-10-08', 0, 50, 4, NULL, 'Quiz001');
 
 -- --------------------------------------------------------
 

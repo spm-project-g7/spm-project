@@ -118,56 +118,103 @@
                     </div>
                     <div class="row mt-3">
                         <input type="text" class="form-control col-5 mr-4" id="quiz-score" placeholder="Quiz Score">
-                        <!-- <input type="text" class="form-control col-5 mr-4" id="quiz-grade" placeholder="Passing Grade for Quiz"> -->
+                        <input type="text" class="form-control col-5 mr-4" id="quiz-lesson" placeholder="Lesson">
                     </div>
-                    <div class="row mt-3 mb-3" id="question-block1">
+                    <div class="row mt-3 mb-3 qnsblock" id="question-block1">
                         <div class="card" style="padding-left: 0; padding-right: 0;">
                             <div class="card-header">
                                 <label for="Question">Question:</label>
-                                <textarea class="form-control" id="Question" rows="3"></textarea>
+                                <textarea class="form-control allqns" id="Question1" rows="3" ></textarea>
                                 <label for="Answer">Answer:</label>
-                                <textarea class="form-control" id="Answer" rows="3"></textarea>
+                                <textarea class="form-control allans" id="Answer1" rows="3"></textarea>
                             </div>
                             <div class="card-body" id='optiondetalis'>
-                                <select class="custom-select col-5" id="selectquiztype1" onchange="showQnsType()">
+                                <select class="custom-select col-5" id="selectquiztype1" onchange="showQnsType(this.id)">
                                     <option selected>Select Quiz Type</option>
                                     <option value='T/F'>True/False (T/F)</option>
                                     <option value='MCQ'>Multiple Choice Question (MCQ)</option>
                                 </select> 
                                 <div class="row ml-4 mt-2" id="showqnstype1"></div>
+                                <div>
+                                    <button class="col-sm-5 btn btn-outline-secondary" type="button" id="add-qns1" onclick="deleteQuestion(this.id)">Delete Question</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-3 mb-3">
                     <button class="col-sm-4 btn btn-outline-secondary" type="button" id="add-qns" onclick="addQuestion()">Add New Question</a>
-                    <button class="col-sm-5 btn btn-outline-secondary" type="button" id="add-qns" onclick="deleteQuestion()">Delete Previous Question</a>
                 </div>
                 <div class="row mt-3 mb-3">
-                    <button class="col-sm-3 btn btn-outline-secondary" type="submit" id="create-quiz" onclick="createQuiz()">Create Quiz</a>
+                    <button class="col-sm-3 btn btn-outline-secondary" type="button" id="create-quiz" onclick="createQuiz()">Create Quiz</a>
                 </div>
             </form>
             <div id="error" style="text-align: center;">
                 <!-- Error message will be appended here  -->
             </div>
             <script>
+                function GetURLParameter(sParam)
+                {
+                    var sPageURL = window.location.search.substring(1);
+                    var sURLVariables = sPageURL.split('&');
+                    for (var i = 0; i < sURLVariables.length; i++) 
+                    {
+                        var sParameterName = sURLVariables[i].split('=');
+                        if (sParameterName[0] == sParam) 
+                        {
+                            return sParameterName[1];
+                        }
+                    }
+                }
+
+                var quizID = parseInt(GetURLParameter('quiz')) + 1;
+
                 // function to add question
                 var qnscount = 1;
+                var mcqoption = 1;
+                var total = [];
+
+                function pushToList() {
+                    var allQuestions = document.getElementsByClassName('qnsblock');
+                    var allQns = document.getElementsByClassName('allqns');
+                    var allAns = document.getElementsByClassName('allans');
+                    var qns = allQns[qnscount - 1].value;
+                    var ans = allAns[qnscount - 1].value;
+                    console.log(allQuestions.length)
+                    var allOptions = document.getElementsByClassName('allopts' + qnscount.toString());
+                    var optlist = [];
+                    for (i = 0; i < allOptions.length; i++) {
+                        // console.log(i)
+                        console.log(qnscount);
+                        // var allOptions = document.getElementsByClassName('allopts' + qnscount.toString());
+                        console.log(allOptions);
+                        var val = allOptions[i].value;
+                        optlist.push(val);
+                        // console.log(qns, ans, val);
+                    }
+                    var obj = { question: qns, answer: ans, options: optlist}
+                    console.log(obj);
+                    total.push(obj);
+                    console.log(total);
+
+                }
                 function addQuestion() {
+                    pushToList();
                     qnscount += 1
+                    mcqoption = 1
                     // console.log(qnscount);
                     $('#quiz-portion').append(
-                        "<div class='row mt-3 mb-3' id='question-block" + qnscount.toString() + "'>" +
+                        "<div class='row mt-3 mb-3 qnsblock' id='question-block" + qnscount.toString() + "'>" +
                             "<div class='card' style='padding-left: 0; padding-right: 0;''>" +
                                 "<div class='card-header'>" +
                                     "<label for='Question'>Question:</label>" +
-                                    "<textarea class='form-control' id='Question' rows='3'></textarea>" +
+                                    "<textarea class='form-control allqns' id='Question" + qnscount.toString() + "' rows='3' ></textarea>" +
                                     "<label for='Answer'>Answer:</label>" +
-                                    "<textarea class='form-control' id='Answer' rows='3'></textarea>" +
+                                    "<textarea class='form-control allans' id='Answer" + qnscount.toString() + "' rows='3' ></textarea>" +
                                 "</div>" +
                                 "<div class='card-body'>" +
                                     "<div class='dropdown'>" +
-                                        "<select class='custom-select col-5' id='selectquiztype" + qnscount.toString() + "' onchange='showQnsType()'>" +
+                                        "<select class='custom-select col-5' id='selectquiztype" + qnscount.toString() + "' onchange='showQnsType(this.id)'>" +
                                             "<option selected>Select Quiz Type</option>" +
                                             "<option value='T/F'>True/False (T/F)</option>" +
                                             "<option value='MCQ'>Multiple Choice Question (MCQ)</option>" +
@@ -176,6 +223,9 @@
                                             "<div id='qnstype" + qnscount.toString() + "'></div>" +
                                         "</div>" +
                                     "</div>" +
+                                    "<div>" +
+                                        "<button class='col-sm-5 btn btn-outline-secondary' type='button' id='add-qns" + qnscount.toString() + "' onclick='deleteQuestion(this.id)'>Delete Question</a>" +
+                                    "</div>" +
                                 "</div>" +
                             "</div>" +
                         "</div>" 
@@ -183,9 +233,13 @@
                 }
 
                 // delete question
-                function deleteQuestion() {
-                    var element = document.getElementById('question-block' + qnscount.toString());
-                    element.remove();
+                function deleteQuestion(ID) {
+                    // var element = document.getElementById('question-block' + qnscount.toString());
+                    var element = document.getElementById(ID);
+                    var qnsblock = element.parentNode.parentNode.parentNode;
+                    // console.log(qnsblock);
+                    qnsblock.remove();
+                    // element.remove();
                     qnscount -= 1;
                     // console.log(qnscount);
                 }
@@ -202,7 +256,7 @@
 
                 // get classes for course
                 $(async () => {
-                    var serviceURL = "http://127.0.0.1:5004/course";
+                    var serviceURL = "http://127.0.0.1:5000/course";
                     try {
                         const response =
                         await fetch(
@@ -230,7 +284,7 @@
                 function getClasses() {
                     $(async () => {
                         var courseID = document.getElementById('selectcourse').value;
-                        var serviceURL = "http://127.0.0.1:5005/class/course/" + courseID;
+                        var serviceURL = "http://127.0.0.1:5000/class/course/" + courseID;
                         try {
                             const response =
                             await fetch(
@@ -258,17 +312,15 @@
                 }
 
                 // show whether it's mcq or t/f qns
-                var mcqoption = 1;
-                function showQnsType() {
-                    var idstring = 'selectquiztype' + qnscount.toString();
-                    var idstring2 = 'qnstype' + qnscount.toString();
-                    // console.log(idstring, idstring2);
-                    var qnstypeval = document.getElementById(idstring).value + qnscount.toString();
-                    // console.log(qnstypeval);
-                    var element = document.getElementById(idstring2);
+                function showQnsType(quizTypeID) {
+                    var idstring = 'qnstype' + quizTypeID.slice(-1);
+                    // console.log(idstring2);
+                    var qnstypeval = document.getElementById(quizTypeID).value + qnscount.toString();
+                    var element = document.getElementById(idstring);
                     if (element != null) {
-                        element.remove();
+                        element.remove()
                     }
+                    
                     if (qnstypeval == 'T/F' + qnscount.toString()) {
                         $('#showqnstype' + qnscount.toString()).append(
                         "<div id='qnstype" + qnscount.toString() + "'>" +
@@ -283,48 +335,56 @@
                     }
                     else {
                         $('#showqnstype' + qnscount.toString()).append(
-                            "<div id='qnstype" + qnscount.toString() + "'>" +
-                                "<div id='mcqoption" + qnscount.toString() + mcqoption.toString() + "'>" +
-                                    "<input class='form-check-input' type='radio' name='flexRadioDefault'>" + 
-                                    "<input type='text' placeholder='Please type in the option'>" +                        
+                                "<div id='qnstype" + qnscount.toString() + "'>" +
+                                    "<div id='mcqoption" + qnscount.toString() + mcqoption.toString() + "'>" +
+                                        "<input class='form-check-input' type='radio' name='flexRadioDefault'>" + 
+                                        "<input type='text' class='form-control col-5 mr-4 allopts" + qnscount.toString() + "' placeholder='Please type in the option' id='mcqoption" + qnscount.toString() + mcqoption.toString() + "'>" +    
+                                        "<button class='btn btn-outline-secondary' type='button' id='del-option" + qnscount.toString() + mcqoption.toString() + "' onclick='deleteOption(this.id)'>Delete Option</a>" +                    
+                                    "</div>" +
                                 "</div>" +
-                            "</div>" +
-                            "<div>" + 
-                                "<button class='btn btn-outline-secondary' type='button' id='add-option' onclick='addOption()'>Add Option</a>" +
-                                "<button class='btn btn-outline-secondary' type='button' id='add-option' onclick='deleteOption()'>Delete Option</a>" +
-                            "</div>" 
+                                "<div>" + 
+                                    "<button class='btn btn-outline-secondary' type='button' id='add-option" + qnscount.toString() + "' onclick='addOption(this.id)'>Add Option</a>" +
+                                "</div>" 
                         );
                     }
                 }
 
-                function addOption() {
+                function addOption(ID) {
                     mcqoption += 1;
-                    $('#qnstype' + qnscount.toString()).append(
+                    var elementID = document.getElementById(ID).parentNode.previousSibling.id;
+                    $("#" + elementID).append(
                         "<div id='mcqoption" + qnscount.toString() + mcqoption.toString() + "'>" +
                             "<input class='form-check-input' type='radio' name='flexRadioDefault'>" + 
-                            "<input type='text' placeholder='Please type in the option'>" +                        
+                            "<input type='text' class='form-control col-5 mr-4 allopts" + qnscount.toString() + "' placeholder='Please type in the option' id ='mcqoption" + qnscount.toString() + mcqoption.toString() + "'>" +               
+                            "<button class='btn btn-outline-secondary' type='button' id='del-option" + qnscount.toString() + mcqoption.toString() + "' onclick='deleteOption(this.id)'>Delete Option</a>" +                             
                         "</div>"
                     );
                 }
 
-                function deleteOption() {
-                    var element = document.getElementById('mcqoption' + qnscount.toString() + mcqoption.toString());
+                function deleteOption(ID) {
+                    var elementID = document.getElementById(ID).parentNode.id;
+                    var element = document.getElementById(elementID);
                     element.remove();
                     mcqoption -= 1;
                 }
 
                 function createQuiz() {
+                    pushToList();
+                    var quizName = document.getElementById('quiz-name').value;
+                    var quizPassGrade = document.getElementById('quiz-grade').value;
+                    var quizScore = document.getElementById('quiz-score').value;
+                    var count = 0;
                     $(async () => {
-                        var lessonID = $('#selectclass').val();
+                        var lessonID = $('#quiz-lesson').val();
                         var lastUpdated = $('#quizdate').val();
                         var graded = $('#selectgraded').val();
                         var passing = $('#quiz-grade').val();
                         var quizName = $('#quiz-name').val();
                         var quizScore = $('#quiz-score').val();
-                        var serviceURL = "http://127.0.0.1:5003/quiz/create/" + lessonID;
+                        var serviceURL = "http://127.0.0.1:5000/quiz/create/" + lessonID;
                         var jsondata = JSON.stringify({ LastUpdated: lastUpdated, GradedQuiz: graded, PassingGrade: passing, LessonID: lessonID, 
-                                                        QuizScore: quizScore, CompleteStatus: "Not Attempted", QuizName: quizName })
-                    //console.log(jsondata);
+                                                        QuizScore: quizScore, QuizName: quizName });
+                        // console.log(jsondata);
                         try {
                             const response =
                             await fetch(serviceURL, 
@@ -345,8 +405,7 @@
                             } else {
                                 // alert(data.message);
                                 alert("An error occurred.");
-                            }
-                            
+                            }   
                         }
                         catch (error) {
                             // Errors when calling the service; such as network error, 
@@ -355,8 +414,56 @@
                             alert('There is a problem creating the quiz, please try again later.');
                         } // error
                     });
+
+                    $(async () => {
+                        for (i = 0; i < total.length; i++) {
+                            var data = total[i];
+                            var qnsID = i + 1;
+                            var jsondata = JSON.stringify({ QuestionID: qnsID, Options: data.options.toString(), Question: data.question, Answer: data.answer });
+                            console.log(jsondata);
+                            var serviceURL = "http://127.0.0.1:5000/question/create/" + quizID;
+                            console.log(serviceURL);
+                            try {
+                                const response =
+                                await fetch(
+                                    serviceURL, {
+                                    method: 'POST',
+                                    headers: { "Content-Type": "application/json" },
+                                    body: jsondata,
+                                });
+                                const data = await response.json();
+                                console.log(data);
+                                const information = await data;
+                                console.log(information);
+                                if(response.ok){
+                                    count += 1;
+                                    // alert("Question successfully created!");
+                                } else {
+                                    alert(data.message);
+                                    // alert("An error occurred.");
+                                }  
+                            }
+                            catch (error) {
+                                // Errors when calling the service; such as network error, 
+                                // service offline, etc
+                                console.log(error);
+                                alert(error);
+                            } // error
+                        }
+
+                    });
+
+                    if (count != total.length) {
+                        alert('There is a problem creating the questions, please try again later.');
+                    }
+                    else {
+                        alert('Questions successfully created!');
+                    }
+
+
                 }
             
+
             </script>        
         </div>
 

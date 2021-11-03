@@ -24,7 +24,8 @@ class Classes(db.Model):
     StartTime = db.Column(db.String(255), nullable=False)
     EndTime = db.Column(db.String(255), nullable=False)
     ClassName = db.Column(db.String(255), nullable=False)
-    ClassSize = db.Column(db.Integer, nullable=False)   
+    ClassSize = db.Column(db.Integer, nullable=False)
+  
 
     def __init__(self, ClassID, TrainerID, CourseID, StartDate, EndDate, StartTime, EndTime, ClassName, ClassSize):
         self.ClassID = ClassID

@@ -32,6 +32,11 @@
     <!-- Template Main CSS File -->
     <link href="../assets/css/style.css" rel="stylesheet">
 
+    <!-- jQuery & Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>    
+
     <!-- =======================================================
     * Template Name: Mentor - v4.4.0
     * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
@@ -111,7 +116,7 @@
         </div>
 
         <div class="form-row">
-            <label for="MaterialTitle">Material Title <span class="required">*</span></label>
+            <label for="MaterialTitle">Material Title<span class="required">*</span></label>
             <input type="text" class="form-control" id="MaterialTitle" name="MaterialTitle" required>
             <div class="invalid-feedback">
                 Please provide Material Title
@@ -128,40 +133,28 @@
         
             <div class="form-row">
                 <label for="MaterialType">Material Type<span class="required">*</span></label>
-                <select class="custom-select" id="MaterialType" name='MaterialType"' v-model='selected' aria-describedby="positionFeedback" required>
+                <select class="custom-select" id="MaterialType" name='MaterialType"' aria-describedby="positionFeedback" onchange='hyperlink()' required>
                 <option selected disabled value="">Choose...</option>
-                <option value='File'>Others (Docx, Pptx, Pdf, mp4, mpeg, avi)</option>
                 <option value='Hyperlink'>Hyperlink</option>
+                <option value='File'>Others (Docx, Pptx, Pdf, mp4, mpeg, avi)</option>
                 
                 </select>
             </div>
-
-            <div v-if='selected == "Hyperlink"'>
-                                                
-                <div class="form-row mb-3">
-                    <label for="hyperlink">Please provide Hyperlink<span class="required">*</span></label>
+                <div class="form-row mb-3" id="filelink">
+                    <!-- <label for="hyperlink">Please provide Hyperlink<span class="required">*</span></label>
                     <textarea class="form-control" id="MaterialURL" name='MaterialURL'  required></textarea>
                     <div class="invalid-feedback">
                         Please enter hyperlink.
-                    </div>
+                    </div> -->
                 </div>
-            </div>
-     
-           
-            <div v-else>
                 <div class="form-row">
-                        <label for="file">Please provide File<span class="required">*</span></label>
+                        <!-- <label for="file">Please provide File<span class="required">*</span></label>
                         <div class="custom-file">
                             <input type="file" class="form-control-file" name="file" id="file" onchange="return fileValidation()">
-                        </div>
+                        </div> -->
                     </div>
-                </div> 
-            
-
-                
-                
                 <div >
-                    <button class="btn btn-primary my-3" type="submit" name="submit" value="file" onclick="addMaterial()">Upload</button>
+                    <button class="btn btn-primary my-3" type="button" name="upload" value="file" onclick="uploadMaterial()">Upload</button>
                 </div>
 
             </form>
@@ -181,55 +174,164 @@
  <!-- INTERNAL JS -->
  <script>
     // Check position
-    const vm = new Vue({
-        el: '#form',
-        data: {
-            selected: '',
-        }
-    });
+    // const vm = new Vue({
+    //     el: '#form',
+    //     data: {
+    //         selected: '',
+    //     },
+    //     methods: {
+    //         upload: function(event) {
+    //             $(async () => {
+    //                 var lessonID = $('#LessonID').val();
+    //                 var matTitle = $('#MaterialTitle').val();
+    //                 var matDescr = $('#MaterialDescription').val();
+    //                 var matType = $('#MaterialType').val();
+    //                 var matHyperlink = $('#MaterialURL').val();
+    //                 var today = new Date();
+    //                 var dd = String(today.getDate()).padStart(2, '0');
+    //                 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    //                 var yyyy = today.getFullYear();
+    //                 today = yyyy + '/' + mm + '/' + dd;
+    //                 var serviceURL = "http://127.0.0.1:5000/material/" + lessonID;
+    //                 var jsondata = JSON.stringify({ MaterialTitle: matTitle, MaterialDescription: matDescr, LessonID: lessonID, 
+    //                                             LastUpdated: today, MaterialURL: matHyperlink, MaterialType: matType, CompleteStatus: null })
+    //                 console.log(jsondata);
+    //                 try {
+    //                     const response =
+    //                     await fetch(
+    //                         serviceURL, {
+    //                         method: 'POST',
+    //                         headers: { "Content-Type": "application/json" },
+    //                         body: jsondata,
+    //                     });
+    //                     const data = await response.json();
+    //                     const information = await data;
+    //                     if(response.ok){
+    //                         alert("Material successfully uploaded!");
+    //                     } else {
+    //                         // alert(data.message);
+    //                         alert("An error occurred.");
+    //                     }
+                        
+    //                 }
+    //                 catch (error) {
+    //                     // Errors when calling the service; such as network error, 
+    //                     // service offline, etc
+    //                     console.log(error);
+    //                     alert('There is a problem uploading the material, please try again later.');
+    //                 } // error
+    //             });
+
+    //         }
+    //     }
+    // });
 
 
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    console.log(event);
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        //   console.log(form)
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
+    // // Example starter JavaScript for disabling form submissions if there are invalid fields
+    // (function() {
+    //     'use strict';
+    //     window.addEventListener('load', function() {
+    //         // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    //         var forms = document.getElementsByClassName('needs-validation');
+    //         // Loop over them and prevent submission
+    //         var validation = Array.prototype.filter.call(forms, function(form) {
+    //             form.addEventListener('submit', function(event) {
+    //                 console.log(event);
+    //                 if (form.checkValidity() === false) {
+    //                     event.preventDefault();
+    //                     event.stopPropagation();
+    //                     //   console.log(form)
+    //                 }
+    //                 form.classList.add('was-validated');
+    //             }, false);
+    //         });
             
-        }, false);
-    })();
+    //     }, false);
+    // });
 
+    // function fileValidation() {
+    //     var fileInput = 
+    //         document.getElementById('MaterialURL');
+        
+    //     var filePath = fileInput.value;
+    //     // Allowing file type
+    //     var allowedExtensions = /(\.pptx|\.docx|\.mpeg|\.pdf|\.mp4)$/i;
+        
+    //     if (!allowedExtensions.exec(filePath)) {
+    //         alert('Invalid file type. Please upload .docx, .pptx, .mpeg, .mp4 or .pdf');
+    //         fileInput.value = '';
+    //         return false;
+    //     } 
+    // }
+
+    function hyperlink() {
+        var matType = $('#MaterialType').val();
+        var filelink = document.getElementById('filelink');
+        if (filelink.innerHTML != null) {
+            filelink.innerHTML = null;
+        }
+        if (matType == 'Hyperlink') {
+            filelink.innerHTML = "<label for='hyperlink'>Please provide Hyperlink<span class='required'>*</span></label>" +
+                                    "<textarea class='form-control' id='MaterialURL' name='MaterialURL'  required></textarea>" +
+                                        "<div class='invalid-feedback'>" +
+                                            "Please enter hyperlink." +
+                                        "</div>" 
+        }
+        else {
+            filelink.innerHTML = "<label for='file'>Please provide File<span class='required'>*</span></label>" +
+                                    "<div class='custom-file'>" +
+                                        "<input type='file' class='form-control-file' name='file' id='file' onchange='return fileValidation()'>" +
+                                    "</div>"
+        }
+    }
+
+    function uploadMaterial() {
+        $(async () => {
+            var lessonID = $('#LessonID').val();
+            var matTitle = $('#MaterialTitle').val();
+            var matDescr = $('#MaterialDescription').val();
+            var matType = $('#MaterialType').val();
+            var matHyperlink = $('#MaterialURL').val();
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = yyyy + '/' + mm + '/' + dd;
+            var serviceURL = "http://127.0.0.1:5000/material/" + lessonID;
+            var jsondata = JSON.stringify({ MaterialTitle: matTitle, MaterialDescription: matDescr, LessonI: lessonID, 
+                                        LastUpdated: today, MaterialURL: matHyperlink, MaterialType: matType, CompleteStatus: null })
+            console.log(jsondata);
+            try {
+                const response =
+                await fetch(
+                    serviceURL, {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: jsondata,
+                });
+                const data = await response.json();
+                const information = await data;
+                if(response.ok){
+                    alert("Material successfully uploaded!");
+                } else {
+                    // alert(data.message);
+                    alert("An error occurred.");
+                }
+
+            }
+            catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                console.log(error);
+                alert('There is a problem uploading the material, please try again later.');
+            } // error
+        });
+
+    }
+            
 
 </script>
 
 
-<script>
-function fileValidation() {
-var fileInput = 
-    document.getElementById('MaterialURL');
-  
-var filePath = fileInput.value;
-// Allowing file type
-var allowedExtensions = /(\.pptx|\.docx|\.mpeg|\.pdf|\.mp4)$/i;
-  
-if (!allowedExtensions.exec(filePath)) {
-    alert('Invalid file type. Please upload .docx, .pptx, .mpeg, .mp4 or .pdf');
-    fileInput.value = '';
-    return false;
-} 
-}
-</script>
 
 
