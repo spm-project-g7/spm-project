@@ -219,6 +219,7 @@ class Enrollment(db.Model):
     __tablename__ = 'enrollment'
 
     CourseID = db.Column(db.Integer, primary_key=True)
+    ClassID = db.Column(db.Integer, nullable=False)
     EngineerID = db.Column(db.Integer, nullable=False)
     StartDate = db.Column(db.Date, nullable=False)
     EndDate = db.Column(db.Date, nullable=False)
@@ -227,8 +228,9 @@ class Enrollment(db.Model):
     CompleteStatus = db.Column(db.String(255), nullable=False)
     FinalQuizScore = db.Column(db.Integer, nullable=False)    
 
-    def __init__(self, CourseID, EngineerID, StartDate, EndDate, AssignedHR, CourseCompleteRate, CompleteStatus, FinalQuizScore):
+    def __init__(self, CourseID, ClassID, EngineerID, StartDate, EndDate, AssignedHR, CourseCompleteRate, CompleteStatus, FinalQuizScore):
         self.CourseID = CourseID
+        self.ClassID = ClassID
         self.EngineerID = EngineerID
         self.StartDate = StartDate
         self.EndDate = EndDate
@@ -238,7 +240,7 @@ class Enrollment(db.Model):
         self.FinalQuizScore = FinalQuizScore
 
     def json(self):
-        return {"CourseID": self.CourseID, "EngineerID": self.EngineerID, "StartDate": self.StartDate, "EndDate": self.EndDate, 
+        return {"CourseID": self.CourseID, "ClassID": self.ClassID, "EngineerID": self.EngineerID, "StartDate": self.StartDate, "EndDate": self.EndDate, 
                 "AssignedHR": self.AssignedHR, "CourseCompleteRate": self.CourseCompleteRate, "CompleteStatus": self.CompleteStatus, 
                 "FinalQuizScore": self.FinalQuizScore}
 
@@ -301,23 +303,24 @@ def find_by_course(CourseID):
     ), 404
 
 
-# enrol engineers into course ONLY
-@app.route("/enrol/<string:CourseID>/<string:EngineerID>", methods=['POST'])
-def create_enrollment(CourseID, EngineerID):
-    if (Enrollment.query.filter_by(CourseID= CourseID).filter_by(EngineerID=EngineerID).first()):
+# enrol engineers into course and class
+@app.route("/enrol/<string:CourseID>/<string:EngineerID>/<string:ClassID>", methods=['POST'])
+def create_enrollment(CourseID, EngineerID, ClassID):
+    if (Enrollment.query.filter_by(CourseID= CourseID).filter_by(EngineerID=EngineerID).filter_by(ClassID=ClassID).first()):
         return jsonify(
             {
                 "code": 400,
                 "data": {
                     "course": CourseID,
-                    "engineer": EngineerID
+                    "engineer": EngineerID,
+                    "class": ClassID
                 },
-                "message": "Engineer is already enrolled in this course."
+                "message": "Engineer is already enrolled in this course and class."
             }
         ), 400
 
     data = request.get_json()
-    engineer = Enrollment(CourseID, EngineerID, **data)
+    engineer = Enrollment(CourseID, EngineerID, ClassID, **data)
 
     try:
         db.session.add(engineer)
@@ -328,7 +331,8 @@ def create_enrollment(CourseID, EngineerID):
                 "code": 500,
                 "data": {
                     "course": CourseID,
-                    "engineer": EngineerID
+                    "engineer": EngineerID,
+                    "class": ClassID
                 },
                 "message": "An error occurred enrolling the engineer."
             }
@@ -339,7 +343,8 @@ def create_enrollment(CourseID, EngineerID):
             "code": 201,
             "data": {
                 "course": CourseID,
-                "engineer": EngineerID
+                "engineer": EngineerID,
+                "class": ClassID
             },
             "message": "Successfully enrolled the engineer."
         }
