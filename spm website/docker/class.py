@@ -25,9 +25,9 @@ class Classes(db.Model):
     EndTime = db.Column(db.String(255), nullable=False)
     ClassName = db.Column(db.String(255), nullable=False)
     ClassSize = db.Column(db.Integer, nullable=False)
-    ClassDay = db.Column(db.String(255),nullable=False)   
+  
 
-    def __init__(self, ClassID, TrainerID, CourseID, StartDate, EndDate, StartTime, EndTime, ClassName, ClassSize, ClassDay):
+    def __init__(self, ClassID, TrainerID, CourseID, StartDate, EndDate, StartTime, EndTime, ClassName, ClassSize):
         self.ClassID = ClassID
         self.TrainerID = TrainerID
         self.CourseID = CourseID
@@ -37,12 +37,11 @@ class Classes(db.Model):
         self.EndTime = EndTime
         self.ClassName = ClassName
         self.ClassSize = ClassSize
-        self.ClassDay = ClassDay
 
     def json(self):
         return {"ClassID": self.ClassID, "TrainerID": self.TrainerID, "CourseID": self.CourseID, "StartDate": self.StartDate, 
                 "EndDate": self.EndDate, "StartTime": self.StartTime, "EndTime": self.EndTime, "ClassName": self.ClassName, 
-                "ClassSize": self.ClassSize, "ClassDay": self.ClassDay}
+                "ClassSize": self.ClassSize}
 
 
 @app.route("/class")

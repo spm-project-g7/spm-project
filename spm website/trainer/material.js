@@ -28,7 +28,7 @@ async function addMaterial() {
         // Errors when calling the service; such as network error, 
         // service offline, etc
         console.log(error);
-        alert('There is a problem uploadign material, please try again later.');
+        alert('There is a problem uploading material, please try again later.');
     } // error
 
 };

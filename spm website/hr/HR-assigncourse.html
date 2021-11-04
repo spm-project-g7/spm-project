@@ -14,7 +14,9 @@
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="../assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -27,12 +29,16 @@
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
-  
+
   <!-- jQuery & Popper.js -->
   <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
 
   <!-- =======================================================
   * Template Name: Mentor - v4.4.0
@@ -53,53 +59,46 @@
       <!-- <a href="index.html" class="logo me-auto"><img src="../assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>          
-          
-              <li><a href="HR-Homepage.html">Home</a></li>
-              <li><a href="HR-assigncourse.html">Assign Courses To Learners</a></li>
-              <li><a href="HR-assigntrainer.html">Assign Trainers To Courses</a></li>
-              <li><a href="HR-courses.html">View and Create Courses</a></li>
-            </ul>
-          </li>
+        <ul>
+
+          <li><a href="HR-Homepage.html">Home</a></li>
+          <li><a href="HR-assigncourse.html">Assign Courses To Learners</a></li>
+          <li><a href="HR-assigntrainer.html">Assign Trainers To Courses</a></li>
+          <li><a href="HR-courses.html">View and Create Courses</a></li>
+        </ul>
+        </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
       <a href="../Homepage.html" class="get-started-btn">Logout</a>
     </div>
   </header><!-- End Header -->
-</div>
+  </div>
 
   <main id="main" data-aos="fade-in">
-<br>
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
+    <br>
 
     <!-- ======= HR Section ======= -->
-<form action="" method="post" id="assigncourse">
-<div class="container">
-  <label for="exampleDataList" class="form-label">Search For Learner</label>
-  <input class="form-control" list="engineerlist" id="engineerval" placeholder="Type to search...">
-  <datalist id="engineerlist">  </datalist>
-</div>
+    <form action="" method="post" id="assigncourse">
+      <div class="container">
+        <label for="exampleDataList" class="form-label">Search For Learner</label>
+        <input class="form-control" list="engineerlist" id="engineerval" placeholder="Type to search...">
+        <datalist id="engineerlist"> </datalist>
+      </div>
 
-<br>
+      <br>
 
-  <div class="container">
-    <label for="exampleDataList" class="form-label">Search For Course</label>
-    <input class="form-control" list="courselist" id="courseval" placeholder="Type to search..." onchange="getClasses()">
-    <datalist id="courselist">    </datalist>
-  </div>
+      <div class="container">
+        <label for="exampleDataList" class="form-label">Search For Course</label>
+        <input class="form-control" list="courselist" id="courseval" placeholder="Type to search..."
+          onchange="getClasses()">
+        <datalist id="courselist"> </datalist>
+      </div>
 
-  <br>
-
-  <div class="container">
-    <label for="exampleDataList" class="form-label">Search For Class</label>
-    <input class="form-control" list="classlist" id="classval" placeholder="Type to search...">
-    <datalist id="classlist"></datalist>
-  </div>
-
-<br> 
+      <br>
 
   <div class="col-auto" style="text-align: center;">
     <button type="button" class="btn btn-primary" onclick="assign()">Confirm Assignment</button>
@@ -127,45 +126,41 @@
                 dropdownelem.innerHTML = options;
             }
         }
-        catch (error) {
-            // Errors when calling the service; such as network error, 
-            // service offline, etc
-            alert('There is a problem fetching the list of engineers, please try again later.');
-        } // error
+      catch (error) {
+        // Errors when calling the service; such as network error, 
+        // service offline, etc
+        alert('There is a problem fetching the list of engineers, please try again later.');
+      } // error
     });
 
-    var months = {"Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", 
-                "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"}
-  
+    var months = {
+      "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06",
+      "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"
+    }
+
     $(async () => {
         var serviceURL = "http://127.0.0.1:5000/course";
         try {
-            const response =
+          const response =
             await fetch(
-                serviceURL, { method: 'GET' }
+              serviceURL, { method: 'GET' }
             );
-            const result = await response.json();
-            if (response.status == 200) {
-                // success case
-                var allCourses = result.data.courses; 
-                var options = "";
-                for (const course of allCourses) {
-                    var startDateArr = course.CourseValidStartDate.split(" ").slice(1,4);
-                    var startDateString = startDateArr[2] + "-" + months[startDateArr[1]] + "-" + startDateArr[0];
-                    var endDateArr = course.CourseValidEndDate.split(" ").slice(1,4);
-                    var endDateString = endDateArr[2] + "-" + months[endDateArr[1]] + "-" + endDateArr[0];
-
-                    options += "<option value = '" + course.CourseName + ", ID: " + course.CourseID +  ", Start: " + startDateString + 
-                                ", End: " + endDateString + "''></option>";
-                }
-                var dropdownelem = document.getElementById('courselist');
-                dropdownelem.innerHTML = options;
+          const result = await response.json();
+          if (response.status == 200) {
+            // success case
+            var allClasses = result.data.classes;
+            var options = "";
+            for (const oneclass of allClasses) {
+              options += "<option value = '" + oneclass.ClassID + "''>" + oneclass.ClassName + "</option>";
             }
+            var dropdownelem = document.getElementById('classlist');
+            dropdownelem.innerHTML = options;
+          }
         }
         catch (error) {
-            // Errors when calling the service; such as network error, 
-            // service offline, etc
-            alert('There is a problem fetching the list of courses, please try again later.');
+          // Errors when calling the service; such as network error, 
+          // service offline, etc
+          alert('There is a problem fetching the list of classes, please try again later.');
         } // error
     });
 
@@ -277,11 +272,21 @@
 
     </section><!-- End HR Section -->
 
-  </main><!-- End #main -->
+        }
+        catch (error) {
+          // Errors when calling the service; such as network error, 
+          // service offline, etc
+          console.log(error);
+          alert('There is a problem enrolling the engineer, please try again later.');
+        } // error
+      });
 
+    }
+  </script>
   <!-- ======= Footer ======= -->
   <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="../assets/vendor/aos/aos.js"></script>
@@ -293,9 +298,15 @@
   <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
 
 </body>
 
