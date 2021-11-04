@@ -298,7 +298,7 @@
             var yyyy = today.getFullYear();
             today = yyyy + '/' + mm + '/' + dd;
             var serviceURL = "http://127.0.0.1:5000/material/" + lessonID;
-            var jsondata = JSON.stringify({ MaterialTitle: matTitle, MaterialDescription: matDescr, LessonI: lessonID, 
+            var jsondata = JSON.stringify({ MaterialTitle: matTitle, MaterialDescription: matDescr, LessonId: lessonID, 
                                         LastUpdated: today, MaterialURL: matHyperlink, MaterialType: matType, CompleteStatus: null })
             console.log(jsondata);
             try {
