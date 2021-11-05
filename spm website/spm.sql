@@ -249,19 +249,19 @@ CREATE TABLE `quiz` (
   `PassingGrade` int(255) NOT NULL,
   `LessonID` int(255) NOT NULL,
   `QuizScore` int(255) DEFAULT NULL,
-  `QuizName` varchar(255) NOT NULL
-  `QuizTime` int(255) DEFAULT NULL,
+  `QuizName` varchar(255) NOT NULL,
+  `QuizTime` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `quiz`
 --
 
-INSERT INTO `quiz` (`QuizID`, `LastUpdated`, `GradedQuiz`, `PassingGrade`, `LessonID`, `QuizScore`, `QuizName`,`QuizName`) VALUES
-(1, '2021-10-08', 0, 50, 1, NULL, 'Quiz001'),
-(2, '2021-10-08', 0, 50, 2, NULL, 'Quiz001'),
-(3, '2021-10-08', 0, 50, 3, NULL, 'Quiz001'),
-(4, '2021-10-08', 0, 50, 4, NULL, 'Quiz001');
+INSERT INTO `quiz` (`QuizID`, `LastUpdated`, `GradedQuiz`, `PassingGrade`, `LessonID`, `QuizScore`, `QuizName`,`QuizTime`) VALUES
+(1, '2021-10-08', 0, 50, 1, NULL, 'Quiz001', 60),
+(2, '2021-10-08', 0, 50, 2, NULL, 'Quiz001', 60),
+(3, '2021-10-08', 0, 50, 3, NULL, 'Quiz001', 60),
+(4, '2021-10-08', 0, 50, 4, NULL, 'Quiz001', 60);
 
 -- --------------------------------------------------------
 
