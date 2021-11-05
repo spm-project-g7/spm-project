@@ -231,10 +231,10 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`QuizID`, `QuestionID`, `Options`, `Answer`, `Question`) VALUES
-(1, 1, 'math.h,studio.h,home.h,sudo.h', '1', 'In the standard library of C programming language, which of the following header file is designed for basic mathematical operations?\r\n'),
-(2, 1, 'Yes,No,I dont know', '2', '“Stderr” is a standard error.'),
-(3, 1, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '1', 'Which of the following header file can be used to define the NULL macro?'),
-(4, 1, 'True,False', '2', 'The size of both stack and heap remains the same during run time.');
+(1, 1, 'math.h,studio.h,home.h,sudo.h', 'sudo.h', 'In the standard library of C programming language, which of the following header file is designed for basic mathematical operations?\r\n'),
+(2, 1, 'True,False', 'False', '“Stderr” is a standard error.'),
+(3, 1, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', 'string.h', 'Which of the following header file can be used to define the NULL macro?'),
+(4, 1, 'True,False', 'True', 'The size of both stack and heap remains the same during run time.');
 
 -- --------------------------------------------------------
 
