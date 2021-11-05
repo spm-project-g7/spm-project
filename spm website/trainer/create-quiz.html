@@ -136,17 +136,17 @@
                                 </select> 
                                 <div class="row ml-4 mt-2" id="showqnstype1"></div>
                                 <div>
-                                    <button class="col-sm-5 btn btn-outline-secondary" type="button" id="add-qns1" onclick="deleteQuestion(this.id)">Delete Question</a>
+                                    <button class="col-sm-5 btn btn-outline-secondary" type='button' id="add-qns1" onclick="deleteQuestion(this.id)">Delete Question</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-3 mb-3">
-                    <button class="col-sm-4 btn btn-outline-secondary" type="button" id="add-qns" onclick="addQuestion()">Add New Question</a>
+                    <button class="col-sm-4 btn btn-outline-secondary" type='button' id="add-qns" onclick="addQuestion()">Add New Question</button>
                 </div>
                 <div class="row mt-3 mb-3">
-                    <button class="col-sm-3 btn btn-outline-secondary" type="button" id="create-quiz" onclick="createQuiz()">Create Quiz</a>
+                    <button class="col-sm-3 btn btn-outline-secondary" type='button' id="create-quiz" onclick="createQuiz()">Create Quiz</button>
                 </div>
             </form>
             <div id="error" style="text-align: center;">
@@ -224,7 +224,7 @@
                                         "</div>" +
                                     "</div>" +
                                     "<div>" +
-                                        "<button class='col-sm-5 btn btn-outline-secondary' type='button' id='add-qns" + qnscount.toString() + "' onclick='deleteQuestion(this.id)'>Delete Question</a>" +
+                                        "<button class='col-sm-5 btn btn-outline-secondary' type='button' id='add-qns" + qnscount.toString() + "' onclick='deleteQuestion(this.id)'>Delete Question</button>" +
                                     "</div>" +
                                 "</div>" +
                             "</div>" +
@@ -339,11 +339,11 @@
                                     "<div id='mcqoption" + qnscount.toString() + mcqoption.toString() + "'>" +
                                         "<input class='form-check-input' type='radio' name='flexRadioDefault'>" + 
                                         "<input type='text' class='form-control col-5 mr-4 allopts" + qnscount.toString() + "' placeholder='Please type in the option' id='mcqoption" + qnscount.toString() + mcqoption.toString() + "'>" +    
-                                        "<button class='btn btn-outline-secondary' type='button' id='del-option" + qnscount.toString() + mcqoption.toString() + "' onclick='deleteOption(this.id)'>Delete Option</a>" +                    
+                                        "<button class='btn btn-outline-secondary' type='button' id='del-option" + qnscount.toString() + mcqoption.toString() + "' onclick='deleteOption(this.id)'>Delete Option</button>" +                    
                                     "</div>" +
                                 "</div>" +
                                 "<div>" + 
-                                    "<button class='btn btn-outline-secondary' type='button' id='add-option" + qnscount.toString() + "' onclick='addOption(this.id)'>Add Option</a>" +
+                                    "<button class='btn btn-outline-secondary' type='button' id='add-option" + qnscount.toString() + "' onclick='addOption(this.id)'>Add Option</button>" +
                                 "</div>" 
                         );
                     }
@@ -356,7 +356,7 @@
                         "<div id='mcqoption" + qnscount.toString() + mcqoption.toString() + "'>" +
                             "<input class='form-check-input' type='radio' name='flexRadioDefault'>" + 
                             "<input type='text' class='form-control col-5 mr-4 allopts" + qnscount.toString() + "' placeholder='Please type in the option' id ='mcqoption" + qnscount.toString() + mcqoption.toString() + "'>" +               
-                            "<button class='btn btn-outline-secondary' type='button' id='del-option" + qnscount.toString() + mcqoption.toString() + "' onclick='deleteOption(this.id)'>Delete Option</a>" +                             
+                            "<button class='btn btn-outline-secondary' type='button' id='del-option" + qnscount.toString() + mcqoption.toString() + "' onclick='deleteOption(this.id)'>Delete Option</button>" +                             
                         "</div>"
                     );
                 }
@@ -368,12 +368,58 @@
                     mcqoption -= 1;
                 }
 
+                function insertQuestions() {
+                    var count = 0;
+                    $(async () => {
+                        for (i = 0; i < total.length; i++) {
+                            var data = total[i];
+                            var qnsID = i + 1;
+                            var jsondata = JSON.stringify({ QuestionID: qnsID, Options: data.options.toString(), Question: data.question, Answer: data.answer });
+                            var serviceURL = "http://127.0.0.1:5000/question/create/" + quizID;
+                            try {
+                                const response =
+                                await fetch(
+                                    serviceURL, {
+                                    method: 'POST',
+                                    headers: { "Content-Type": "application/json" },
+                                    body: jsondata,
+                                });
+                                const data = await response.json();
+                                const information = await data;
+                                count += 1;
+                                console.log(information);
+                                if(response.ok){
+                                    // alert("Question successfully created!");
+                                } else {
+                                    alert(data.message);
+                                    // alert("An error occurred.");
+                                }  
+                            }
+                            catch (error) {
+                                // Errors when calling the service; such as network error, 
+                                // service offline, etc
+                                console.log(error);
+                                // alert(error);
+                            } // error
+                        }
+                        console.log(count);
+                        console.log(total);
+                        if (count != total.length) {
+                            alert('There is a problem creating the questions, please try again later.');
+                        }
+                        else {
+                            alert('Questions successfully created!');
+                        }
+
+                    });
+
+                }
+
                 function createQuiz() {
                     pushToList();
                     var quizName = document.getElementById('quiz-name').value;
                     var quizPassGrade = document.getElementById('quiz-grade').value;
                     var quizScore = document.getElementById('quiz-score').value;
-                    var count = 0;
                     $(async () => {
                         var lessonID = $('#quiz-lesson').val();
                         var lastUpdated = $('#quizdate').val();
@@ -384,7 +430,6 @@
                         var serviceURL = "http://127.0.0.1:5000/quiz/create/" + lessonID;
                         var jsondata = JSON.stringify({ LastUpdated: lastUpdated, GradedQuiz: graded, PassingGrade: passing, LessonID: lessonID, 
                                                         QuizScore: quizScore, QuizName: quizName });
-                        // console.log(jsondata);
                         try {
                             const response =
                             await fetch(serviceURL, 
@@ -397,9 +442,7 @@
                                 
                             });
                             const data = await response.json();
-                            console.log(response);
                             const information = await data;
-                            console.log(information);
                             if(response.ok){
                                 alert("Quiz successfully created!");
                             } else {
@@ -415,53 +458,10 @@
                         } // error
                     });
 
-                    $(async () => {
-                        for (i = 0; i < total.length; i++) {
-                            var data = total[i];
-                            var qnsID = i + 1;
-                            var jsondata = JSON.stringify({ QuestionID: qnsID, Options: data.options.toString(), Question: data.question, Answer: data.answer });
-                            console.log(jsondata);
-                            var serviceURL = "http://127.0.0.1:5000/question/create/" + quizID;
-                            console.log(serviceURL);
-                            try {
-                                const response =
-                                await fetch(
-                                    serviceURL, {
-                                    method: 'POST',
-                                    headers: { "Content-Type": "application/json" },
-                                    body: jsondata,
-                                });
-                                const data = await response.json();
-                                console.log(data);
-                                const information = await data;
-                                console.log(information);
-                                if(response.ok){
-                                    count += 1;
-                                    // alert("Question successfully created!");
-                                } else {
-                                    alert(data.message);
-                                    // alert("An error occurred.");
-                                }  
-                            }
-                            catch (error) {
-                                // Errors when calling the service; such as network error, 
-                                // service offline, etc
-                                console.log(error);
-                                alert(error);
-                            } // error
-                        }
-
-                    });
-
-                    if (count != total.length) {
-                        alert('There is a problem creating the questions, please try again later.');
-                    }
-                    else {
-                        alert('Questions successfully created!');
-                    }
-
+                    insertQuestions();
 
                 }
+
             
 
             </script>        
