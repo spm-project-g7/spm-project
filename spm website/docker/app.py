@@ -457,8 +457,9 @@ class Quiz(db.Model):
     LessonID = db.Column(db.Integer, nullable=False)
     QuizScore = db.Column(db.Integer, nullable=True)
     QuizName = db.Column(db.String(255), nullable=True)
+    QuizTime = db.Column(db.Integer, nullable=True)
 
-    def __init__(self, QuizID, LastUpdated, GradedQuiz, PassingGrade, LessonID, QuizScore, QuizName):
+    def __init__(self, QuizID, LastUpdated, GradedQuiz, PassingGrade, LessonID, QuizScore, QuizName, QuizTime):
         self.QuizID = QuizID
         self.LastUpdated = LastUpdated
         self.GradedQuiz = GradedQuiz
@@ -466,10 +467,11 @@ class Quiz(db.Model):
         self.LessonID = LessonID
         self.QuizScore = QuizScore
         self.QuizName = QuizName
+        self.QuizTime = QuizTime
 
     def json(self):
         return {"QuizID": self.QuizID, "LastUpdated": self.LastUpdated, "GradedQuiz": self.GradedQuiz, 
-                "PassingGrade": self.PassingGrade, "LessonID": self.LessonID, "QuizScore": self.QuizScore, "QuizName": self.QuizName}
+                "PassingGrade": self.PassingGrade, "LessonID": self.LessonID, "QuizScore": self.QuizScore, "QuizName": self.QuizName, "QuizTime": self.QuizTime}
 
 # get all quizzes in database
 @app.route("/quiz")
