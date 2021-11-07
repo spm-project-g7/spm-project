@@ -423,6 +423,7 @@
                     var quizName = document.getElementById('quiz-name').value;
                     var quizPassGrade = document.getElementById('quiz-grade').value;
                     var quizScore = document.getElementById('quiz-score').value;
+                    var quizTime = parseInt(document.getElementById('quiz-time')).value;
                     $(async () => {
                         var lessonID = $('#quiz-lesson').val();
                         var lastUpdated = $('#quizdate').val();
@@ -430,9 +431,10 @@
                         var passing = $('#quiz-grade').val();
                         var quizName = $('#quiz-name').val();
                         var quizScore = $('#quiz-score').val();
+                        var quizTime = $('#quiz-time').int();
                         var serviceURL = "http://127.0.0.1:5000/quiz/create/" + lessonID;
                         var jsondata = JSON.stringify({ LastUpdated: lastUpdated, GradedQuiz: graded, PassingGrade: passing, LessonID: lessonID, 
-                                                        QuizScore: quizScore, QuizName: quizName });
+                                                        QuizScore: quizScore, QuizName: quizName, QuizTime: quizTime });
                         try {
                             const response =
                             await fetch(serviceURL, 
