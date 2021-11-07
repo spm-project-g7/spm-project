@@ -181,7 +181,9 @@
         <div class="row" id="lessontable" style="border:3px solid #37423b">
             <div class="col-md-6" style="border-right:3px solid #37423b;display: inline-block; ">
                 <div class="row">
-                    <label style="color:#37423b;text-align: center;font-size: 25px;text-decoration: underline;margin-top: 20px;">Learning Materials</label>
+                    <label
+                        style="color:#37423b;text-align: center;font-size: 25px;text-decoration: underline;margin-top: 20px;">Learning
+                        Materials</label>
                 </div>
                 <label style="margin:20px;">Material Title:</label><label id="materialTitle"></label>
                 <br>
@@ -194,7 +196,9 @@
             </div>
             <div class="col-md-6">
                 <div class="row">
-                    <label style="color:#37423b;text-align: center;font-size: 25px;text-decoration: underline;margin-top: 20px;">Quiz Details</label>
+                    <label
+                        style="color:#37423b;text-align: center;font-size: 25px;text-decoration: underline;margin-top: 20px;">Quiz
+                        Details</label>
                 </div>
                 <label style="margin:20px;">Quiz Name:</label><label id="classStart"></label>
                 <br>
@@ -221,12 +225,12 @@
     <script>
         var engineerID = 3;
         var trainerId = ""
+        var courseId = 0;
+        var classId = 0;
         function loadEnrollment() {
             document.getElementById("lessontable").style.visibility = "hidden";
-            var courseId = 0;
-            var classId = 0;
+
             //get courseID from enrollment by engineerID
-            console.log(engineerID);
             $(async () => {
                 var serviceURL = "http://127.0.0.1:5006/enrollment/" + engineerID;
                 try {
@@ -238,8 +242,9 @@
                     const result = await response.json();
                     if (response.status == 200) {
                         // success case
-                        console.log("HI");
-                        courseId = result.data.courseID
+                        courseId = result.data.CourseID;
+                        getCourseDetail()
+                        getClassDetail()
                     }
                 }
                 catch (error) {
@@ -249,6 +254,9 @@
                     alert('There is a problem fetching the enrollment, please try again later.');
                 } // error
             });
+
+        }
+        function getCourseDetail() {
             //get course detail from courseID
             $(async () => {
                 var serviceURL = "http://127.0.0.1:5004/course/" + courseId;
@@ -271,54 +279,72 @@
                     alert('There is a problem fetching the course details, please try again later.');
                 } // error
             });
-            // //get class detail(classID) from courseID
-            // $(async () => {
-                // var serviceURL = "http://127.0.0.1:5005/class/singleclass/" + courseId;
-                // try {
-                    // const response =
-                        // await fetch(
-                            // serviceURL, { method: 'GET' }
-                        // );
-                    // const result = await response.json();
-                    // if (response.status == 200) {
-                        // // success case
-                        // classId = result.data.classId
-                    // }
-                // }
-                // catch (error) {
-                    // // Errors when calling the service; such as network error, 
-                    // // service offline, etc
-                    // console.log(error)
-                    // alert('There is a problem fetching the course details, please try again later.');
-                // } // error
-            // });
-            // //get lesson list from classID
-            // $(async () => {
-                // var serviceURL = "http://127.0.0.1:5001/lessonlist/" + classId;
-                // try {
-                    // const response =
-                        // await fetch(
-                            // serviceURL, { method: 'GET' }
-                        // );
-                    // const result = await response.json();
-                    // if (response.status == 200) {
-                        // // success case
-                        // var lessons = result.data.lessonList
-
-                    // }
-                // }
-                // catch (error) {
-                    // // Errors when calling the service; such as network error, 
-                    // // service offline, etc
-                    // console.log(error)
-                    // alert('There is a problem fetching the course details, please try again later.');
-                // } // error
-            // });
-
-
-
-
         }
+        //get class detail(classID) from courseID
+        function getClassDetail() {
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5005/class/singleclass/" + courseId;
+                try {
+                    const response =
+                        await fetch(
+                            serviceURL, { method: 'GET' }
+                        );
+                    const result = await response.json();
+                    if (response.status == 200) {
+                        // success case
+                        classobj = result.data.classobj;
+
+                        document.getElementById("className").innerHTML = String(classobj.ClassName);
+                        document.getElementById("classStart").innerHTML = String(classobj.StartTime);
+                        document.getElementById("classEnd").innerHTML = String(classobj.EndTime);
+                        document.getElementById("startDate").innerHTML = String(formatDate(classobj.StartDate));
+                        document.getElementById("endDate").innerHTML = String(formatDate(classobj.EndDate));
+                        document.getElementById("classSize").innerHTML = String(classobj.ClassSize);
+                        document.getElementById("trainerName").innerHTML = String(classobj.TrainerID);
+                        selectedCourseStartDate = classobj.StartDate;
+                        selectedCourseEndDate = classobj.EndDate;
+
+                        classId = classobj.ClassID
+                        
+                        replacetrainerName()
+                        getLessonDetail()
+
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    console.log(error)
+                    alert('There is a problem fetching the classes details, please try again later.');
+                } // error
+            });
+        }
+        //get lesson list from classID
+        function getLessonDetail() {
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5001/lessonlist/" + classId;
+                try {
+                    const response =
+                        await fetch(
+                            serviceURL, { method: 'GET' }
+                        );
+                    const result = await response.json();
+                    if (response.status == 200) {
+                        // success case
+                        var lessons = result.data.lessonList
+                        console.log(lessons)
+
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    console.log(error)
+                    alert('There is a problem fetching the lesson details, please try again later.');
+                } // error
+            });
+        }
+
         function showdropdown() {
             var dropdownclass = document.getElementById("selectcourse");
             if (dropdownclass.classList.contains("show")) {

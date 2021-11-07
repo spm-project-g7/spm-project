@@ -103,7 +103,7 @@ def find_by_CourseID(CourseID):
 
 ##get single class by course ID
 @app.route("/class/singleclass/<string:CourseID>")
-def find_by_CourseID(CourseID):
+def find_singleclass_by_CourseID(CourseID):
     classObj = Classes.query.filter_by(CourseID=CourseID).first()
     if classObj:
         return jsonify(

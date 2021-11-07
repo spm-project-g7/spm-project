@@ -115,7 +115,7 @@ def create_class(LessonID):
 
 # get lesson list by class
 @app.route("/lessonlist/<string:classID>")
-def find_by_class(ClassID):
+def find_lessonlist_by_class(ClassID):
     lessonList = Lesson.query.filter_by(ClassID=ClassID)
     if lessonList:
         return jsonify(
