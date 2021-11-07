@@ -46,6 +46,24 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
+    <style>
+        .dropdown-menu {
+            background-color: #6c757d;
+            color: white;
+            margin: auto;
+            text-align: center;
+        }
+
+        .dropdown-item {
+            background-color: #6c757d;
+            color: black;
+        }
+
+        .dropdown-item:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+    </style>
 </head>
 
 <body onload="loadEnrollment()">
@@ -171,13 +189,18 @@
             <div class="dropdown show">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                     onclick="showdropdown()" aria-haspopup="true" aria-expanded="false"
-                    style="background-color :#6c757d;color: white;margin-top: 20px;margin-bottom: 20px;">
-                    ------------------Select Lessons------------------
+                    style="background-color :#6c757d;color: white;margin-top: 20px;">
+                    <label>Select Lesson</label>
                 </a>
-                <div class="dropdown-menu" visibility="visible" id="selectcourse" aria-labelledby="dropdownMenuLink">
+                <div class="row" style="text-align: center;">
+                    <div class="dropdown-menu" visibility="visible" id="selectlesson" aria-labelledby="dropdownMenuLink"
+                        style="width: fit-content;align-items: center;">
+                    </div>
                 </div>
             </div>
         </div>
+        <br>
+        <br>
         <div class="row" id="lessontable" style="border:3px solid #37423b">
             <div class="col-md-6" style="border-right:3px solid #37423b;display: inline-block; ">
                 <div class="row">
@@ -189,7 +212,7 @@
                 <br>
                 <label style="margin:20px;">Material Description:</label><label id="materialDesc"></label>
                 <br>
-                <label style="margin:20px;">Last Updated:</label><label id="lastUpdate"></label>
+                <label style="margin:20px;">Last Updated:</label><label id="lessonLastUpdate"></label>
                 <br>
                 <label style="margin:20px;">Material URL:</label><label id="materialURL"></label>
 
@@ -200,25 +223,18 @@
                         style="color:#37423b;text-align: center;font-size: 25px;text-decoration: underline;margin-top: 20px;">Quiz
                         Details</label>
                 </div>
-                <label style="margin:20px;">Quiz Name:</label><label id="classStart"></label>
+                <label style="margin:20px;">Quiz Name:</label><label id="quizName"></label>
                 <br>
-                <label style="margin:20px;">Passing Grade:</label><label id="classEnd"></label>
+                <label style="margin:20px;">Passing Grade:</label><label id="passingGrade"></label>
                 <br>
-                <label style="margin:20px;">Last Updated:</label><label id="trainerName"></label>
+                <label style="margin:20px;">Last Updated:</label><label id="quizLastUpdate"></label>
                 <br>
-                <button class="btn btn-secondary" type="button" style="margin:20px;float: right;">Take Quiz</button>
+                <button class="btn btn-secondary" type="button" style="margin:20px;float: right;"
+                    onclick="goToTakeQuiz()">Take Quiz</button>
 
             </div>
 
         </div>
-
-
-
-
-
-
-
-
     </main>
     <!-- End #main -->
 
@@ -227,8 +243,12 @@
         var trainerId = ""
         var courseId = 0;
         var classId = 0;
+        var selectedQuizId = 0;
+        var selectedLessonIndex = 0;
+        var selectedQuizTime = 0;
+
         function loadEnrollment() {
-            document.getElementById("lessontable").style.visibility = "hidden";
+            //document.getElementById("lessontable").style.visibility = "hidden";
 
             //get courseID from enrollment by engineerID
             $(async () => {
@@ -305,7 +325,7 @@
                         selectedCourseEndDate = classobj.EndDate;
 
                         classId = classobj.ClassID
-                        
+
                         replacetrainerName()
                         getLessonDetail()
 
@@ -334,6 +354,13 @@
                         var lessons = result.data.lessonList
                         console.log(lessons)
 
+                        var dropdownitem = "";
+                        for (const lesson of lessons) {
+                            dropdownitem += "<a class='dropdown-item' href='#' onclick='selectIndex(" + lesson.LessonID + ")' value = '" + lesson.LessonID + "'>" + lesson.LessonName + "</a>";
+                        }
+                        var dropdownelem = document.getElementById('selectlesson');
+                        dropdownelem.innerHTML = dropdownitem;
+
                     }
                 }
                 catch (error) {
@@ -346,32 +373,31 @@
         }
 
         function showdropdown() {
-            var dropdownclass = document.getElementById("selectcourse");
+            var dropdownclass = document.getElementById("selectlesson");
             if (dropdownclass.classList.contains("show")) {
                 $(dropdownclass).removeClass("show");
             } else {
                 $(dropdownclass).addClass("show");
             }
-            loadCourses();
+            loadEnrollment();
         }
 
-        function selectIndex(selectedCourseIndex) {
-            var dropdownclass = document.getElementById("selectcourse");
+        function selectIndex(selectedIndex) {
+            var dropdownclass = document.getElementById("selectlesson");
             if (dropdownclass.classList.contains("show")) {
                 $(dropdownclass).removeClass("show");
             } else {
                 $(dropdownclass).addClass("show");
             }
-            selectedValue = selectedCourseIndex;
-            //selectedName = selectedCourseName;
-            loadCourses();
+            selectedLessonIndex = selectedIndex;
             showLabel();
         }
 
         function showLabel() {
             //Get Class by selected course
+            console.log(selectedLessonIndex)
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5005/class/course/" + selectedValue;
+                var serviceURL = "http://127.0.0.1:5008/learningmaterial/" + selectedLessonIndex;
                 try {
                     const response =
                         await fetch(
@@ -381,31 +407,26 @@
                     const result = await response.json();
                     if (response.status == 200) {
                         // success case
-                        var allClasses = result.data.classes;
-                        for (const classobj of allClasses) {
-                            document.getElementById("className").innerHTML = String(classobj.ClassName);
-                            document.getElementById("classStart").innerHTML = String(classobj.StartTime);
-                            document.getElementById("classEnd").innerHTML = String(classobj.EndTime);
-                            document.getElementById("startDate").innerHTML = String(formatDate(classobj.StartDate));
-                            document.getElementById("endDate").innerHTML = String(formatDate(classobj.EndDate));
-                            document.getElementById("classSize").innerHTML = String(classobj.ClassSize);
-                            document.getElementById("trainerName").innerHTML = String(classobj.TrainerID);
-                            selectedCourseStartDate = classobj.StartDate;
-                            selectedCourseEndDate = classobj.EndDate;
-                        }
+                        var lesson = result.data
+                        console.log(result.data)
+                        document.getElementById("materialTitle").innerHTML = String(lesson.MaterialTitle);
+                        document.getElementById("materialDesc").innerHTML = String(lesson.MaterialDescription);
+                        document.getElementById("lessonLastUpdate").innerHTML = String(formatDate(lesson.LastUpdated));
+                        document.getElementById("materialURL").innerHTML = String(lesson.MaterialURL);
+
                     }
                 }
                 catch (error) {
                     // Errors when calling the service; such as network error, 
                     // service offline, etc
                     console.log(error)
-                    alert('There is a problem fetching the list of classes, please try again later.');
+                    alert('There is a problem fetching the list of lesson, please try again later.');
                 } // error
-                replacetrainerName();
             });
-            //Get Course By Selected ID
+            //Get Quiz Detail By LessonID
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5004/course/" + selectedValue;
+                var serviceURL = "http://127.0.0.1:5003/quiz/" + selectedLessonIndex;
+                console.log(selectedLessonIndex)
                 try {
                     const response =
                         await fetch(
@@ -415,19 +436,44 @@
                     const result = await response.json();
                     if (response.status == 200) {
                         // success case
-                        var courseobj = result.data;
-                        document.getElementById("courseName").innerHTML = String(courseobj.CourseName);
+                        var quiz = result.data
+                        console.log(result.data)
+                        document.getElementById("quizName").innerHTML = String(quiz.QuizName);
+                        document.getElementById("passingGrade").innerHTML = String(quiz.PassingGrade);
+                        document.getElementById("quizLastUpdate").innerHTML = String(formatDate(quiz.LastUpdated));
+                        selectedQuizId = quiz.quizID
+                        selectedQuizTime = quiz.QuizTime
                     }
                 }
                 catch (error) {
                     // Errors when calling the service; such as network error, 
                     // service offline, etc
                     console.log(error)
-                    alert('There is a problem fetching the course, please try again later.');
+                    alert('There is a problem fetching the quiz, please try again later.');
                 } // error
             });
+
         }
 
+        function goToTakeQuiz() {
+            if (selectedQuizId != 0 && selectedLessonIndex != 0) {
+                window.location = 'learner-quiz.html?course=' + courseId + '&lesson=' + selectedLessonIndex + '&quiz=' + selectedQuizTime
+            } else {
+                alert("Please select lesson")
+            }
+        }
+
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = RLVbles[i].split('=');
+                if (sParameterName[0] == ram) {
+                    return sPararName[1];
+                }
+            }
+        }
+        //engineerID = parseInt(GetURLParameter('engineerID'));
 
         //format date function
         function formatDate(date) {
@@ -468,46 +514,6 @@
                 } // error
             });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </script>
 
