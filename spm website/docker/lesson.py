@@ -113,5 +113,25 @@ def create_class(LessonID):
         },
     ), 201
 
+# get lesson list by class
+@app.route("/lessonlist/<string:classID>")
+def find_by_class(ClassID):
+    lessonList = Lesson.query.filter_by(ClassID=ClassID)
+    if lessonList:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                   "lessonList": [lesson.json() for lesson in lessonList]
+                }
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No lessons found."
+        }
+    ), 404
+
 if __name__ == '__main__':
     app.run(port=5001, debug=True)

@@ -101,6 +101,26 @@ def find_by_CourseID(CourseID):
         }
     ), 404
 
+##get single class by course ID
+@app.route("/class/singleclass/<string:CourseID>")
+def find_by_CourseID(CourseID):
+    classObj = Classes.query.filter_by(CourseID=CourseID).first()
+    if classObj:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "classobj": classObj.json()
+                }
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No class found."
+        }
+    ), 404
+
 
 if __name__ == '__main__':
     app.run(port=5005, debug=True)

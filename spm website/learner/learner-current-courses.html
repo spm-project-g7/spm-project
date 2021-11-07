@@ -48,7 +48,7 @@
     ======================================================== -->
 </head>
 
-<body onload="loadCourses()">
+<body onload="loadEnrollment()">
 
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top">
@@ -107,22 +107,19 @@
         <!-- ======= Breadcrumbs ======= -->
         <div class="breadcrumbs" data-aos="fade-in">
             <div class="container">
-                <h2>Self Enrollment</h2>
-                <p>Enroll to course that you are interested</p>
+                <h2>View My Course</h2>
+                <p>Take lesson/View Course Materials</p>
             </div>
         </div><!-- End Breadcrumbs -->
 
         <!-- ======= Specific Course Details Section ======= -->
         <div class="container" style="margin-top: 20px;margin-bottom: 20px;">
-            <div class="row">
-                <label style="color:#37423b;text-align: center;font-size: 30px;font-weight: bold;margin-bottom: 20px;">Self Enrollment</label>
-            </div>
-            <div class="row mt-12">
+            <!--<div class="row mt-12">
                 <div class="input-group col-8" style="margin: auto;">
                     <div class="dropdown show">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             onclick="showdropdown()" aria-haspopup="true" aria-expanded="false"
-                            style="background-color :#6c757d;">
+                            style="background-color :#5fcf80;">
                             ------------------Select Courses------------------
                         </a>
 
@@ -136,11 +133,15 @@
                             course</button>
                     </div>
                 </div>
-                <!--<a href="class-quiz.html" class="col-3 btn btn-outline-secondary ml-5" id="create-quiz">View all Quizzes for Class</a>-->
+               //<a href="class-quiz.html" class="col-3 btn btn-outline-secondary ml-5" id="create-quiz">View all Quizzes for Class</a>
+            </div>-->
+            <div class="row">
+                <label style="color:#37423b;text-align: center;font-size: 30px;font-weight: bold;">Enrollment
+                    Info</label>
             </div>
         </div>
         <div class="row" style="border:3px solid #37423b">
-            <div class="col-md-6" style="border-radius:5px;display: inline-block;  ">
+            <div class="col-md-6" style="display: inline-block;  ">
                 <label style="margin:20px;">Course Name:</label><label id="courseName"></label>
                 <br>
                 <label style="margin:20px;">Class Name:</label><label id="className"></label>
@@ -150,7 +151,7 @@
                 <label style="margin:20px;">End Date:</label><label id="endDate"></label>
 
             </div>
-            <div class="col-md-6" style="border-radius:5px;">
+            <div class="col-md-6">
                 <label style="margin:20px;">Class Start Time:</label><label id="classStart"></label>
                 <br>
                 <label style="margin:20px;">Class End Time:</label><label id="classEnd"></label>
@@ -161,8 +162,51 @@
 
             </div>
 
-        </div>
 
+        </div>
+        <div class="row" style="margin-top: 20px;margin-bottom: 20px;">
+            <label style="color:#37423b;text-align: center;font-size: 30px;font-weight: bold;">Lesson</label>
+        </div>
+        <div class="row" style="text-align: center;">
+            <div class="dropdown show">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    onclick="showdropdown()" aria-haspopup="true" aria-expanded="false"
+                    style="background-color :#6c757d;color: white;margin-top: 20px;margin-bottom: 20px;">
+                    ------------------Select Lessons------------------
+                </a>
+                <div class="dropdown-menu" visibility="visible" id="selectcourse" aria-labelledby="dropdownMenuLink">
+                </div>
+            </div>
+        </div>
+        <div class="row" id="lessontable" style="border:3px solid #37423b">
+            <div class="col-md-6" style="border-right:3px solid #37423b;display: inline-block; ">
+                <div class="row">
+                    <label style="color:#37423b;text-align: center;font-size: 25px;text-decoration: underline;margin-top: 20px;">Learning Materials</label>
+                </div>
+                <label style="margin:20px;">Material Title:</label><label id="materialTitle"></label>
+                <br>
+                <label style="margin:20px;">Material Description:</label><label id="materialDesc"></label>
+                <br>
+                <label style="margin:20px;">Last Updated:</label><label id="lastUpdate"></label>
+                <br>
+                <label style="margin:20px;">Material URL:</label><label id="materialURL"></label>
+
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <label style="color:#37423b;text-align: center;font-size: 25px;text-decoration: underline;margin-top: 20px;">Quiz Details</label>
+                </div>
+                <label style="margin:20px;">Quiz Name:</label><label id="classStart"></label>
+                <br>
+                <label style="margin:20px;">Passing Grade:</label><label id="classEnd"></label>
+                <br>
+                <label style="margin:20px;">Last Updated:</label><label id="trainerName"></label>
+                <br>
+                <button class="btn btn-secondary" type="button" style="margin:20px;float: right;">Take Quiz</button>
+
+            </div>
+
+        </div>
 
 
 
@@ -175,15 +219,16 @@
     <!-- End #main -->
 
     <script>
-        var selectedValue = ""
-        //var selectedName = ""
-        var selectedCourseStartDate = ""
-        var selectedCourseEndDate = ""
+        var engineerID = 3;
         var trainerId = ""
-        function loadCourses() {
-
+        function loadEnrollment() {
+            document.getElementById("lessontable").style.visibility = "hidden";
+            var courseId = 0;
+            var classId = 0;
+            //get courseID from enrollment by engineerID
+            console.log(engineerID);
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5004/course";
+                var serviceURL = "http://127.0.0.1:5006/enrollment/" + engineerID;
                 try {
                     const response =
                         await fetch(
@@ -193,23 +238,85 @@
                     const result = await response.json();
                     if (response.status == 200) {
                         // success case
-                        var allCourses = result.data.courses;
-                        var dropdownitem = "";
-                        for (const course of allCourses) {
-                            dropdownitem += "<a class='dropdown-item' href='#' onclick='selectIndex(" + course.CourseID + ")' value = '" + course.CourseID + "'>" + course.CourseName + "</a>";
-
-                        }
-                        var dropdownelem = document.getElementById('selectcourse');
-                        dropdownelem.innerHTML = dropdownitem;
+                        console.log("HI");
+                        courseId = result.data.courseID
                     }
                 }
                 catch (error) {
                     // Errors when calling the service; such as network error, 
                     // service offline, etc
                     console.log(error)
-                    alert('There is a problem fetching the list of courses, please try again later.');
+                    alert('There is a problem fetching the enrollment, please try again later.');
                 } // error
             });
+            //get course detail from courseID
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5004/course/" + courseId;
+                try {
+                    const response =
+                        await fetch(
+                            serviceURL, { method: 'GET' }
+                        );
+                    const result = await response.json();
+                    if (response.status == 200) {
+                        // success case
+                        var courseobj = result.data;
+                        document.getElementById("courseName").innerHTML = String(courseobj.CourseName);
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    console.log(error)
+                    alert('There is a problem fetching the course details, please try again later.');
+                } // error
+            });
+            // //get class detail(classID) from courseID
+            // $(async () => {
+                // var serviceURL = "http://127.0.0.1:5005/class/singleclass/" + courseId;
+                // try {
+                    // const response =
+                        // await fetch(
+                            // serviceURL, { method: 'GET' }
+                        // );
+                    // const result = await response.json();
+                    // if (response.status == 200) {
+                        // // success case
+                        // classId = result.data.classId
+                    // }
+                // }
+                // catch (error) {
+                    // // Errors when calling the service; such as network error, 
+                    // // service offline, etc
+                    // console.log(error)
+                    // alert('There is a problem fetching the course details, please try again later.');
+                // } // error
+            // });
+            // //get lesson list from classID
+            // $(async () => {
+                // var serviceURL = "http://127.0.0.1:5001/lessonlist/" + classId;
+                // try {
+                    // const response =
+                        // await fetch(
+                            // serviceURL, { method: 'GET' }
+                        // );
+                    // const result = await response.json();
+                    // if (response.status == 200) {
+                        // // success case
+                        // var lessons = result.data.lessonList
+
+                    // }
+                // }
+                // catch (error) {
+                    // // Errors when calling the service; such as network error, 
+                    // // service offline, etc
+                    // console.log(error)
+                    // alert('There is a problem fetching the course details, please try again later.');
+                // } // error
+            // });
+
+
+
 
         }
         function showdropdown() {
@@ -336,46 +443,45 @@
             });
         }
 
-        function enroll() {
-            if (selectedValue == "") {
-                alert("Please Select A Course");
-            } else {
-                $(async () => {
-                    var courseID = selectedValue;
-                    var courseStart = formatDate(selectedCourseStartDate);
-                    var courseEnd = formatDate(selectedCourseEndDate);
-                    var engineerID = 3
-                    var serviceURL = "http://127.0.0.1:5006/enrol/" + courseID + "/" + engineerID;
-                    var jsondata = JSON.stringify({
-                        StartDate: courseStart, EndDate: courseEnd,
-                        AssignedHR: null, CourseCompleteRate: 0, CompleteStatus: "Not Complete", FinalQuizScore: 0
-                    })
-                    try {
-                        const response =
-                            await fetch(
-                                serviceURL, {
-                                method: 'POST',
-                                headers: { "Content-Type": "application/json" },
-                                body: jsondata,
-                            });
-                        const data = await response.json();
-                        const information = await data;
-                        if (response.ok) {
-                            alert("Engineer successfully enrolled!");
-                        } else {
-                            alert("An error occurred.");
-                        }
 
-                    }
-                    catch (error) {
-                        // Errors when calling the service; such as network error, 
-                        // service offline, etc
-                        console.log(error);
-                        alert('There is a problem enrolling the engineer, please try again later.');
-                    } // error
-                });
-            }
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </script>
 
