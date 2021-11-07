@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Course Details</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Template Main CSS File -->
+    <link href="../assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Mentor - v4.4.0
+    * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    
+
+    <main id="main">
+
+        <!-- ======= Breadcrumbs ======= -->
+      
+           
+        </div>
+        </div><!-- End Breadcrumbs -->
+        <div id="1">
+        <button onclick= getQuestion(this.id)  id="1">Start </button>
+            
+        </div> 
+
+        <div class="quizContainer container-fluid well well-lg" id="1">
+            
+                
+            <div style="color:#FF0000;" ><span id="iTimeShow">Time Remaining: </span><br/><span id='timer' style="font-size:25px;"></span></div>
+            <div  class="question"></div>
+            <ul class="choiceList"></ul>
+            <div class="quizMessage"></div>
+            <div class="result"></div>
+            <button class="preButton">Previous Question</button>
+            <button class="nextButton">Next Question</button>
+        </div>
+        <!--<button onclick= getQuestion(this.id)  id="1">Start </button>-->
+        
+        
+<script>
+var questions = []
+
+function getQuestion(quizID){
+    $(async () => {
+        console.log(quizID)
+        var serviceURL = "http://127.0.0.1:5000/question/" + quizID;
+        console.log(serviceURL)
+        try {
+            const response =
+            await fetch(
+                serviceURL, { method: 'GET' }
+            );
+            const result = await response.json();
+            if (response.status == 200) {
+                // success case
+                var allQuestions = result.data.questions; 
+                //var options = "";
+                //console.log(allQuestions)
+                var questions = allQuestions
+                //return questions = allQuestions
+                //console.log(questions)
+                var currentQuestion = 0;
+
+var correctAnswers = 0;
+var quizOver = false;
+var iSelectedAnswer = [];
+	var c=180;
+	var t;
+$(document).ready(function () 
+{
+    // Display the first question
+    displayCurrentQuestion();
+    $(this).find(".quizMessage").hide();
+    $(this).find(".preButton").attr('disabled', 'disabled');
+	
+	timedCount();
+	
+	$(this).find(".preButton").on("click", function () 
+	{		
+		
+        if (!quizOver) 
+		{
+			if(currentQuestion == 0) { return false; }
+	
+			if(currentQuestion == 1) {
+			  $(".preButton").attr('disabled', 'disabled');
+			}
+			
+				currentQuestion--; // Since we have already displayed the first question on DOM ready
+				if (currentQuestion < questions.length) 
+				{
+					displayCurrentQuestion();
+					
+				} 					
+		} 
+    });
+
+	
+	// On clicking next, display the next question
+    $(this).find(".nextButton").on("click", function () 
+	{
+        if (!quizOver) 
+		{
+			
+            var val = $("input[type='radio']:checked").val();
+
+            if (val == undefined) 
+			{
+                $(document).find(".quizMessage").text("Please select an answer");
+                $(document).find(".quizMessage").show();
+            } 
+			else 
+			{
+                // TODO: Remove any message -> not sure if this is efficient to call this each time....
+                $(document).find(".quizMessage").hide();
+                console.log(questions[currentQuestion].Answer)
+               
+				if (val == questions[currentQuestion].Answer) 
+				{
+					correctAnswers++;
+				}
+				iSelectedAnswer[currentQuestion] = val;
+				
+				currentQuestion++; // Since we have already displayed the first question on DOM ready
+				if(currentQuestion >= 1) {
+					  $('.preButton').prop("disabled", false);
+				}
+				if (currentQuestion < questions.length) 
+				{
+					displayCurrentQuestion();
+					
+				} 
+				else 
+				{
+					displayScore();
+					$('#iTimeShow').html('Quiz Time Completed!');
+					$('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
+					c=185;
+					
+					$(document).find(".nextButton").text("Play Again?");
+					quizOver = true;
+					return false;
+					
+				}
+			}
+					
+		}	
+		else 
+		{ // quiz is over and clicked the next button (which now displays 'Play Again?'
+			quizOver = false; $('#iTimeShow').html('Time Remaining:'); iSelectedAnswer = [];
+			$(document).find(".nextButton").text("Next Question");
+			$(document).find(".preButton").text("Previous Question");
+			 $(".preButton").attr('disabled', 'disabled');
+			resetQuiz();
+		
+			displayCurrentQuestion();
+			hideScore();
+		}
+    });
+});
+
+
+
+function timedCount()
+	{
+		if(c == 185) 
+		{ 
+			return false; 
+		}
+		
+		var hours = parseInt( c / 3600 ) % 24;
+		var minutes = parseInt( c / 60 ) % 60;
+		var seconds = c % 60;
+		var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
+		$('#timer').html(result);
+		
+		if(c == 0 )
+		{
+					displayScore();
+					$('#iTimeShow').html('Quiz Time Completed!');
+					$('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
+					c=185;
+					
+					$(document).find(".nextButton").text("Play Again?");
+					quizOver = true;
+					return false;
+					
+		}
+		
+		
+		c = c - 1;
+		t = setTimeout(function()
+		{
+			timedCount()
+		},1000);
+	}
+	
+	
+// This displays the current question AND the choices
+function displayCurrentQuestion() 
+{
+
+	if(c == 185) { c = 180; timedCount(); }
+    //console.log("In display current Question");
+    var question = questions[currentQuestion].question;
+    var questionClass = $(document).find(".quizContainer > .question");
+    var choiceList = $(document).find(".quizContainer > .choiceList");
+    var numChoices = questions[currentQuestion].Options.split(",").length;
+    // Set the questionClass text to the current question
+    $(questionClass).text(question);
+    // Remove all current <li> elements (if any)
+    $(choiceList).find("li").remove();
+    var choice;
+	
+	
+    for (i = 0; i < numChoices; i++) 
+	{
+        choice = questions[currentQuestion].Options.split(",")[i];
+		
+		if(iSelectedAnswer[currentQuestion] == i) {
+			$('<li><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+		} else {
+			$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+		}
+    }
+}
+
+function resetQuiz()
+{
+    currentQuestion = 0;
+    correctAnswers = 0;
+    hideScore();
+}
+
+function displayScore()
+{
+    $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
+    $(document).find(".quizContainer > .result").show();
+}
+
+function hideScore() 
+{
+    $(document).find(".result").hide();
+}
+
+// This displays the current question AND the choices
+function viewResults() 
+{
+
+	if(currentQuestion == 10) { currentQuestion = 0;return false; }
+	
+
+	hideScore();
+    var question = questions[currentQuestion].Question;
+    var questionClass = $(document).find(".quizContainer > .Question");
+    var choiceList = $(document).find(".quizContainer > .choiceList");
+    var numChoices = questions[currentQuestion].Options.split(",").length;
+    // Set the questionClass text to the current question
+    $(questionClass).text(Question);
+    // Remove all current <li> elements (if any)
+    $(choiceList).find("li").remove();
+    var choice;
+	
+	
+	for (i = 0; i < numChoices; i++) 
+	{
+        choice = questions[currentQuestion].Options.split(",")[i];
+		
+		if(iSelectedAnswer[currentQuestion] == i) {
+			if(questions[currentQuestion].Answer == i) {
+				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			} else {
+				$('<li style="border:2px solid red;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			}
+		} else {
+			if(questions[currentQuestion].Answer == i) {
+				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			} else {
+				$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			}
+		}
+    }
+	
+	currentQuestion++;
+	
+	setTimeout(function()
+		{
+			viewResults();
+		},3000);
+}
+            
+
+       
+                
+               
+            }
+        }
+      catch (error) {
+        // Errors when calling the service; such as network error, 
+        // service offline, etc
+        alert('There is a problem fetching the list of questions, please try again later.');
+      } // error
+    } )
+  
+}
+
+
+</script>
+
+
+
+    </main><!-- End #main -->
+ 
+
+<!-- Vendor JS Files -->
+<script src="../assets/vendor/aos/aos.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/vendor/php-email-form/validate.js"></script>
+<script src="../assets/vendor/purecounter/purecounter.js"></script>
+<script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<!-- Template Main JS File -->
+<script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
