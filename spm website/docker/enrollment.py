@@ -80,6 +80,23 @@ def find_by_engineer(EngineerID):
         }
     ), 404
 
+@app.route("/enrollment/<string:EngineerID>")
+def find_enrollment_by_engineer(EngineerID):
+    enrollment = Enrollment.query.filter_by(EngineerID=EngineerID).first()
+    if enrollment:
+        return jsonify(
+            {
+                "code": 200,
+                "data": enrollment.json()
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No enrollment found."
+        }
+    ), 404
+
 @app.route("/class/<string:CourseID>")
 def find_by_course(CourseID):
     course = Enrollment.query.filter_by(CourseID=CourseID).all()

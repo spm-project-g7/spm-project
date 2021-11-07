@@ -17,24 +17,21 @@ class Lesson(db.Model):
     __tablename__ = 'lesson'
 
     LessonID = db.Column(db.Integer, nullable=False, primary_key=True)
-    EmployeeName = db.Column(db.Date, nullable=False)
-    CurrentDesignation = db.Column(db.SmallInteger, nullable=False)
-    Department = db.Column(db.Integer, nullable=False)
+    TrainerID = db.Column(db.Integer, nullable=False)
     ClassID = db.Column(db.Integer, nullable=False)
     PrerequisiteLessonID = db.Column(db.Integer, nullable=True)
     LessonName = db.Column(db.String(255), nullable=False)
 
-    def __init__(self, LessonID, EmployeeName, CurrentDesignation, Department, ClassID, PrerequisiteLessonID):
+    def __init__(self, LessonID, TrainerID, Department, ClassID, PrerequisiteLessonID,LessonName):
         self.LessonID = LessonID
-        self.EmployeeName = EmployeeName
-        self.CurrentDesignation = CurrentDesignation
+        self.TrainerID = TrainerID
         self.Department = Department
         self.ClassID = ClassID
         self.PrerequisiteLessonID = PrerequisiteLessonID
+        self.LessonName = LessonName
 
     def json(self):
-        return {"LessonID": self.LessonID, "EmployeeName": self.EmployeeName, "CurrentDesignation": self.CurrentDesignation, 
-                "Department": self.Department, "ClassID": self.ClassID, "PrerequisiteLessonID": self.PrerequisiteLessonID}
+        return {"LessonID": self.LessonID,"TrainerID": self.TrainerID, "ClassID": self.ClassID, "PrerequisiteLessonID": self.PrerequisiteLessonID, "LessonName": self.LessonName}
 
 # get all lessons in database
 @app.route("/lesson")
@@ -112,6 +109,44 @@ def create_class(LessonID):
             "message": "The lesson was successfully created."
         },
     ), 201
+
+# get lesson list by class
+@app.route("/lessonlist/<string:ClassID>")
+def find_lessonlist_by_class(ClassID):
+    lessonList = Lesson.query.filter_by(ClassID=ClassID)
+    if lessonList:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                   "lessonList": [lesson.json() for lesson in lessonList]
+                }
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No lessons found."
+        }
+    ), 404
+
+    # get lesson list by class
+@app.route("/singlelesson/<string:LessonID>")
+def find_singlelesson_by_class(LessonID):
+    lessonobj = Lesson.query.filter_by(LessonID=LessonID).first()
+    if lessonobj:
+        return jsonify(
+            {
+                "code": 200,
+                "data": lessonobj.json()
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No lessons found."
+        }
+    ), 404
 
 if __name__ == '__main__':
     app.run(port=5001, debug=True)
