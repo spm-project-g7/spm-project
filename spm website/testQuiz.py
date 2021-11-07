@@ -32,6 +32,15 @@ class TestQuiz(unittest.TestCase):
     def testPostQuiz(self):
         response = requests.post(self.URL + '/create/7' , json = self.data)
         self.assertEqual(response.status_code, 201)
+
+    def testPostExistingQuiz(self):
+        response = requests.post(self.URL + '/create/7' , json = self.data)
+        self.assertEqual(response.status_code, 400)
+
+    def testDeleteQuiz(self):
+        response = requests.delete(self.URL + '/delete/7' , json = self.data)
+        self.assertEqual(response.status_code, 200)
+
     
 if __name__ == "__main__":
     unittest.main()

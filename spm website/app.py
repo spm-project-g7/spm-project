@@ -555,6 +555,37 @@ def create_quiz(LessonID):
         },
     ), 201
 
+# delete quiz
+@app.route("/quiz/delete/<string:QuizID>", methods=['DELETE'])
+def delete_quiz(QuizID):
+    quiz = Quiz.query.filter_by(QuizID=QuizID).first()
+    if (quiz):
+        try:
+            db.session.delete(quiz)
+            db.session.commit()
+        except:
+            return jsonify(
+                {
+                    "code": 500,
+                    "message": "An error occurred deleting the quiz."
+                }
+            ), 500
+
+        return jsonify(
+            {
+                "code": 200,
+                "message": "The quiz was successfully deleted."
+            },
+        ), 200
+
+    else: 
+        return jsonify(
+            {
+                "code": 404,
+                "message": "Cannot find quiz to be deleted."
+            },
+        ), 404
+
 
 class Trainer(db.Model):
     __tablename__ = 'trainer'
@@ -637,7 +668,6 @@ class Material(db.Model):
         return {"MaterialID": self.MaterialID, "MaterialTitle": self.MaterialTitle, "MaterialDescription": self.MaterialDescription, "LessonId": self.LessonId, 
                 "LastUpdated": self.LastUpdated, "MaterialURL": self.MaterialURL, "MaterialType": self.MaterialType, "CompleteStatus": self.CompleteStatus}
 
-
 @app.route("/materials")
 def get_all_materials():
     materiallist = Material.query.all()
@@ -656,7 +686,6 @@ def get_all_materials():
             "message": "There are no materials."
         }
     ), 404
-
 
 # get lessonmaterial by lessonID
 @app.route("/materials/<string:LessonId>")
@@ -677,7 +706,6 @@ def find_material_by_lessonID(LessonId):
             "message": "No lesson materials found."
         }
     ), 404
-
 
 @app.route("/material/<string:LessonID>", methods=['POST'])
 def create_material(LessonID):
@@ -768,17 +796,6 @@ def find_questions_by_quizID(QuizID):
 # create question
 @app.route("/question/create/<string:QuestionID>", methods=['POST'])
 def create_question(QuestionID):
-    # if (Question.query.filter_by(QuestionID=QuizID).first()):
-    #     return jsonify(
-    #         {
-    #             "code": 400,
-    #             "data": {
-    #                 "lesson": LessonID
-    #             },
-    #             "message": "Quiz for lesson already exists."
-    #         }
-    #     ), 400
-
     data = request.get_json()
     question = Question(QuestionID, **data)
 
@@ -804,6 +821,37 @@ def create_question(QuestionID):
         },
     ), 201
 
+# delete questions for quiz
+@app.route("/question/delete/<string:QuizID>", methods=['DELETE'])
+def delete_question(QuizID):
+    questions = Question.query.filter_by(QuizID=QuizID)
+    if (questions):
+        try:
+            for qns in questions:
+                db.session.delete(qns)
+                db.session.commit()
+        except:
+            return jsonify(
+                {
+                    "code": 500,
+                    "message": "An error occurred deleting the questions."
+                }
+            ), 500
+
+        return jsonify(
+            {
+                "code": 200,
+                "message": "The questions were successfully deleted."
+            },
+        ), 200
+
+    else: 
+        return jsonify(
+            {
+                "code": 404,
+                "message": "Cannot find question(s) to be deleted."
+            },
+        ), 404
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
