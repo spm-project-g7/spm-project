@@ -48,8 +48,6 @@ $uploaddao = new UploadDAO;
        
 } 
 
-<?php
-
 class material{
 
     private $MaterialTitle;
@@ -114,10 +112,6 @@ class material{
 
 ?>
 
-
-    
-
-?>
 
 
 <!-- BOOTSTRAP JS -->

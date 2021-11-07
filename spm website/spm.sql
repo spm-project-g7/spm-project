@@ -118,6 +118,7 @@ INSERT INTO `engineer` (`EngineerID`, `EmployeeName`, `CurrentDesignation`, `Dep
 
 CREATE TABLE `enrollment` (
   `CourseID` int(255) NOT NULL,
+  `ClassID`  int(255) NOT NULL,
   `EngineerID` int(255) NOT NULL,
   `StartDate` date NOT NULL,
   `EndDate` date NOT NULL,
@@ -131,11 +132,11 @@ CREATE TABLE `enrollment` (
 -- Dumping data for table `enrollment`
 --
 
-INSERT INTO `enrollment` (`CourseID`, `EngineerID`, `StartDate`, `EndDate`, `AssignedHR`, `CourseCompleteRate`, `CompleteStatus`, `FinalQuizScore`) VALUES
-(1, 3, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0),
-(2, 4, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0),
-(3, 2, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0),
-(4, 1, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0);
+INSERT INTO `enrollment` (`CourseID`, `ClassID`, `EngineerID`, `StartDate`, `EndDate`, `AssignedHR`, `CourseCompleteRate`, `CompleteStatus`, `FinalQuizScore`) VALUES
+(1, 4, 3, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0),
+(2, 2, 4, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0),
+(3, 1, 2, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0),
+(4, 3, 1, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0);
 
 -- --------------------------------------------------------
 

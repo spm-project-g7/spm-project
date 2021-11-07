@@ -5,29 +5,33 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Course Details</title>
+    <title>Trainer Homepage</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="/assets/img/favicon.png" rel="icon">
-    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="../assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+
+    <!-- jQuery & Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
     <!-- =======================================================
     * Template Name: Mentor - v4.4.0
@@ -43,14 +47,14 @@
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
 
-        <h1 class="logo me-auto"><a href="homepage.html">All-In-One</a></h1>
+        <h1 class="logo me-auto"><a href="index.html">Learning Portal</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
         <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
-                <li><a href="homepage.html">Home</a></li>
-                <li><a class="active" href="quiz.html">Quizzes</a></li>
+                <li><a class="active" href="homepage.html">Home</a></li>
+                <li><a href="quiz.html">Quizzes</a></li>
                 <li><a href="#">Assignments</a></li>
                 <li><a href="#">Forum</a></li>
                 <li><a href="#">Chats</a></li>
@@ -59,7 +63,7 @@
                 <li class="dropdown"><a href="#"><span>Courses</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="all-courses.html">All Courses</a></li>
-                        <li><a href="courses.html">Current Courses</a></li>
+                        <li><a href="current-courses.html">Current Courses</a></li>
                         <li><a href="past-courses.html">Past Courses</a></li>        
                     </ul>
                 </li>
@@ -85,7 +89,7 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
-        <a href="login.html" class="get-started-btn">Logout</a>
+        <a href="../Homepage.html" class="get-started-btn">Logout</a>
 
         </div>
     </header>
@@ -95,77 +99,97 @@
 
         <!-- ======= Breadcrumbs ======= -->
         <div class="breadcrumbs" data-aos="fade-in">
-            <div class="container">
-                <h2>Create Quiz</h2>
-            </div>
-        </div>
-        <!-- End Breadcrumbs -->
-
-        <!-- ======= Specific Course Details Section ======= -->
         <div class="container">
-            <form>
-                <div class="row mt-3">
-                    <select class="custom-select col-5 mr-4">
-                        <option selected>Select a course</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <select class="custom-select col-5">
-                        <option selected>Select a section</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-                <div class="row mt-3">
-                    <input type="text" class="form-control col-5 mr-4" id="quiz-name" placeholder="Pick a Date">
-                    <input type="text" class="form-control col-5" id="quiz-name" placeholder="Set duration for quiz">
-                <div class="row mt-3">
-                    <label for="quiz-name" class="form-label"></label>Quiz Name</label>
-                    <input type="text" class="form-control" id="quiz-name" placeholder="Quiz Name">
-                </div>
-                <div class="row mt-3 mb-3">
-                    <div class="card" style="padding-left: 0; padding-right: 0;">
-                        <div class="card-header">
-                            <label for="exampleFormControlTextarea1">Question 1:</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
-                        <div class="card-body">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="quiz-option" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Quiz Type
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#true-false">True/False</a>
-                                    <a class="dropdown-item" href="#">Multiple Choice Question</a>
-                                </div>
-                                <div id="true-false">
-                                    test
-                                </div>
-                            </div>
-                            <!-- <blockquote class="blockquote mb-0">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                            </blockquote> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3 mb-3">
-                    <div class="col-2">
-                        <button class="btn btn-outline-secondary" type="submit" id="add-qns">Add Question</a>
-                    </div>
-                </div>
-                <div class="row mt-3 mb-3">
-                    <div class="col-2">
-                        <button class="btn btn-outline-secondary" type="submit" id="create-quiz">Create Quiz</a>
-                    </div>
-                </div>
-                </form>
+            <h2>Home</h2>
+            <p>Classes you are currently teaching for the course</p>
         </div>
+        </div><!-- End Breadcrumbs -->
 
-    </main>
-    <!-- End #main -->
+        <!-- ======= Class Details Section ======= -->
+        <section id="class-details" class="course-details"></section>
+
+        <script>
+            var months = {"Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", 
+            "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"}
+
+            function GetURLParameter(sParam)
+            {
+                var sPageURL = window.location.search.substring(1);
+                var sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++) 
+                {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam) 
+                    {
+                        return sParameterName[1];
+                    }
+                }
+            }
+            
+            var courseID = GetURLParameter('course');
+
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5000/class/course/" + courseID;
+                try {
+                    const response =
+                    await fetch(
+                        serviceURL, { method: 'GET' }
+                    );
+                    const result = await response.json();
+                    if (response.status == 200) {
+                        // success case                        
+                        row = 0
+                        classes = 0
+
+                        var allClasses = result.data.classes; 
+                        for (const classGroup of allClasses) {
+                            if (row == 0) {
+                                row += 1;
+                                classRow = "<div class='row row-cols-1 row-cols-md-5' style='margin: 0px;' id='row" + row + "'></div>";
+                                $('#class-details').append(classRow);
+                            }
+                            if (classes < 4) {
+                                var startDateArr = classGroup.StartDate.split(" ").slice(1,4);
+                                var startDateString = startDateArr[2] + "-" + months[startDateArr[1]] + "-" + startDateArr[0];
+                                var startTime = classGroup.StartTime;
+                                var endTime = classGroup.EndTime;
+                                var endDateArr = classGroup.EndDate.split(" ").slice(1,4);
+                                var endDateString = endDateArr[2] + "-" + months[endDateArr[1]] + "-" + endDateArr[0];
+                                var classID = classGroup.ClassID;
+                                var className = classGroup.ClassName;
+                                classDetails = "<div class='col-lg mb-4' style='padding: 30px;'>" +
+                                                    "<div class='card h-100' style='width: 15rem;' id='" + classID + "'>" +
+                                                        "<div class='card-body'>" +
+                                                            "<h5 class='card-title'>" + className + "</h5>" +
+                                                            "<p class='card-text jumbotron'>" + startDateString + " " + startTime + " to " + endDateString + " " + endTime + "</p>" +
+                                                        "</div>" +
+                                                        "<div class='card-footer'>" +
+                                                            "<button class='btn btn-primary' id='classID' " + "value='" + classID + "' onclick='goToLesson(this.value)'>Class Details</a>" +
+                                                        "</div>" +
+                                                    "</div>" +
+                                                "</div>";
+                                classes += 1;
+                                $('#row' + row).append(classDetails);
+                            }
+                            else {
+                                classes = 0;
+                                row += 1;
+                            }
+                        }
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    alert('There is a problem fetching the list of courses, please try again later.');
+                } // error
+            });
+
+            function goToLesson(classID) {
+                window.location = 'course.html?class=' + classID;
+            }
+        </script>
+    </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
     <footer id="footer">
@@ -247,17 +271,14 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-    <script src="/assets/vendor/aos/aos.js"></script>
-    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/vendor/php-email-form/validate.js"></script>
-    <script src="/assets/vendor/purecounter/purecounter.js"></script>
-    <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="../assets/vendor/aos/aos.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
+    <script src="../assets/vendor/purecounter/purecounter.js"></script>
+    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="/assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
 
 </body>
 

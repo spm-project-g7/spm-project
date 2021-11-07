@@ -26,6 +26,7 @@ class Quiz(db.Model):
     QuizTime = db.Column(db.Integer, nullable=False)
 
     def __init__(self, QuizID, LastUpdated, GradedQuiz, PassingGrade, LessonID, QuizScore, QuizName, QuizTime):
+
         self.QuizID = QuizID
         self.LastUpdated = LastUpdated
         self.GradedQuiz = GradedQuiz
@@ -37,7 +38,9 @@ class Quiz(db.Model):
 
     def json(self):
         return {"QuizID": self.QuizID, "LastUpdated": self.LastUpdated, "GradedQuiz": self.GradedQuiz, 
+
                 "PassingGrade": self.PassingGrade, "LessonID": self.LessonID, "QuizScore": self.QuizScore, "QuizName": self.QuizName, "QuizTime": self.QuizTime}
+
 
 # get all quizzes in database
 @app.route("/quiz")
@@ -77,24 +80,6 @@ def find_by_lessonID(LessonID):
         }
     ), 404
 
-# get questions by quiz
-# @app.route("/quiz/<string:lessonID>")
-# def find_questions(LessonID):
-#     quiz = Quiz.query.filter_by(LessonID=LessonID).first()
-#     if quiz:
-#         return jsonify(
-#             {
-#                 "code": 200,
-#                 "data": quiz.json()
-#             }
-#         ), 200
-#     return jsonify(
-#         {
-#             "code": 404,
-#             "message": "No quiz found."
-#         }
-#     ), 404
-
 # create quiz
 @app.route("/quiz/create/<string:LessonID>", methods=['POST'])
 def create_quiz(LessonID):
@@ -133,6 +118,26 @@ def create_quiz(LessonID):
             "message": "The quiz was successfully created."
         },
     ), 201
+
+# get questions by quiz
+# @app.route("/quiz/<string:lessonID>")
+# def find_questions(LessonID):
+#     quiz = Quiz.query.filter_by(LessonID=LessonID).first()
+#     if quiz:
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": quiz.json()
+#             }
+#         ), 200
+#     return jsonify(
+#         {
+#             "code": 404,
+#             "message": "No quiz found."
+#         }
+#     ), 404
+
+
 
 if __name__ == '__main__':
     app.run(port=5003, debug=True)
