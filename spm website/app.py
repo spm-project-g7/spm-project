@@ -796,10 +796,10 @@ def find_material_by_lessonID(LessonId):
     ), 404
 
 
-@app.route("/material/<string:LessonId>", methods=['POST'])
-def create_material(LessonID):
+@app.route("/material/<string:MaterialID>", methods=['POST'])
+def create_material(MaterialID):
     data = request.get_json()
-    material = Material(LessonID, **data)
+    material = Material(MaterialID, **data)
 
     try:
         db.session.add(material)
@@ -809,7 +809,7 @@ def create_material(LessonID):
             {
                 "code": 500,
                 "data": {
-                    "user": material.json()
+                    "learningmaterial": material.json()
                 },
                 "message": "An error occurred uploading materials."
             }
