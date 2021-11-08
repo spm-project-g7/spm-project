@@ -26,6 +26,10 @@ class Quiz(db.Model):
     QuizTime = db.Column(db.Integer, nullable=False)
 
     def __init__(self, QuizID, LastUpdated, GradedQuiz, PassingGrade, LessonID, QuizScore, QuizName, QuizTime):
+<<<<<<< HEAD
+=======
+
+>>>>>>> f292198dcedd5e36703875ca5c684aea5f094cd0
         self.QuizID = QuizID
         self.LastUpdated = LastUpdated
         self.GradedQuiz = GradedQuiz
