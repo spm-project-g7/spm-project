@@ -466,9 +466,9 @@
 
         function goToTakeQuiz() {
             if (selectedQuizId != 0 && selectedLessonIndex != 0) {
-                window.location = 'learner-quiz.html?course=' + courseId + '&lesson=' + selectedLessonIndex + '&quizTime=' + selectedQuizTime + '&quizID=' + selectedQuizId
+                window.location = 'learner-quiz.html?engineerID=' + engineerID + '&lesson=' + selectedLessonIndex + '&quizTime=' + selectedQuizTime + '&quizID=' + selectedQuizId
             } else {
-                alert("Please select lesson")
+                alert("Please select lesson");
             }
         }
 

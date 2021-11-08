@@ -968,5 +968,55 @@ def delete_question(QuizID):
         ), 404
 
 
+class QuizScore(db.Model):
+    __tablename__ = 'quizscore'
+
+    EngineerID = db.Column(db.Integer, primary_key=False)
+    QuizScore = db.Column(db.String(255), primary_key=False)
+    LessonID = db.Column(db.Integer, primary_key=False)
+    QuizID = db.Column(db.Integer, primary_key=False)
+    QuizScoreID = db.Column(db.Integer, primary_key=True)
+
+
+    def __init__(self,EngineerID,QuizScore,LessonID,QuizID):
+        self.EngineerID = EngineerID
+        self.QuizScore = QuizScore
+        self.LessonID = LessonID
+        self.QuizID = QuizID
+ 
+
+    def json(self):
+        return {"EngineerID": self.EngineerID, "QuizScore": self.QuizScore, "LessonID": self.LessonID, "QuizID": self.QuizID}
+
+
+@app.route("/quizscore/create", methods=['POST'])
+def create_quizscore():
+
+    data = request.get_json()
+    quizscore = QuizScore(**data)
+
+    try:
+        db.session.add(quizscore)
+        db.session.commit()
+    except:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                    "quizscore": quizscore.json()
+                },
+                "message": "An error occurred creating the quizscore."
+            }
+        ), 500
+
+    return jsonify(
+        {
+            "code": 201,
+            "data": quizscore.json(),
+            "message": "The quizscore was successfully created."
+        },
+    ), 201
+
+
 if __name__ == '__main__':
     app.run(debug=True)
