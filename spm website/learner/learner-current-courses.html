@@ -408,9 +408,8 @@
 
         function showLabel() {
             //Get Class by selected course
-            console.log(selectedLessonIndex)
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5000/learningmaterial/" + selectedLessonIndex;
+                var serviceURL = "http://127.0.0.1:5000/materialSingle/" + selectedLessonIndex;
                 try {
                     const response =
                         await fetch(
@@ -421,7 +420,6 @@
                     if (response.status == 200) {
                         // success case
                         var lesson = result.data
-                        console.log(result.data)
                         document.getElementById("materialTitle").innerHTML = String(lesson.MaterialTitle);
                         document.getElementById("materialDesc").innerHTML = String(lesson.MaterialDescription);
                         document.getElementById("lessonLastUpdate").innerHTML = String(formatDate(lesson.LastUpdated));
@@ -439,7 +437,6 @@
             //Get Quiz Detail By LessonID
             $(async () => {
                 var serviceURL = "http://127.0.0.1:5000/quiz/" + selectedLessonIndex;
-                console.log(selectedLessonIndex)
                 try {
                     const response =
                         await fetch(

@@ -796,7 +796,7 @@ def find_material_by_lessonID(LessonId):
     ), 404
 
 
-@app.route("/material/<string:LessonID>", methods=['POST'])
+@app.route("/material/<string:LessonId>", methods=['POST'])
 def create_material(LessonID):
     data = request.get_json()
     material = Material(LessonID, **data)
@@ -823,7 +823,7 @@ def create_material(LessonID):
     ), 201
 
 #Get single material by lessonID
-@app.route("/learningmaterial/<string:LessonId>")
+@app.route("/materialSingle/<string:LessonId>")
 def find_learningmaterial_by_Lesson(LessonId):
     material = Material.query.filter_by(LessonId=LessonId).first()
     if material:
