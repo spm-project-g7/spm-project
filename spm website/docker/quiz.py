@@ -26,7 +26,10 @@ class Quiz(db.Model):
     QuizTime = db.Column(db.Integer, nullable=False)
 
     def __init__(self, QuizID, LastUpdated, GradedQuiz, PassingGrade, LessonID, QuizScore, QuizName, QuizTime):
+<<<<<<< HEAD
+=======
 
+>>>>>>> f292198dcedd5e36703875ca5c684aea5f094cd0
         self.QuizID = QuizID
         self.LastUpdated = LastUpdated
         self.GradedQuiz = GradedQuiz
@@ -38,9 +41,7 @@ class Quiz(db.Model):
 
     def json(self):
         return {"QuizID": self.QuizID, "LastUpdated": self.LastUpdated, "GradedQuiz": self.GradedQuiz, 
-
                 "PassingGrade": self.PassingGrade, "LessonID": self.LessonID, "QuizScore": self.QuizScore, "QuizName": self.QuizName, "QuizTime": self.QuizTime}
-
 
 # get all quizzes in database
 @app.route("/quiz")

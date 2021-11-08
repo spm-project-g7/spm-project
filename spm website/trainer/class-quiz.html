@@ -135,6 +135,7 @@
                                                 "<th scope='col'>Graded Quiz</th>" +
                                                 "<th scope='col'>Passing Grade</th>" +
                                                 "<th scope='col'>Quiz Score</th>" +
+                                                "<th scope='col'></th>" +
                                             "</tr>" +
                                             "</thead>" +
                                             "<tbody>" 
@@ -147,6 +148,7 @@
                                             "<td>" + quiz.GradedQuiz + "</td>" +
                                             "<td>" + quiz.PassingGrade + "</td>" +
                                             "<td>" + quiz.QuizScore + "</td>" +
+                                            "<td><button type='button' onclick='deleteQuiz(this.id)' id='" + quiz.QuizID + "'>Delete</button></td>" +
                                         "</tr>" 
                         }
                         quiztable += "</tbody>" + "</table>"           
@@ -161,6 +163,50 @@
                     alert('There is a problem fetching the list of courses, please try again later.');
                 } // error
             });
+
+            function deleteQuiz(quizID) {
+                $(async () => {
+                    var serviceURL = "http://127.0.0.1:5000/quiz/delete/" + quizID;
+                    try {
+                        const response =
+                        await fetch(
+                            serviceURL, { method: 'DELETE' }
+                        );
+                        const result = await response.json();
+                        if (response.status == 200) {
+                            // success case            
+                            alert("Quiz successfully deleted.")
+                            location.reload()
+                        }
+                    }
+                    catch (error) {
+                        // Errors when calling the service; such as network error, 
+                        // service offline, etc
+                        alert('There is a problem fetching deleting the quiz, please try again later.');
+                    } // error
+                });
+                $(async () => {
+                    var serviceURL = "http://127.0.0.1:5000/question/delete/" + quizID;
+                    try {
+                        const response =
+                        await fetch(
+                            serviceURL, { method: 'DELETE' }
+                        );
+                        const result = await response.json();
+                        if (response.status == 200) {
+                            // success case            
+                            alert('Questions for quiz successfully deleted.')
+                            location.reload()
+                        }
+                    }
+                    catch (error) {
+                        // Errors when calling the service; such as network error, 
+                        // service offline, etc
+                        alert('There is a problem fetching deleting the questions of the quiz, please try again later.');
+                    } // error
+                });
+
+            }
 
             function goCreateQuiz() {
                 window.location = "create-quiz.html?quiz=" + latestQuizID.toString();
