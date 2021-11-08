@@ -231,10 +231,10 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`QuizID`, `QuestionID`, `Options`, `Answer`, `Question`) VALUES
-(1, 1, 'math.h,studio.h,home.h,sudo.h', '1', 'In the standard library of C programming language, which of the following header file is designed for basic mathematical operations?\r\n'),
-(2, 1, 'Yes,No,I dont know', '2', '“Stderr” is a standard error.'),
-(3, 1, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '1', 'Which of the following header file can be used to define the NULL macro?'),
-(4, 1, 'True,False', '2', 'The size of both stack and heap remains the same during run time.');
+(1, 1, 'math.h,studio.h,home.h,sudo.h', '3', 'In the standard library of C programming language, which of the following header file is designed for basic mathematical operations?\r\n'),
+(2, 1, 'True,False', '0', '“Stderr” is a standard error.'),
+(3, 1, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '2', 'Which of the following header file can be used to define the NULL macro?'),
+(4, 1, 'True,False', '0', 'The size of both stack and heap remains the same during run time.');
 
 -- --------------------------------------------------------
 
@@ -249,18 +249,19 @@ CREATE TABLE `quiz` (
   `PassingGrade` int(255) NOT NULL,
   `LessonID` int(255) NOT NULL,
   `QuizScore` int(255) DEFAULT NULL,
-  `QuizName` varchar(255) NOT NULL
+  `QuizName` varchar(255) NOT NULL,
+  `QuizTime` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `quiz`
 --
 
-INSERT INTO `quiz` (`QuizID`, `LastUpdated`, `GradedQuiz`, `PassingGrade`, `LessonID`, `QuizScore`, `QuizName`) VALUES
-(1, '2021-10-08', 0, 50, 1, NULL, 'Quiz001'),
-(2, '2021-10-08', 0, 50, 2, NULL, 'Quiz001'),
-(3, '2021-10-08', 0, 50, 3, NULL, 'Quiz001'),
-(4, '2021-10-08', 0, 50, 4, NULL, 'Quiz001');
+INSERT INTO `quiz` (`QuizID`, `LastUpdated`, `GradedQuiz`, `PassingGrade`, `LessonID`, `QuizScore`, `QuizName`,`QuizTime`) VALUES
+(1, '2021-10-08', 0, 50, 1, NULL, 'Quiz001', 60),
+(2, '2021-10-08', 0, 50, 2, NULL, 'Quiz001', 60),
+(3, '2021-10-08', 0, 50, 3, NULL, 'Quiz001', 60),
+(4, '2021-10-08', 0, 50, 4, NULL, 'Quiz001', 60);
 
 -- --------------------------------------------------------
 
