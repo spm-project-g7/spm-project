@@ -447,12 +447,11 @@
                     if (response.status == 200) {
                         // success case
                         var quiz = result.data
-                        console.log(result.data)
                         document.getElementById("quizName").innerHTML = String(quiz.QuizName);
                         document.getElementById("passingGrade").innerHTML = String(quiz.PassingGrade);
                         document.getElementById("quizLastUpdate").innerHTML = String(formatDate(quiz.LastUpdated));
-                        selectedQuizId = quiz.quizID
-                        selectedQuizTime = quiz.QuizTime
+                        selectedQuizId = String(quiz.QuizID);
+                        selectedQuizTime = quiz.QuizTime;
                     }
                 }
                 catch (error) {
@@ -467,7 +466,7 @@
 
         function goToTakeQuiz() {
             if (selectedQuizId != 0 && selectedLessonIndex != 0) {
-                window.location = 'learner-quiz.html?course=' + courseId + '&lesson=' + selectedLessonIndex + '&quiz=' + selectedQuizTime
+                window.location = 'learner-quiz.html?course=' + courseId + '&lesson=' + selectedLessonIndex + '&quizTime=' + selectedQuizTime + '&quizID=' + selectedQuizId
             } else {
                 alert("Please select lesson")
             }
