@@ -5,7 +5,7 @@ class ConnectionManager {
     public function getConnection() {
         $servername = 'localhost';
         $username = 'root';
-        $password = '';
+        $password = 'JizAgNjZvMy5';
         $dbname = 'spm';
         //$port = '3308';
         
