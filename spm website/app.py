@@ -410,10 +410,9 @@ class Lesson(db.Model):
     PrerequisiteLessonID = db.Column(db.Integer, nullable=True)
     LessonName = db.Column(db.String(255), nullable=False)
 
-    def __init__(self, LessonID, TrainerID, Department, ClassID, PrerequisiteLessonID, LessonName):
+    def __init__(self, LessonID, TrainerID, ClassID, PrerequisiteLessonID, LessonName):
         self.LessonID = LessonID
         self.TrainerID = TrainerID
-        self.Department = Department
         self.ClassID = ClassID
         self.PrerequisiteLessonID = PrerequisiteLessonID
         self.LessonName = LessonName
