@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 db = SQLAlchemy(app)
 CORS(app)
 
+
 class Classes(db.Model):
     __tablename__ = 'class'
 
@@ -25,7 +26,7 @@ class Classes(db.Model):
     EndTime = db.Column(db.String(255), nullable=False)
     ClassName = db.Column(db.String(255), nullable=False)
     ClassSize = db.Column(db.Integer, nullable=False)
-    ClassDay = db.Column(db.String(255),nullable=False)   
+    ClassDay = db.Column(db.String(255), nullable=False)
 
     def __init__(self, ClassID, TrainerID, CourseID, StartDate, EndDate, StartTime, EndTime, ClassName, ClassSize, ClassDay):
         self.ClassID = ClassID
@@ -40,8 +41,8 @@ class Classes(db.Model):
         self.ClassDay = ClassDay
 
     def json(self):
-        return {"ClassID": self.ClassID, "TrainerID": self.TrainerID, "CourseID": self.CourseID, "StartDate": self.StartDate, 
-                "EndDate": self.EndDate, "StartTime": self.StartTime, "EndTime": self.EndTime, "ClassName": self.ClassName, 
+        return {"ClassID": self.ClassID, "TrainerID": self.TrainerID, "CourseID": self.CourseID, "StartDate": self.StartDate,
+                "EndDate": self.EndDate, "StartTime": self.StartTime, "EndTime": self.EndTime, "ClassName": self.ClassName,
                 "ClassSize": self.ClassSize, "ClassDay": self.ClassDay}
 
 
@@ -64,6 +65,7 @@ def get_all_classes():
         }
     ), 404
 
+
 @app.route("/class/trainer/<string:TrainerID>")
 def find_class_by_trainer(TrainerID):
     classlist = Classes.query.filter_by(TrainerID=TrainerID)
@@ -83,6 +85,7 @@ def find_class_by_trainer(TrainerID):
         }
     ), 404
 
+
 @app.route("/class/course/<string:CourseID>")
 def find_by_CourseID(CourseID):
     classlist = Classes.query.filter_by(CourseID=CourseID)
@@ -99,6 +102,28 @@ def find_by_CourseID(CourseID):
         {
             "code": 404,
             "message": "No classes found."
+        }
+    ), 404
+
+# get single class by course ID
+
+
+@app.route("/class/singleclass/<string:CourseID>")
+def find_singleclass_by_CourseID(CourseID):
+    classObj = Classes.query.filter_by(CourseID=CourseID).first()
+    if classObj:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "classobj": classObj.json()
+                }
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No class found."
         }
     ), 404
 
@@ -120,7 +145,7 @@ class Course(db.Model):
         self.CreatedBy = CreatedBy
 
     def json(self):
-        return {"CourseID": self.CourseID, "CourseName": self.CourseName, "CourseValidStartDate": self.CourseValidStartDate, 
+        return {"CourseID": self.CourseID, "CourseName": self.CourseName, "CourseValidStartDate": self.CourseValidStartDate,
                 "CourseValidEndDate": self.CourseValidEndDate, "CreatedBy": self.CreatedBy}
 
 
@@ -142,6 +167,7 @@ def get_all_courses():
             "message": "No courses found."
         }
     ), 404
+
 
 @app.route("/course/<string:CourseID>")
 def find_by_courseID(CourseID):
@@ -178,6 +204,7 @@ class Engineer(db.Model):
     def json(self):
         return {"EngineerID": self.EngineerID, "EmployeeName": self.EmployeeName, "CurrentDesignation": self.CurrentDesignation, "Department": self.Department}
 
+
 @app.route("/engineer")
 def get_all_engineers():
     engineerlist = Engineer.query.all()
@@ -196,6 +223,7 @@ def get_all_engineers():
             "message": "No engineer found."
         }
     ), 404
+
 
 @app.route("/learner/<string:EngineerID>")
 def find_by_learner(EngineerID):
@@ -226,7 +254,7 @@ class Enrollment(db.Model):
     AssignedHR = db.Column(db.String(255), nullable=False)
     CourseCompleteRate = db.Column(db.Integer, nullable=False)
     CompleteStatus = db.Column(db.String(255), nullable=False)
-    FinalQuizScore = db.Column(db.Integer, nullable=False)    
+    FinalQuizScore = db.Column(db.Integer, nullable=False)
 
     def __init__(self, CourseID, ClassID, EngineerID, StartDate, EndDate, AssignedHR, CourseCompleteRate, CompleteStatus, FinalQuizScore):
         self.CourseID = CourseID
@@ -240,8 +268,8 @@ class Enrollment(db.Model):
         self.FinalQuizScore = FinalQuizScore
 
     def json(self):
-        return {"CourseID": self.CourseID, "ClassID": self.ClassID, "EngineerID": self.EngineerID, "StartDate": self.StartDate, "EndDate": self.EndDate, 
-                "AssignedHR": self.AssignedHR, "CourseCompleteRate": self.CourseCompleteRate, "CompleteStatus": self.CompleteStatus, 
+        return {"CourseID": self.CourseID, "ClassID": self.ClassID, "EngineerID": self.EngineerID, "StartDate": self.StartDate, "EndDate": self.EndDate,
+                "AssignedHR": self.AssignedHR, "CourseCompleteRate": self.CourseCompleteRate, "CompleteStatus": self.CompleteStatus,
                 "FinalQuizScore": self.FinalQuizScore}
 
 
@@ -264,6 +292,7 @@ def get_all_enrollment():
         }
     ), 404
 
+
 @app.route("/class/<string:EngineerID>")
 def find_by_engineer(EngineerID):
     engineer = Enrollment.query.filter_by(EngineerID=EngineerID)
@@ -282,6 +311,7 @@ def find_by_engineer(EngineerID):
             "message": "No engineer found."
         }
     ), 404
+
 
 @app.route("/class/<string:CourseID>")
 def find_by_course(CourseID):
@@ -306,7 +336,7 @@ def find_by_course(CourseID):
 # enrol engineers into course and class
 @app.route("/enrol/<string:CourseID>/<string:EngineerID>/<string:ClassID>", methods=['POST'])
 def create_enrollment(CourseID, EngineerID, ClassID):
-    if (Enrollment.query.filter_by(CourseID= CourseID).filter_by(EngineerID=EngineerID).filter_by(ClassID=ClassID).first()):
+    if (Enrollment.query.filter_by(CourseID=CourseID).filter_by(EngineerID=EngineerID).filter_by(ClassID=ClassID).first()):
         return jsonify(
             {
                 "code": 400,
@@ -350,31 +380,50 @@ def create_enrollment(CourseID, EngineerID, ClassID):
         }
     ), 201
 
+# get enrollment by engineerId
+
+
+@app.route("/enrollment/<string:EngineerID>")
+def find_enrollment_by_engineer(EngineerID):
+    enrollment = Enrollment.query.filter_by(EngineerID=EngineerID).first()
+    if enrollment:
+        return jsonify(
+            {
+                "code": 200,
+                "data": enrollment.json()
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No enrollment found."
+        }
+    ), 404
+
 
 class Lesson(db.Model):
     __tablename__ = 'lesson'
 
     LessonID = db.Column(db.Integer, nullable=False, primary_key=True)
-    EmployeeName = db.Column(db.Date, nullable=False)
-    CurrentDesignation = db.Column(db.SmallInteger, nullable=False)
-    Department = db.Column(db.Integer, nullable=False)
+    TrainerID = db.Column(db.Integer, nullable=False)
     ClassID = db.Column(db.Integer, nullable=False)
     PrerequisiteLessonID = db.Column(db.Integer, nullable=True)
     LessonName = db.Column(db.String(255), nullable=False)
 
-    def __init__(self, LessonID, EmployeeName, CurrentDesignation, Department, ClassID, PrerequisiteLessonID):
+    def __init__(self, LessonID, TrainerID, Department, ClassID, PrerequisiteLessonID, LessonName):
         self.LessonID = LessonID
-        self.EmployeeName = EmployeeName
-        self.CurrentDesignation = CurrentDesignation
+        self.TrainerID = TrainerID
         self.Department = Department
         self.ClassID = ClassID
         self.PrerequisiteLessonID = PrerequisiteLessonID
+        self.LessonName = LessonName
 
     def json(self):
-        return {"LessonID": self.LessonID, "EmployeeName": self.EmployeeName, "CurrentDesignation": self.CurrentDesignation, 
-                "Department": self.Department, "ClassID": self.ClassID, "PrerequisiteLessonID": self.PrerequisiteLessonID}
+        return {"LessonID": self.LessonID, "TrainerID": self.TrainerID, "ClassID": self.ClassID, "PrerequisiteLessonID": self.PrerequisiteLessonID, "LessonName": self.LessonName}
 
 # get all lessons in database
+
+
 @app.route("/lesson")
 def get_all_lessons():
     lessonlist = Lesson.query.all()
@@ -395,6 +444,8 @@ def get_all_lessons():
     ), 404
 
 # get lesson by class
+
+
 @app.route("/class/<string:ClassID>")
 def find_by_class(ClassID):
     lesson = Lesson.query.filter_by(ClassID=ClassID).first()
@@ -413,6 +464,8 @@ def find_by_class(ClassID):
     ), 404
 
 # create lesson
+
+
 @app.route("/lesson/<string:lessonID>", methods=['POST'])
 def create_class(LessonID):
     if (Lesson.query.filter_by(LessonID=LessonID).first()):
@@ -451,6 +504,28 @@ def create_class(LessonID):
         },
     ), 201
 
+# get lesson list by class
+
+
+@app.route("/lessonlist/<string:ClassID>")
+def find_lessonlist_by_class(ClassID):
+    lessonList = Lesson.query.filter_by(ClassID=ClassID)
+    if lessonList:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "lessonList": [lesson.json() for lesson in lessonList]
+                }
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No lessons found."
+        }
+    ), 404
+
 
 class Quiz(db.Model):
     __tablename__ = 'quiz'
@@ -475,10 +550,12 @@ class Quiz(db.Model):
         self.QuizTime = QuizTime
 
     def json(self):
-        return {"QuizID": self.QuizID, "LastUpdated": self.LastUpdated, "GradedQuiz": self.GradedQuiz, 
+        return {"QuizID": self.QuizID, "LastUpdated": self.LastUpdated, "GradedQuiz": self.GradedQuiz,
                 "PassingGrade": self.PassingGrade, "LessonID": self.LessonID, "QuizScore": self.QuizScore, "QuizName": self.QuizName, "QuizTime": self.QuizTime}
 
 # get all quizzes in database
+
+
 @app.route("/quiz")
 def get_all_quizzes():
     quizlist = Quiz.query.all()
@@ -499,6 +576,8 @@ def get_all_quizzes():
     ), 404
 
 # get quiz by lesson
+
+
 @app.route("/quiz/<string:LessonID>")
 def find_quiz_by_lessonID(LessonID):
     quiz = Quiz.query.filter_by(LessonID=LessonID).first()
@@ -517,6 +596,8 @@ def find_quiz_by_lessonID(LessonID):
     ), 404
 
 # create quiz
+
+
 @app.route("/quiz/create/<string:LessonID>", methods=['POST'])
 def create_quiz(LessonID):
     if (Quiz.query.filter_by(LessonID=LessonID).first()):
@@ -556,6 +637,8 @@ def create_quiz(LessonID):
     ), 201
 
 # delete quiz
+
+
 @app.route("/quiz/delete/<string:QuizID>", methods=['DELETE'])
 def delete_quiz(QuizID):
     quiz = Quiz.query.filter_by(QuizID=QuizID).first()
@@ -578,7 +661,7 @@ def delete_quiz(QuizID):
             },
         ), 200
 
-    else: 
+    else:
         return jsonify(
             {
                 "code": 404,
@@ -602,8 +685,9 @@ class Trainer(db.Model):
         self.Department = Department
 
     def json(self):
-        return {"TrainerID": self.TrainerID, "EmployeeName": self.EmployeeName, 
+        return {"TrainerID": self.TrainerID, "EmployeeName": self.EmployeeName,
                 "CurrentDesignation": self.CurrentDesignation, "Department": self.Department}
+
 
 @app.route("/trainer")
 def get_all_trainers():
@@ -624,6 +708,7 @@ def get_all_trainers():
         }
     ), 404
 
+
 @app.route("/trainer/<string:TrainerID>")
 def find_by_trainerID(TrainerID):
     trainer = Trainer.query.filter_by(TrainerID=TrainerID).first()
@@ -642,96 +727,100 @@ def find_by_trainerID(TrainerID):
     ), 404
 
 
-class Material(db.Model):
-    __tablename__ = 'learningmaterial'
+# class Material(db.Model):
+#     __tablename__ = 'learningmaterial'
 
-    MaterialID = db.Column(db.Integer, primary_key=True)
-    MaterialTitle = db.Column(db.String(255), nullable=False)
-    MaterialDescription = db.Column(db.String(255), nullable=False)
-    LessonId = db.Column(db.Integer, nullable=False)
-    LastUpdated = db.Column(db.Date, nullable=False)
-    MaterialURL = db.Column(db.String(255), nullable=True)
-    MaterialType= db.Column(db.String(255), nullable=True)
-    CompleteStatus = db.Column(db.String(255), nullable=True)
+#     MaterialID = db.Column(db.Integer, primary_key=True)
+#     MaterialTitle = db.Column(db.String(255), nullable=False)
+#     MaterialDescription = db.Column(db.String(255), nullable=False)
+#     LessonId = db.Column(db.Integer, nullable=False)
+#     LastUpdated = db.Column(db.Date, nullable=False)
+#     MaterialURL = db.Column(db.String(255), nullable=True)
+#     MaterialType = db.Column(db.String(255), nullable=True)
+#     CompleteStatus = db.Column(db.String(255), nullable=True)
 
-    def __init__(self, MaterialID, MaterialTitle, MaterialDescription, LessonId, LastUpdated, MaterialURL, MaterialType, CompleteStatus):
-        self.MaterialID = MaterialID
-        self.MaterialTitle = MaterialTitle
-        self.MaterialDescription = MaterialDescription
-        self.LessonId = LessonId
-        self.LastUpdated = LastUpdated
-        self.MaterialURL = MaterialURL
-        self.MaterialType = MaterialType
-        self.CompleteStatus = CompleteStatus
-        
-    def json(self):
-        return {"MaterialID": self.MaterialID, "MaterialTitle": self.MaterialTitle, "MaterialDescription": self.MaterialDescription, "LessonId": self.LessonId, 
-                "LastUpdated": self.LastUpdated, "MaterialURL": self.MaterialURL, "MaterialType": self.MaterialType, "CompleteStatus": self.CompleteStatus}
+#     def __init__(self, MaterialID, MaterialTitle, MaterialDescription, LessonId, LastUpdated, MaterialURL, MaterialType, CompleteStatus):
+#         self.MaterialID = MaterialID
+#         self.MaterialTitle = MaterialTitle
+#         self.MaterialDescription = MaterialDescription
+#         self.LessonId = LessonId
+#         self.LastUpdated = LastUpdated
+#         self.MaterialURL = MaterialURL
+#         self.MaterialType = MaterialType
+#         self.CompleteStatus = CompleteStatus
 
-@app.route("/materials")
-def get_all_materials():
-    materiallist = Material.query.all()
-    if len(materiallist):
-        return jsonify(
-            {
-                "code": 200,
-                "data": {
-                    "material": [material.json() for material in materiallist]
-                }
-            }
-        )
-    return jsonify(
-        {
-            "code": 404,
-            "message": "There are no materials."
-        }
-    ), 404
+#     def json(self):
+#         return {"MaterialID": self.MaterialID, "MaterialTitle": self.MaterialTitle, "MaterialDescription": self.MaterialDescription, "LessonId": self.LessonId,
+#                 "LastUpdated": self.LastUpdated, "MaterialURL": self.MaterialURL, "MaterialType": self.MaterialType, "CompleteStatus": self.CompleteStatus}
 
-# get lessonmaterial by lessonID
-@app.route("/materials/<string:LessonId>")
-def find_material_by_lessonID(LessonId):
-    materiallist = Material.query.filter_by(LessonId=LessonId)
-    if materiallist:
-        return jsonify(
-            {
-                "code": 200,
-                "data": {
-                    "material": [material.json() for material in materiallist]
-                }
-            }
-        ), 200
-    return jsonify(
-        {
-            "code": 404,
-            "message": "No lesson materials found."
-        }
-    ), 404
 
-@app.route("/material/<string:LessonID>", methods=['POST'])
-def create_material(LessonID):
-    data = request.get_json()
-    material = Material(LessonID, **data)
+# @app.route("/materials")
+# def get_all_materials():
+#     materiallist = Material.query.all()
+#     if len(materiallist):
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": {
+#                     "material": [material.json() for material in materiallist]
+#                 }
+#             }
+#         )
+#     return jsonify(
+#         {
+#             "code": 404,
+#             "message": "There are no materials."
+#         }
+#     ), 404
 
-    try:
-        db.session.add(material)
-        db.session.commit()
-    except:
-        return jsonify(
-            {
-                "code": 500,
-                "data": {
-                    "user": material.json()
-                },
-                "message": "An error occurred uploading materials."
-            }
-        ), 500
+# # get lessonmaterial by lessonID
 
-    return jsonify(
-        {
-            "code": 201,
-            "data": material.json()
-        }
-    ), 201
+
+# @app.route("/materials/<string:LessonId>")
+# def find_material_by_lessonID(LessonId):
+#     materiallist = Material.query.filter_by(LessonId=LessonId)
+#     if materiallist:
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": {
+#                     "material": [material.json() for material in materiallist]
+#                 }
+#             }
+#         ), 200
+#     return jsonify(
+#         {
+#             "code": 404,
+#             "message": "No lesson materials found."
+#         }
+#     ), 404
+
+
+# @app.route("/material/<string:LessonID>", methods=['POST'])
+# def create_material(LessonID):
+#     data = request.get_json()
+#     material = Material(LessonID, **data)
+
+#     try:
+#         db.session.add(material)
+#         db.session.commit()
+#     except:
+#         return jsonify(
+#             {
+#                 "code": 500,
+#                 "data": {
+#                     "user": material.json()
+#                 },
+#                 "message": "An error occurred uploading materials."
+#             }
+#         ), 500
+
+#     return jsonify(
+#         {
+#             "code": 201,
+#             "data": material.json()
+#         }
+#     ), 201
 
 
 class Question(db.Model):
@@ -754,6 +843,8 @@ class Question(db.Model):
         return {"QuizID": self.QuizID, "QuestionID": self.QuestionID, "Options": self.Options, "Answer": self.Answer, "Question": self.Question}
 
 # get all questions in database
+
+
 @app.route("/question")
 def get_all():
     questionlist = Question.query.all()
@@ -774,6 +865,8 @@ def get_all():
     ), 404
 
 # get question by quiz
+
+
 @app.route("/question/<string:QuizID>")
 def find_questions_by_quizID(QuizID):
     questionlist = Question.query.filter_by(QuizID=QuizID)
@@ -794,6 +887,8 @@ def find_questions_by_quizID(QuizID):
     ), 404
 
 # create question
+
+
 @app.route("/question/create/<string:QuestionID>", methods=['POST'])
 def create_question(QuestionID):
     data = request.get_json()
@@ -822,6 +917,8 @@ def create_question(QuestionID):
     ), 201
 
 # delete questions for quiz
+
+
 @app.route("/question/delete/<string:QuizID>", methods=['DELETE'])
 def delete_question(QuizID):
     questions = Question.query.filter_by(QuizID=QuizID)
@@ -845,13 +942,79 @@ def delete_question(QuizID):
             },
         ), 200
 
-    else: 
+    else:
         return jsonify(
             {
                 "code": 404,
                 "message": "Cannot find question(s) to be deleted."
             },
         ), 404
+
+
+class LearningMaterial(db.Model):
+    __tablename__ = 'learningmaterial'
+
+    MaterialID = db.Column(db.Integer, primary_key=True)
+    MaterialTitle = db.Column(db.String(255), nullable=False)
+    MaterialDescription = db.Column(db.String(255), nullable=False)
+    LessonID = db.Column(db.Integer, nullable=False)
+    LastUpdated = db.Column(db.Date, nullable=False)
+    MaterialURL = db.Column(db.String(255), nullable=True)
+    MaterialType = db.Column(db.String(255), nullable=True)
+    CompleteStatus = db.Column(db.String(255), nullable=True)
+
+    def __init__(self, MaterialID, MaterialTitle, MaterialDescription, LessonID, LastUpdated, MaterialURL, MaterialType, CompleteStatus):
+        self.MaterialID = MaterialID
+        self.MaterialTitle = MaterialTitle
+        self.MaterialDescription = MaterialDescription
+        self.LessonID = LessonID
+        self.LastUpdated = LastUpdated
+        self.MaterialURL = MaterialURL
+        self.MaterialType = MaterialType
+        self.CompleteStatus = CompleteStatus
+
+    def json(self):
+        return {"MaterialID": self.MaterialID, "MaterialTitle": self.MaterialTitle, "MaterialDescription": self.MaterialDescription, "LessonId": self.LessonID,
+                "LastUpdated": self.LastUpdated, "MaterialURL": self.MaterialURL, "MaterialType": self.MaterialType, "CompleteStatus": self.CompleteStatus}
+
+
+@app.route("/learningmaterial")
+def get_all_material():
+    materiallist = LearningMaterial.query.all()
+    if len(materiallist):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "materials": [material.json() for material in materiallist]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No material found."
+        }
+    ), 404
+
+
+@app.route("/learningmaterial/<string:LessonID>")
+def find_learningmaterial_by_Lesson(LessonID):
+    material = LearningMaterial.query.filter_by(LessonID=LessonID).first()
+    if material:
+        return jsonify(
+            {
+                "code": 200,
+                "data": material.json()
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No classes found."
+        }
+    ), 404
+
 
 if __name__ == '__main__':
     app.run(debug=True)

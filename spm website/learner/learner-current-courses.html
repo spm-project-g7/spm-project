@@ -52,6 +52,15 @@
             color: white;
             margin: auto;
             text-align: center;
+            
+        }
+        .dropdown-menu.show{
+            background-color: #6c757d;
+            color: white;
+            margin: auto;
+            text-align: center;
+            display: flex;
+            margin-bottom: 20px;
         }
 
         .dropdown-item {
@@ -60,6 +69,10 @@
         }
 
         .dropdown-item:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+        .dropdown-item.show:hover {
             background-color: #6c757d;
             color: white;
         }
@@ -201,7 +214,7 @@
         </div>
         <br>
         <br>
-        <div class="row" id="lessontable" style="border:3px solid #37423b">
+        <div class="row" id="lessontable" style="border:3px solid #37423b;margin-top:20px;">
             <div class="col-md-6" style="border-right:3px solid #37423b;display: inline-block; ">
                 <div class="row">
                     <label
@@ -252,7 +265,7 @@
 
             //get courseID from enrollment by engineerID
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5006/enrollment/" + engineerID;
+                var serviceURL = "http://127.0.0.1:5000/enrollment/" + engineerID;
                 try {
                     const response =
                         await fetch(
@@ -279,7 +292,7 @@
         function getCourseDetail() {
             //get course detail from courseID
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5004/course/" + courseId;
+                var serviceURL = "http://127.0.0.1:5000/course/" + courseId;
                 try {
                     const response =
                         await fetch(
@@ -303,7 +316,7 @@
         //get class detail(classID) from courseID
         function getClassDetail() {
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5005/class/singleclass/" + courseId;
+                var serviceURL = "http://127.0.0.1:5000/class/singleclass/" + courseId;
                 try {
                     const response =
                         await fetch(
@@ -342,7 +355,7 @@
         //get lesson list from classID
         function getLessonDetail() {
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5001/lessonlist/" + classId;
+                var serviceURL = "http://127.0.0.1:5000/lessonlist/" + classId;
                 try {
                     const response =
                         await fetch(
@@ -397,7 +410,7 @@
             //Get Class by selected course
             console.log(selectedLessonIndex)
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5008/learningmaterial/" + selectedLessonIndex;
+                var serviceURL = "http://127.0.0.1:5000/learningmaterial/" + selectedLessonIndex;
                 try {
                     const response =
                         await fetch(
@@ -425,7 +438,7 @@
             });
             //Get Quiz Detail By LessonID
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5003/quiz/" + selectedLessonIndex;
+                var serviceURL = "http://127.0.0.1:5000/quiz/" + selectedLessonIndex;
                 console.log(selectedLessonIndex)
                 try {
                     const response =
