@@ -118,7 +118,7 @@
             <div class="question"></div>
             <ul class="choiceList"></ul>
             <div class="quizMessage"></div>
-            <div class="result"></div>
+            <!--<div class="result"></div>-->
             <button class="btn btn-secondary preButton">Previous Question</button>
             <button class="btn btn-secondary nextButton">Next Question</button>
             <button class="btn btn-secondary submitButton" style="visibility: hidden;" onclick="createQuizScore()">Submit</button>
@@ -253,7 +253,10 @@
                         var engineerID = parseInt(GetURLParameter('engineerID'));
                         var lessonID = parseInt(GetURLParameter('lesson'));
                         var quizid = parseInt(GetURLParameter('quizID'));
-                        var quizscore = parseInt(globalCorrectAns)/parseInt(globalQnsLength) * 100
+                        var quizscore = 0;
+                        if(globalCorrectAns!=0 && globalQnsLength !=0){
+                            quizscore = parseInt(globalCorrectAns)/parseInt(globalQnsLength) * 100
+                        }
                         var serviceURL = "http://127.0.0.1:5000/quizscore/create";
                         var jsondata = JSON.stringify({ EngineerID: engineerID, LessonID: lessonID, QuizID: quizid, QuizScore: quizscore  });
                         try {
@@ -271,6 +274,7 @@
                             const information = await data;
                             if(response.ok){
                                 alert("Quizscore successfully created!");
+                                window.location = 'learner-current-courses.html?engineerID=' + engineerID;
                             } else {
                                 // alert(data.message);
                                 alert("An error occurred.");
@@ -429,6 +433,7 @@
                                 c = 185;
 
                                 $(document).find(".nextButton").text("Play Again?");
+                                document.getElementsByClassName("submitButton")[0].style.visibility = "visible";
                                 quizOver = true;
                                 return false;
 
@@ -449,7 +454,7 @@
                             //console.log("In display current Question");
                             var question = questions[currentQuestion].Question;
                             var questionClass = $(document).find(".quizContainer > .question");
-                            var choiceList = $(document).find(".quizContainer > .choiceList");
+                            var choiceList = $(document).find   (".quizContainer > .choiceList");
                             var numChoices = questions[currentQuestion].Options.split(",").length;
                             // Set the questionClass text to the current question
                             $(questionClass).text(question);

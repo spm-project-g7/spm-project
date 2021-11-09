@@ -383,7 +383,7 @@ def create_enrollment(CourseID, EngineerID, ClassID):
 #self enrol engineers into course and class
 @app.route("/enrolself/<string:CourseID>/<string:EngineerID>/<string:ClassID>", methods=['POST'])
 def create_self_enrollment(CourseID, EngineerID, ClassID):
-    if (Enrollment.query.filter_by(CourseID=CourseID).filter_by(EngineerID=EngineerID)):
+    if (Enrollment.query.filter_by(CourseID=CourseID).filter_by(EngineerID=EngineerID).first()):
         return jsonify(
             {
                 "code": 400,
