@@ -11,7 +11,6 @@ class TestEngineer(unittest.TestCase):
         "Department":"Information Technology"
     }
     
-  
     def testGetAllEngineers(self):
         response = requests.get(self.URL)
         self.assertEqual(response.status_code, 200)
