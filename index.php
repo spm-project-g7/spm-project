@@ -1,1 +1,1 @@
-<?php header('Location: Homepage.html'); ?>
+<?php header('Location: spm website/Homepage.html'); ?>
