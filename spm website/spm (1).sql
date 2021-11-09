@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 09, 2021 at 08:29 AM
+-- Generation Time: Nov 09, 2021 at 10:24 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.4.0
 
@@ -133,7 +133,6 @@ INSERT INTO `enrollment` (`CourseID`, `EngineerID`, `StartDate`, `EndDate`, `Ass
 (2, 1, '2021-10-08', '2032-10-31', NULL, 0, 'Not Complete', 0, 2),
 (2, 4, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0, 3),
 (3, 2, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0, 1),
-(3, 3, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0, 2),
 (4, 1, '2021-10-08', '2022-04-29', NULL, 0, 'Not Complete', 0, 4);
 
 -- --------------------------------------------------------
@@ -243,8 +242,8 @@ INSERT INTO `question` (`QuizID`, `QuestionID`, `Options`, `Answer`, `Question`)
 (1, 1, 'math.h,studio.h,home.h,sudo.h', '1', 'In the standard library of C programming language, which of the following header file is designed for basic mathematical operations?\r\n'),
 (2, 1, 'Yes,No,I dont know', '2', '“Stderr” is a standard error.'),
 (3, 1, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '1', 'Which of the following header file can be used to define the NULL macro?'),
-(4, 1, 'True,False', '2', 'The size of both stack and heap remains the same during run time.'),
-(5, 5, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '2', 'Which of the following header file can be used to define the NULL macro?');
+(4, 1, 'True,False', '0', 'The size of both stack and heap remains the same during run time.'),
+(4, 2, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '2', 'Which of the following header file can be used to define the NULL macro?');
 
 -- --------------------------------------------------------
 

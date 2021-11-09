@@ -380,6 +380,53 @@ def create_enrollment(CourseID, EngineerID, ClassID):
         }
     ), 201
 
+#self enrol engineers into course and class
+@app.route("/enrolself/<string:CourseID>/<string:EngineerID>/<string:ClassID>", methods=['POST'])
+def create_self_enrollment(CourseID, EngineerID, ClassID):
+    if (Enrollment.query.filter_by(CourseID=CourseID).filter_by(EngineerID=EngineerID)):
+        return jsonify(
+            {
+                "code": 400,
+                "data": {
+                    "course": CourseID,
+                    "engineer": EngineerID,
+                    "class": ClassID
+                },
+                "message": "Engineer is already enrolled in this course and class."
+            }
+        ), 400
+
+    data = request.get_json()
+    engineer = Enrollment(ClassID, CourseID, EngineerID, **data)
+
+    try:
+        db.session.add(engineer)
+        db.session.commit()
+    except:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                    "course": CourseID,
+                    "engineer": EngineerID,
+                    "class": ClassID
+                },
+                "message": "An error occurred enrolling the engineer."
+            }
+        ), 500
+
+    return jsonify(
+        {
+            "code": 201,
+            "data": {
+                "course": CourseID,
+                "engineer": EngineerID,
+                "class": ClassID
+            },
+            "message": "Successfully enrolled the engineer."
+        }
+    ), 201
+
 # get enrollment by engineerId
 
 

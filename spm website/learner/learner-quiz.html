@@ -313,7 +313,7 @@
                         //console.log(allQuestions)
                         var questions = allQuestions
                         //return questions = allQuestions
-                        //console.log(questions)
+                        console.log(questions)
 
                         var currentQuestion = 0;
                         var correctAnswers = 0;
@@ -447,7 +447,7 @@
 
                             if (c == 185) { c = quizTime; timedCount(); }
                             //console.log("In display current Question");
-                            var question = questions[currentQuestion].question;
+                            var question = questions[currentQuestion].Question;
                             var questionClass = $(document).find(".quizContainer > .question");
                             var choiceList = $(document).find(".quizContainer > .choiceList");
                             var numChoices = questions[currentQuestion].Options.split(",").length;
