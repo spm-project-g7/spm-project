@@ -21,6 +21,11 @@ class TestClasses(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 2)
 
+    def testFindClassByID(self):
+            response = requests.get(self.URL + '/1')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(response.json()), 2)
+
     def testFindClassByTrainer(self):
         response = requests.get(self.URL + '/trainer/3')
         self.assertEqual(response.status_code, 200)
@@ -28,6 +33,11 @@ class TestClasses(unittest.TestCase):
 
     def testFindClassByCourseID(self):
         response = requests.get(self.URL + '/course/3')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 2)
+    
+    def testFindSingleClassByCourseID(self):
+        response = requests.get(self.URL + '/singleclass/3')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 2)
 
