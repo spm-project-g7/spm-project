@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
@@ -13,6 +13,10 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 db = SQLAlchemy(app)
 CORS(app)
 
+
+# @app.route('/')
+# def home():
+#    return render_template('Homepage.html')
 
 class Classes(db.Model):
     __tablename__ = 'class'
