@@ -14,7 +14,9 @@
     <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="../assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -24,7 +26,8 @@
     <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Template Main CSS File -->
     <link href="../assets/css/style.css" rel="stylesheet">
@@ -37,329 +40,534 @@
     ======================================================== -->
 </head>
 
-<body>
+<body onload="init()">
 
     <!-- ======= Header ======= -->
-    
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+
+            <h1 class="logo me-auto"><a href="index.html">Learning Portal</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                    <li><a href="learner-homepage.html">Home</a></li>
+                    <li><a href="quiz.html">Quizzes</a></li>
+                    <li><a href="#">Learning Materials</a></li>
+                    <li><a href="#">Forum</a></li>
+                    <li><a href="#">Chats</a></li>
+                    <!-- <li><a href="events.html">Events</a></li>
+                <li><a href="pricing.html">Pricing</a></li> -->
+                    <li class="dropdown"><a class="active" href="#"><span>Courses</span> <i
+                                class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="all-courses.html">My Courses</a></li>
+                            <li><a href="current-courses.html">Self Enroll Courses</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#"><span>My Profile</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="#">Profile</a></li>
+                            <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                        <ul>
+                        <li><a href="#">Deep Drop Down 1</a></li>
+                        <li><a href="#">Deep Drop Down 2</a></li>
+                        <li><a href="#">Deep Drop Down 3</a></li>
+                        <li><a href="#">Deep Drop Down 4</a></li>
+                        <li><a href="#">Deep Drop Down 5</a></li>
+                        </ul>
+                    </li> -->
+                            <li><a href="#">Settings</a></li>
+                            <!-- <li><a href="#">Logout</a></li>
+                    <li><a href="#">Drop Down 4</a></li> -->
+                        </ul>
+                    </li>
+                    <!-- <li><a href="contact.html">Contact</a></li> -->
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+            <a href="../Homepage.html" class="get-started-btn">Logout</a>
+
+        </div>
+    </header>
+    <!-- End Header -->
 
     <main id="main">
 
         <!-- ======= Breadcrumbs ======= -->
-      
-           
-        </div>
+        <div class="breadcrumbs" data-aos="fade-in">
+            <div class="container">
+                <h2 style="margin-top: 20px;font-weight: bold;">Each Quiz Time:</h2>
+                <label id="breadcrumbTime" style="font-size:30px;"></label>
+            </div>
         </div><!-- End Breadcrumbs -->
-        <div id="1">
 
-        <button onclick= getQuestion(this.id)  id="1">Start </button>
-            
-        </div> 
+        <div id="1" class="row">
+
+            <button class="startbtn btn btn-secondary" onclick=getQuestion()>Start </button>
+
+        </div>
 
         <div class="quizContainer container-fluid well well-lg" id="1">
-            
-                
-            <div style="color:#FF0000;" ><span id="iTimeShow">Time Remaining: </span><br/><span id='timer' style="font-size:25px;"></span></div>
-            <div  class="question"></div>
+
+
+            <div style="color:#FF0000;"><span id="iTimeShow">Time Remaining: </span><br /><span id='timer'
+                    style="font-size:25px;"></span></div>
+            <div class="question"></div>
             <ul class="choiceList"></ul>
             <div class="quizMessage"></div>
             <div class="result"></div>
-            <button class="preButton">Previous Question</button>
-            <button class="nextButton">Next Question</button>
+            <button class="btn btn-secondary preButton">Previous Question</button>
+            <button class="btn btn-secondary nextButton">Next Question</button>
+            <button class="btn btn-secondary submitButton" style="visibility: hidden;" onclick="createQuizScore()">Submit</button>
         </div>
-        <!--<button onclick= getQuestion(this.id)  id="1">Start </button>-->
+    </main>
+
+
+
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h3>Mentor</h3>
+                        <p>
+                            A108 Adam Street <br>
+                            New York, NY 535022<br>
+                            United States <br><br>
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4>Join Our Newsletter</h4>
+                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                        <form action="" method="post">
+                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container d-md-flex py-4">
+
+            <div class="me-md-auto text-center text-md-start">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>Mentor</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/ -->
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+            </div>
+            <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="../assets/vendor/aos/aos.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
+    <script src="../assets/vendor/purecounter/purecounter.js"></script>
+    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <!-- Template Main JS File -->
+    <script src="../assets/js/main.js"></script>
+    <script>
+        //var questions = []
+        var quizID = 0;
+        var quizTime = 0;
+        var convertedSec = 0;
+        var globalCorrectAns = 0;
+        var globalQnsLength = 0;
+
+        function GetURLParameter(sParam)
+                {
+                    var sPageURL = window.location.search.substring(1);
+                    var sURLVariables = sPageURL.split('&');
+                    for (var i = 0; i < sURLVariables.length; i++) 
+                    {
+                        var sParameterName = sURLVariables[i].split('=');
+                        if (sParameterName[0] == sParam) 
+                        {
+                            return sParameterName[1];
+                        }
+                    }
+                }
         
-        
-<script>
-//var questions = []
+        function createQuizScore(){
+            $(async () => {
+                        var engineerID = parseInt(GetURLParameter('engineerID'));
+                        var lessonID = parseInt(GetURLParameter('lesson'));
+                        var quizid = parseInt(GetURLParameter('quizID'));
+                        var quizscore = parseInt(globalCorrectAns)/parseInt(globalQnsLength) * 100
+                        var serviceURL = "http://127.0.0.1:5000/quizscore/create";
+                        var jsondata = JSON.stringify({ EngineerID: engineerID, LessonID: lessonID, QuizID: quizid, QuizScore: quizscore  });
+                        try {
+                            const response =
+                            await fetch(serviceURL, 
+                            {
+                                method: 'POST',
+                                headers: { 
+                                    "Content-Type": "application/json" 
+                                },
+                                body: jsondata,
+                                
+                            });
+                            const data = await response.json();
+                            const information = await data;
+                            if(response.ok){
+                                alert("Quizscore successfully created!");
+                            } else {
+                                // alert(data.message);
+                                alert("An error occurred.");
+                            }   
+                        }
+                        catch (error) {
+                            // Errors when calling the service; such as network error, 
+                            // service offline, etc
+                            console.log(error);
+                            alert('There is a problem creating the quizscore, please try again later.');
+                        } // error
+                    });
 
-function getQuestion(quizID){
-
-    $(async () => {
-        console.log(quizID)
-        var serviceURL = "http://127.0.0.1:5000/question/" + quizID;
-        console.log(serviceURL)
-        try {
-            const response =
-            await fetch(
-                serviceURL, { method: 'GET' }
-            );
-            const result = await response.json();
-            if (response.status == 200) {
-                // success case
-                var allQuestions = result.data.questions; 
-                //var options = "";
-                //console.log(allQuestions)
-                var questions = allQuestions
-                //return questions = allQuestions
-                //console.log(questions)
-
-var currentQuestion = 0;
-var correctAnswers = 0;
-var quizOver = false;
-var iSelectedAnswer = [];
-	var c=180;
-	var t;
-
-
-
-$(document).ready(function () 
-{
-    // Display the first question
-    displayCurrentQuestion();
-    $(this).find(".quizMessage").hide();
-    $(this).find(".preButton").attr('disabled', 'disabled');
-	
-	timedCount();
-	
-	$(this).find(".preButton").on("click", function () 
-	{		
-		
-        if (!quizOver) 
-		{
-			if(currentQuestion == 0) { return false; }
-	
-			if(currentQuestion == 1) {
-			  $(".preButton").attr('disabled', 'disabled');
-			}
-			
-				currentQuestion--; // Since we have already displayed the first question on DOM ready
-				if (currentQuestion < questions.length) 
-				{
-					displayCurrentQuestion();
-					
-				} 					
-		} 
-    });
-
-	
-	// On clicking next, display the next question
-    $(this).find(".nextButton").on("click", function () 
-	{
-        if (!quizOver) 
-		{
-			
-            var val = $("input[type='radio']:checked").val();
-
-            if (val == undefined) 
-			{
-                $(document).find(".quizMessage").text("Please select an answer");
-                $(document).find(".quizMessage").show();
-            } 
-			else 
-			{
-                // TODO: Remove any message -> not sure if this is efficient to call this each time....
-                $(document).find(".quizMessage").hide();
-                console.log(questions[currentQuestion].Answer)
-               
-				if (val == questions[currentQuestion].Answer) 
-				{
-					correctAnswers++;
-				}
-				iSelectedAnswer[currentQuestion] = val;
-				
-				currentQuestion++; // Since we have already displayed the first question on DOM ready
-				if(currentQuestion >= 1) {
-					  $('.preButton').prop("disabled", false);
-				}
-				if (currentQuestion < questions.length) 
-				{
-					displayCurrentQuestion();
-					
-				} 
-				else 
-				{
-					displayScore();
-					$('#iTimeShow').html('Quiz Time Completed!');
-					$('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
-					c=185;
-					
-					$(document).find(".nextButton").text("Play Again?");
-					quizOver = true;
-					return false;
-					
-				}
-			}
-					
-		}	
-		else 
-		{ // quiz is over and clicked the next button (which now displays 'Play Again?'
-			quizOver = false; $('#iTimeShow').html('Time Remaining:'); iSelectedAnswer = [];
-			$(document).find(".nextButton").text("Next Question");
-			$(document).find(".preButton").text("Previous Question");
-			 $(".preButton").attr('disabled', 'disabled');
-			resetQuiz();
-		
-			displayCurrentQuestion();
-			hideScore();
-		}
-    });
-});
-
-
-
-function timedCount()
-	{
-		if(c == 185) 
-		{ 
-			return false; 
-		}
-		
-		var hours = parseInt( c / 3600 ) % 24;
-		var minutes = parseInt( c / 60 ) % 60;
-		var seconds = c % 60;
-		var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
-		$('#timer').html(result);
-		
-		if(c == 0 )
-		{
-					displayScore();
-					$('#iTimeShow').html('Quiz Time Completed!');
-					$('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
-					c=185;
-					
-					$(document).find(".nextButton").text("Play Again?");
-					quizOver = true;
-					return false;
-					
-		}
-		
-		
-		c = c - 1;
-		t = setTimeout(function()
-		{
-			timedCount()
-		},1000);
-	}
-	
-	
-// This displays the current question AND the choices
-function displayCurrentQuestion() 
-{
-
-	if(c == 185) { c = 180; timedCount(); }
-    //console.log("In display current Question");
-    var question = questions[currentQuestion].question;
-    var questionClass = $(document).find(".quizContainer > .question");
-    var choiceList = $(document).find(".quizContainer > .choiceList");
-    var numChoices = questions[currentQuestion].Options.split(",").length;
-    // Set the questionClass text to the current question
-    $(questionClass).text(question);
-    // Remove all current <li> elements (if any)
-    $(choiceList).find("li").remove();
-    var choice;
-	
-	
-    for (i = 0; i < numChoices; i++) 
-	{
-        choice = questions[currentQuestion].Options.split(",")[i];
-		
-		if(iSelectedAnswer[currentQuestion] == i) {
-			$('<li><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-		} else {
-			$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-		}
-    }
-}
-
-function resetQuiz()
-{
-    currentQuestion = 0;
-    correctAnswers = 0;
-    hideScore();
-}
-
-function displayScore()
-{
-    $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
-    $(document).find(".quizContainer > .result").show();
-}
-
-function hideScore() 
-{
-    $(document).find(".result").hide();
-}
-
-// This displays the current question AND the choices
-function viewResults() 
-{
-
-	if(currentQuestion == 10) { currentQuestion = 0;return false; }
-	
-
-	hideScore();
-    var question = questions[currentQuestion].Question;
-    var questionClass = $(document).find(".quizContainer > .Question");
-    var choiceList = $(document).find(".quizContainer > .choiceList");
-    var numChoices = questions[currentQuestion].Options.split(",").length;
-    // Set the questionClass text to the current question
-    $(questionClass).text(Question);
-    // Remove all current <li> elements (if any)
-    $(choiceList).find("li").remove();
-    var choice;
-	
-	
-	for (i = 0; i < numChoices; i++) 
-	{
-        choice = questions[currentQuestion].Options.split(",")[i];
-		
-		if(iSelectedAnswer[currentQuestion] == i) {
-			if(questions[currentQuestion].Answer == i) {
-				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-			} else {
-				$('<li style="border:2px solid red;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-			}
-		} else {
-			if(questions[currentQuestion].Answer == i) {
-				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-			} else {
-				$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-			}
-		}
-    }
-	
-	currentQuestion++;
-	
-	setTimeout(function()
-		{
-			viewResults();
-		},3000);
-}
-            
-
-       
-                
-               
-            }
         }
-      catch (error) {
-        // Errors when calling the service; such as network error, 
-        // service offline, etc
-        alert('There is a problem fetching the list of questions, please try again later.');
-      } // error
-    } )
-  
-}
+        
+        function init(){
+            quizTime = parseInt(GetURLParameter('quizTime'));
+            quizID = parseInt(GetURLParameter('quizID'));
+            document.getElementById('breadcrumbTime').innerHTML = String(quizTime); 
+        }
+        
+         
+
+        function getQuestion() {
+
+            $(async () => {
+                console.log(quizID)
+                var serviceURL = "http://127.0.0.1:5000/question/" + quizID;
+                console.log(serviceURL)
+                try {
+                    const response =
+                        await fetch(
+                            serviceURL, { method: 'GET' }
+                        );
+                    const result = await response.json();
+                    if (response.status == 200) {
+                        // success case
+                        var allQuestions = result.data.questions;
+                        //var options = "";
+                        //console.log(allQuestions)
+                        var questions = allQuestions
+                        //return questions = allQuestions
+                        //console.log(questions)
+
+                        var currentQuestion = 0;
+                        var correctAnswers = 0;
+                        var quizOver = false;
+                        var iSelectedAnswer = [];
+                        var c = quizTime;
+                        var t;
 
 
-</script>
+
+                        $(document).ready(function () {
+                            // Display the first question
+                            displayCurrentQuestion();
+                            $(this).find(".quizMessage").hide();
+                            $(this).find(".preButton").attr('disabled', 'disabled');
+
+                            timedCount();
+
+                            $(this).find(".preButton").on("click", function () {
+
+                                if (!quizOver) {
+                                    if (currentQuestion == 0) { return false; }
+
+                                    if (currentQuestion == 1) {
+                                        $(".preButton").attr('disabled', 'disabled');
+                                    }
+
+                                    currentQuestion--; // Since we have already displayed the first question on DOM ready
+                                    if (currentQuestion < questions.length) {
+                                        displayCurrentQuestion();
+
+                                    }
+                                }
+                            });
+
+
+                            // On clicking next, display the next question
+                            $(this).find(".nextButton").on("click", function () {
+                                if (!quizOver) {
+
+                                    var val = $("input[type='radio']:checked").val();
+
+                                    if (val == undefined) {
+                                        $(document).find(".quizMessage").text("Please select an answer");
+                                        $(document).find(".quizMessage").show();
+                                    }
+                                    else {
+                                        // TODO: Remove any message -> not sure if this is efficient to call this each time....
+                                        $(document).find(".quizMessage").hide();
+                                        console.log(questions[currentQuestion].Answer)
+
+                                        if (val == questions[currentQuestion].Answer) {
+                                            correctAnswers++;
+                                        }
+                                        iSelectedAnswer[currentQuestion] = val;
+
+                                        currentQuestion++; // Since we have already displayed the first question on DOM ready
+                                        if (currentQuestion >= 1) {
+                                            $('.preButton').prop("disabled", false);
+                                        }
+                                        if (currentQuestion < questions.length) {
+                                            displayCurrentQuestion();
+                                        }
+                                        else {
+                                            displayScore();
+                                            $('#iTimeShow').html('Quiz Time Completed!');
+                                            $('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
+                                            c = 185;
+                                            globalCorrectAns = correctAnswers
+                                            globalQnsLength = questions.length
+
+                                            document.getElementsByClassName("submitButton")[0].style.visibility = "visible";
+
+                                            $(document).find(".nextButton").text("Play Again?");
+                                            quizOver = true;
+                                            return false;
+
+                                        }
+                                    }
+
+                                }
+                                else { // quiz is over and clicked the next button (which now displays 'Play Again?'
+                                    quizOver = false; $('#iTimeShow').html('Time Remaining:'); iSelectedAnswer = [];
+                                    $(document).find(".nextButton").text("Next Question");
+                                    $(document).find(".preButton").text("Previous Question");
+                                    $(".preButton").attr('disabled', 'disabled');
+                                    resetQuiz();
+                                    document.getElementsByClassName("submitButton")[0].style.visibility = "hidden";
+
+                                    displayCurrentQuestion();
+                                    hideScore();
+                                }
+                            });
+                        });
 
 
 
-    </main><!-- End #main -->
- 
+                        function timedCount() {
+                            if (c == 185) {
+                                return false;
+                            }
 
-<!-- Vendor JS Files -->
-<script src="../assets/vendor/aos/aos.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/vendor/php-email-form/validate.js"></script>
-<script src="../assets/vendor/purecounter/purecounter.js"></script>
-<script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+                            var hours = parseInt(c / 3600) % 24;
+                            var minutes = parseInt(c / 60) % 60;
+                            var seconds = c % 60;
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                            $('#timer').html(result);
 
-<!-- Template Main JS File -->
-<script src="../assets/js/main.js"></script>
+                            if (c == 0) {
+                                displayScore();
+                                $('#iTimeShow').html('Quiz Time Completed!');
+                                $('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
+                                c = 185;
+
+                                $(document).find(".nextButton").text("Play Again?");
+                                quizOver = true;
+                                return false;
+
+                            }
+
+
+                            c = c - 1;
+                            t = setTimeout(function () {
+                                timedCount()
+                            }, 1000);
+                        }
+
+
+                        // This displays the current question AND the choices
+                        function displayCurrentQuestion() {
+
+                            if (c == 185) { c = quizTime; timedCount(); }
+                            //console.log("In display current Question");
+                            var question = questions[currentQuestion].question;
+                            var questionClass = $(document).find(".quizContainer > .question");
+                            var choiceList = $(document).find(".quizContainer > .choiceList");
+                            var numChoices = questions[currentQuestion].Options.split(",").length;
+                            // Set the questionClass text to the current question
+                            $(questionClass).text(question);
+                            // Remove all current <li> elements (if any)
+                            $(choiceList).find("li").remove();
+                            var choice;
+
+
+                            for (i = 0; i < numChoices; i++) {
+                                choice = questions[currentQuestion].Options.split(",")[i];
+
+                                if (iSelectedAnswer[currentQuestion] == i) {
+                                    $('<li><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' + ' ' + choice + '</li>').appendTo(choiceList);
+                                } else {
+                                    $('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' + ' ' + choice + '</li>').appendTo(choiceList);
+                                }
+                            }
+                        }
+
+                        function resetQuiz() {
+                            currentQuestion = 0;
+                            correctAnswers = 0;
+                            hideScore();
+                        }
+
+                        function displayScore() {
+                            $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
+                            $(document).find(".quizContainer > .result").show();
+                        }
+
+                        function hideScore() {
+                            $(document).find(".result").hide();
+                        }
+
+                        // This displays the current question AND the choices
+                        function viewResults() {
+
+                            if (currentQuestion == 10) { currentQuestion = 0; return false; }
+
+
+                            hideScore();
+                            var question = questions[currentQuestion].Question;
+                            var questionClass = $(document).find(".quizContainer > .Question");
+                            var choiceList = $(document).find(".quizContainer > .choiceList");
+                            var numChoices = questions[currentQuestion].Options.split(",").length;
+                            // Set the questionClass text to the current question
+                            $(questionClass).text(Question);
+                            // Remove all current <li> elements (if any)
+                            $(choiceList).find("li").remove();
+                            var choice;
+
+
+                            for (i = 0; i < numChoices; i++) {
+                                choice = questions[currentQuestion].Options.split(",")[i];
+
+                                if (iSelectedAnswer[currentQuestion] == i) {
+                                    if (questions[currentQuestion].Answer == i) {
+                                        $('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' + ' ' + choice + '</li>').appendTo(choiceList);
+                                    } else {
+                                        $('<li style="border:2px solid red;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' + ' ' + choice + '</li>').appendTo(choiceList);
+                                    }
+                                } else {
+                                    if (questions[currentQuestion].Answer == i) {
+                                        $('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' + ' ' + choice + '</li>').appendTo(choiceList);
+                                    } else {
+                                        $('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' + ' ' + choice + '</li>').appendTo(choiceList);
+                                    }
+                                }
+                            }
+
+                            currentQuestion++;
+                            
+                            setTimeout(function () {
+                                viewResults();
+                            }, 3000);
+                        }
+
+
+
+
+
+                    }
+                }
+                catch (error) {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    alert('There is a problem fetching the list of questions, please try again later.');
+                } // error
+            })
+
+        }
+
+
+    </script>
+
+
+
+
+
+
+    <!-- Vendor JS Files -->
+    <script src="../assets/vendor/aos/aos.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
+    <script src="../assets/vendor/purecounter/purecounter.js"></script>
+    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <!-- Template Main JS File -->
+    <script src="../assets/js/main.js"></script>
 
 </body>
 
