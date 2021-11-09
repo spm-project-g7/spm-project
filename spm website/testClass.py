@@ -31,12 +31,10 @@ class TestClasses(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 2)
 
-    def testGetMissingClass(self):
-        response = requests.get(self.URL + '/course/88')
-        self.assertEqual(response.status_code, 404)
-        self.assertEqual(len(response.json()), 2)
-
-    
+    def testFindSingleClassByCourseID(self):
+            response = requests.get(self.URL + '/course/3')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(response.json()), 2)
 
 if __name__ == "__main__":
     unittest.main()
