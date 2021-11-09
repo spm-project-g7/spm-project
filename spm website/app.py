@@ -264,7 +264,7 @@ def get_all_enrollment():
         }
     ), 404
 
-@app.route("/class/<string:EngineerID>")
+@app.route("/enrollment/<string:EngineerID>")
 def find_by_engineer(EngineerID):
     engineer = Enrollment.query.filter_by(EngineerID=EngineerID)
     if engineer:
@@ -450,6 +450,24 @@ def create_class(LessonID):
             "message": "The lesson was successfully created."
         },
     ), 201
+
+# get single lesson by class
+@app.route("/singlelesson/<string:LessonID>")
+def find_singlelesson_by_class(LessonID):
+    lessonobj = Lesson.query.filter_by(LessonID=LessonID).first()
+    if lessonobj:
+        return jsonify(
+            {
+                "code": 200,
+                "data": lessonobj.json()
+            }
+        ), 200
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No lessons found."
+        }
+    ), 404
 
 
 class Quiz(db.Model):

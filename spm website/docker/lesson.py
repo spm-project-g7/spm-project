@@ -130,7 +130,7 @@ def find_lessonlist_by_class(ClassID):
         }
     ), 404
 
-    # get lesson list by class
+# get lesson list by class
 @app.route("/singlelesson/<string:LessonID>")
 def find_singlelesson_by_class(LessonID):
     lessonobj = Lesson.query.filter_by(LessonID=LessonID).first()
