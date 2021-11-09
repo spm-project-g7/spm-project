@@ -292,12 +292,8 @@ def get_all_enrollment():
         }
     ), 404
 
-<<<<<<< HEAD
-@app.route("/enrollment/<string:EngineerID>")
-=======
 
 @app.route("/class/<string:EngineerID>")
->>>>>>> 47bbe1ec927f4d37cf343230cb062ed812b2ced0
 def find_by_engineer(EngineerID):
     engineer = Enrollment.query.filter_by(EngineerID=EngineerID)
     if engineer:
@@ -507,17 +503,6 @@ def create_class(LessonID):
         },
     ), 201
 
-<<<<<<< HEAD
-# get single lesson by class
-@app.route("/singlelesson/<string:LessonID>")
-def find_singlelesson_by_class(LessonID):
-    lessonobj = Lesson.query.filter_by(LessonID=LessonID).first()
-    if lessonobj:
-        return jsonify(
-            {
-                "code": 200,
-                "data": lessonobj.json()
-=======
 # get lesson list by class
 
 
@@ -531,7 +516,6 @@ def find_lessonlist_by_class(ClassID):
                 "data": {
                     "lessonList": [lesson.json() for lesson in lessonList]
                 }
->>>>>>> 47bbe1ec927f4d37cf343230cb062ed812b2ced0
             }
         ), 200
     return jsonify(

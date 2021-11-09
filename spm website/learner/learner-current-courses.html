@@ -297,10 +297,6 @@
         function getCourseDetail() {
             //get course detail from courseID
             $(async () => {
-<<<<<<< HEAD
-                console.log(courseId)
-=======
->>>>>>> 47bbe1ec927f4d37cf343230cb062ed812b2ced0
                 var serviceURL = "http://127.0.0.1:5000/course/" + courseId;
                 try {
                     const response =
@@ -418,11 +414,7 @@
         function showLabel() {
             //Get Class by selected course
             $(async () => {
-<<<<<<< HEAD
-                var serviceURL = "http://127.0.0.1:5000/learningmaterial/" + selectedLessonIndex;
-=======
                 var serviceURL = "http://127.0.0.1:5000/materialSingle/" + selectedLessonIndex;
->>>>>>> 47bbe1ec927f4d37cf343230cb062ed812b2ced0
                 try {
                     const response =
                         await fetch(
@@ -450,10 +442,6 @@
             //Get Quiz Detail By LessonID
             $(async () => {
                 var serviceURL = "http://127.0.0.1:5000/quiz/" + selectedLessonIndex;
-<<<<<<< HEAD
-                console.log(selectedLessonIndex)
-=======
->>>>>>> 47bbe1ec927f4d37cf343230cb062ed812b2ced0
                 try {
                     const response =
                         await fetch(
