@@ -2,7 +2,7 @@ import unittest
 import requests
 
 # Done by Vanessa
-class TestQuiz(unittest.TestCase):
+class TestEngineer(unittest.TestCase):
     URL = "http://127.0.0.1:5000/engineer"
     data = {
         "EngineerID" : 2,
