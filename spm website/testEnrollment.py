@@ -21,13 +21,13 @@ class TestEnrollment(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 2)
 
+    def testSelfEnrollment(self):
+        response = requests.post(self.URL + '/enrol/2/2/2' , json = self.data)
+        self.assertEqual(response.status_code, 201)
+
     def testExistingSelfEnrollment(self):
         response = requests.post(self.URL + '/enrol/2/2/2', json = self.data)
         self.assertEqual(response.status_code, 400)
-
-    # def testSelfEnrollment(self):
-    #     response = requests.post(self.URL + '/enrolself/2/2/2' , json = self.data)
-    #     self.assertEqual(response.status_code, 201)
 
     def getEnrollmentByEngineer(self):
         response = requests.get(self.URL + '/enrollment/1')
