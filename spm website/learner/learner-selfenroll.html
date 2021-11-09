@@ -345,7 +345,7 @@
                     var courseStart = formatDate(selectedCourseStartDate);
                     var courseEnd = formatDate(selectedCourseEndDate);
                     var engineerID = 3
-                    var serviceURL = "http://127.0.0.0:5000/enrolself/" + String(engineerID) + "/" + classId;;
+                    var serviceURL = "http://127.0.0.0:5000/enrolself/" + courseID + "/" + String(engineerID) + "/" + classId;;
                     var jsondata = JSON.stringify({
                         StartDate: courseStart, EndDate: courseEnd,
                         AssignedHR: null, CourseCompleteRate: 0, CompleteStatus: "Not Complete", FinalQuizScore: 0
