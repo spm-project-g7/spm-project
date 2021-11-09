@@ -21,19 +21,9 @@ class TestEnrollment(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 2)
 
-    def testFindByEngineer(self):
-        response = requests.get(self.URL + '/class/1')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 2)
-    
-    # def testFindByCourse(self):
-    #     response = requests.get(self.URL + '/1')
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(len(response.json()), 2)
-
-    # def testExistingSelfEnrollment(self):
-    #     response = requests.post(self.URL + '/enrolself/1/3/2', json = self.data)
-    #     self.assertEqual(response.status_code, 400)
+    def testExistingSelfEnrollment(self):
+        response = requests.post(self.URL + '/enrol/2/2/2', json = self.data)
+        self.assertEqual(response.status_code, 400)
 
     # def testSelfEnrollment(self):
     #     response = requests.post(self.URL + '/enrolself/2/2/2' , json = self.data)

@@ -297,44 +297,44 @@ def get_all_enrollment():
     ), 404
 
 
-@app.route("/class/<string:EngineerID>")
-def find_by_engineer(EngineerID):
-    engineer = Enrollment.query.filter_by(EngineerID=EngineerID)
-    if engineer:
-        return jsonify(
-            {
-                "code": 200,
-                "data": {
-                    "enrollment": [enrol.json() for enrol in engineer]
-                }
-            }
-        ), 200
-    return jsonify(
-        {
-            "code": 404,
-            "message": "No engineer found."
-        }
-    ), 404
+# @app.route("/class/<string:EngineerID>")
+# def find_by_engineer(EngineerID):
+#     engineer = Enrollment.query.filter_by(EngineerID=EngineerID)
+#     if engineer:
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": {
+#                     "enrollment": [enrol.json() for enrol in engineer]
+#                 }
+#             }
+#         ), 200
+#     return jsonify(
+#         {
+#             "code": 404,
+#             "message": "No engineer found."
+#         }
+#     ), 404
 
 
-@app.route("/class/<string:CourseID>")
-def find_by_course(CourseID):
-    course = Enrollment.query.filter_by(CourseID=CourseID).all()
-    if len(course):
-        return jsonify(
-            {
-                "code": 200,
-                "data": {
-                    "enrollment": [enrol.json() for enrol in course]
-                }
-            }
-        ), 200
-    return jsonify(
-        {
-            "code": 404,
-            "message": "No engineer found."
-        }
-    ), 404
+# @app.route("/class/<string:CourseID>")
+# def find_by_course(CourseID):
+#     course = Enrollment.query.filter_by(CourseID=CourseID).all()
+#     if len(course):
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": {
+#                     "enrollment": [enrol.json() for enrol in course]
+#                 }
+#             }
+#         ), 200
+#     return jsonify(
+#         {
+#             "code": 404,
+#             "message": "No engineer found."
+#         }
+#     ), 404
 
 
 # enrol engineers into course and class
