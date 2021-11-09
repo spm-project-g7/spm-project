@@ -23,9 +23,12 @@ class TestCourse(unittest.TestCase):
         self.assertEqual(len(response.json()), 2)
 
     def testGetMissingCourse(self):
-            response = requests.get(self.URL + '/10')
-            self.assertEqual(response.status_code, 404)
-            self.assertEqual(len(response.json()), 2)
+        response = requests.get(self.URL + '/10')
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(len(response.json()), 2)
+
+
+
     
 
 if __name__ == "__main__":
