@@ -180,6 +180,7 @@
         var selectedCourseStartDate = ""
         var selectedCourseEndDate = ""
         var trainerId = ""
+        var classId = ""
         function loadCourses() {
 
             $(async () => {
@@ -257,6 +258,7 @@
                             document.getElementById("endDate").innerHTML = String(formatDate(classobj.EndDate));
                             document.getElementById("classSize").innerHTML = String(classobj.ClassSize);
                             document.getElementById("trainerName").innerHTML = String(classobj.TrainerID);
+                            classId = classobj.ClassID;
                             selectedCourseStartDate = classobj.StartDate;
                             selectedCourseEndDate = classobj.EndDate;
                         }
@@ -344,8 +346,8 @@
                     var courseID = selectedValue;
                     var courseStart = formatDate(selectedCourseStartDate);
                     var courseEnd = formatDate(selectedCourseEndDate);
-                    var engineerID = 3
-                    var serviceURL = "http://127.0.0.1:5000/enrolself/" + courseID + "/" + String(engineerID) + "/" + classId;;
+                    var engineerID = 3;
+                    var serviceURL = "http://127.0.0.1:5000/enrolself/" + courseID + "/" + String(engineerID) + "/" + classId;
                     var jsondata = JSON.stringify({
                         StartDate: courseStart, EndDate: courseEnd,
                         AssignedHR: null, CourseCompleteRate: 0, CompleteStatus: "Not Complete", FinalQuizScore: 0
@@ -363,7 +365,7 @@
                         if (response.ok) {
                             alert("Engineer successfully enrolled!");
                         } else {
-                            alert("An error occurred.");
+                            alert("You have already enrolled.");
                         }
 
                     }
