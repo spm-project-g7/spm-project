@@ -225,7 +225,7 @@ def get_all_engineers():
     ), 404
 
 
-@app.route("/learner/<string:EngineerID>")
+@app.route("/engineer/<string:EngineerID>")
 def find_by_learner(EngineerID):
     engineer = Engineer.query.filter_by(EngineerID=EngineerID).first()
     if engineer:
