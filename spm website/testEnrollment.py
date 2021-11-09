@@ -5,9 +5,6 @@ import requests
 class TestEnrollment(unittest.TestCase):
     URL = "http://127.0.0.1:5000"
     data = {
-        "CourseID": 1, 
-        "ClassID": 4, 
-        "EngineerID": 3, 
         "StartDate": "2021-10-08",
         "EndDate": "2022-04-29", 
         "AssignedHR": "", 
@@ -22,11 +19,11 @@ class TestEnrollment(unittest.TestCase):
         self.assertEqual(len(response.json()), 2)
 
     def testSelfEnrollment(self):
-        response = requests.post(self.URL + '/enrol/2/2/2' , json = self.data)
+        response = requests.post(self.URL + '/enrolself/2/2/2' , json = self.data)
         self.assertEqual(response.status_code, 201)
 
     def testExistingSelfEnrollment(self):
-        response = requests.post(self.URL + '/enrol/2/2/2', json = self.data)
+        response = requests.post(self.URL + '/enrolself/2/2/2', json = self.data)
         self.assertEqual(response.status_code, 400)
 
     def getEnrollmentByEngineer(self):
