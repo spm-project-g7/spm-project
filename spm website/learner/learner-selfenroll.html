@@ -180,10 +180,11 @@
         var selectedCourseStartDate = ""
         var selectedCourseEndDate = ""
         var trainerId = ""
+        var classId = ""
         function loadCourses() {
 
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5004/course";
+                var serviceURL = "http://127.0.0.1:5000/course";
                 try {
                     const response =
                         await fetch(
@@ -238,7 +239,7 @@
         function showLabel() {
             //Get Class by selected course
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5005/class/course/" + selectedValue;
+                var serviceURL = "http://127.0.0.1:5000/class/course/" + selectedValue;
                 try {
                     const response =
                         await fetch(
@@ -257,6 +258,7 @@
                             document.getElementById("endDate").innerHTML = String(formatDate(classobj.EndDate));
                             document.getElementById("classSize").innerHTML = String(classobj.ClassSize);
                             document.getElementById("trainerName").innerHTML = String(classobj.TrainerID);
+                            classId = classobj.classID;
                             selectedCourseStartDate = classobj.StartDate;
                             selectedCourseEndDate = classobj.EndDate;
                         }
@@ -272,7 +274,7 @@
             });
             //Get Course By Selected ID
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5004/course/" + selectedValue;
+                var serviceURL = "http://127.0.0.1:5000/course/" + selectedValue;
                 try {
                     const response =
                         await fetch(
@@ -345,7 +347,7 @@
                     var courseStart = formatDate(selectedCourseStartDate);
                     var courseEnd = formatDate(selectedCourseEndDate);
                     var engineerID = 3
-                    var serviceURL = "http://127.0.0.1:5006/enrol/" + courseID + "/" + engineerID;
+                    var serviceURL = "http://127.0.0.1:5000/enrol/" + courseID + "/" + engineerID + "/" + classId;
                     var jsondata = JSON.stringify({
                         StartDate: courseStart, EndDate: courseEnd,
                         AssignedHR: null, CourseCompleteRate: 0, CompleteStatus: "Not Complete", FinalQuizScore: 0
