@@ -52,6 +52,15 @@
             color: white;
             margin: auto;
             text-align: center;
+            
+        }
+        .dropdown-menu.show{
+            background-color: #6c757d;
+            color: white;
+            margin: auto;
+            text-align: center;
+            display: flex;
+            margin-bottom: 20px;
         }
 
         .dropdown-item {
@@ -60,6 +69,10 @@
         }
 
         .dropdown-item:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+        .dropdown-item.show:hover {
             background-color: #6c757d;
             color: white;
         }
@@ -88,7 +101,11 @@
                     <li class="dropdown"><a class="active" href="#"><span>Courses</span> <i
                                 class="bi bi-chevron-down"></i></a>
                         <ul>
+<<<<<<< HEAD
                             <li><a href="learner-course.html">My Courses</a></li>
+=======
+                            <li><a href="learner-current-courses.html">My Courses</a></li>
+>>>>>>> 47bbe1ec927f4d37cf343230cb062ed812b2ced0
                             <li><a href="learner-selfenroll.html">Self Enroll Courses</a></li>
                         </ul>
                     </li>
@@ -201,7 +218,7 @@
         </div>
         <br>
         <br>
-        <div class="row" id="lessontable" style="border:3px solid #37423b">
+        <div class="row" id="lessontable" style="border:3px solid #37423b;margin-top:20px;">
             <div class="col-md-6" style="border-right:3px solid #37423b;display: inline-block; ">
                 <div class="row">
                     <label
@@ -280,7 +297,10 @@
         function getCourseDetail() {
             //get course detail from courseID
             $(async () => {
+<<<<<<< HEAD
                 console.log(courseId)
+=======
+>>>>>>> 47bbe1ec927f4d37cf343230cb062ed812b2ced0
                 var serviceURL = "http://127.0.0.1:5000/course/" + courseId;
                 try {
                     const response =
@@ -397,9 +417,12 @@
 
         function showLabel() {
             //Get Class by selected course
-            console.log(selectedLessonIndex)
             $(async () => {
+<<<<<<< HEAD
                 var serviceURL = "http://127.0.0.1:5000/learningmaterial/" + selectedLessonIndex;
+=======
+                var serviceURL = "http://127.0.0.1:5000/materialSingle/" + selectedLessonIndex;
+>>>>>>> 47bbe1ec927f4d37cf343230cb062ed812b2ced0
                 try {
                     const response =
                         await fetch(
@@ -410,7 +433,6 @@
                     if (response.status == 200) {
                         // success case
                         var lesson = result.data
-                        console.log(result.data)
                         document.getElementById("materialTitle").innerHTML = String(lesson.MaterialTitle);
                         document.getElementById("materialDesc").innerHTML = String(lesson.MaterialDescription);
                         document.getElementById("lessonLastUpdate").innerHTML = String(formatDate(lesson.LastUpdated));
@@ -428,7 +450,10 @@
             //Get Quiz Detail By LessonID
             $(async () => {
                 var serviceURL = "http://127.0.0.1:5000/quiz/" + selectedLessonIndex;
+<<<<<<< HEAD
                 console.log(selectedLessonIndex)
+=======
+>>>>>>> 47bbe1ec927f4d37cf343230cb062ed812b2ced0
                 try {
                     const response =
                         await fetch(
@@ -439,12 +464,11 @@
                     if (response.status == 200) {
                         // success case
                         var quiz = result.data
-                        console.log(result.data)
                         document.getElementById("quizName").innerHTML = String(quiz.QuizName);
                         document.getElementById("passingGrade").innerHTML = String(quiz.PassingGrade);
                         document.getElementById("quizLastUpdate").innerHTML = String(formatDate(quiz.LastUpdated));
-                        selectedQuizId = quiz.quizID
-                        selectedQuizTime = quiz.QuizTime
+                        selectedQuizId = String(quiz.QuizID);
+                        selectedQuizTime = quiz.QuizTime;
                     }
                 }
                 catch (error) {
@@ -459,9 +483,9 @@
 
         function goToTakeQuiz() {
             if (selectedQuizId != 0 && selectedLessonIndex != 0) {
-                window.location = 'learner-quiz.html?course=' + courseId + '&lesson=' + selectedLessonIndex + '&quiz=' + selectedQuizTime
+                window.location = 'learner-quiz.html?engineerID=' + engineerID + '&lesson=' + selectedLessonIndex + '&quizTime=' + selectedQuizTime + '&quizID=' + selectedQuizId
             } else {
-                alert("Please select lesson")
+                alert("Please select lesson");
             }
         }
 
