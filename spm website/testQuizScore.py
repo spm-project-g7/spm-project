@@ -3,7 +3,7 @@ import requests
 
 #Done by Zi Lin
 class TestQuizScore(unittest.TestCase):
-    URL = "http://127.0.0.1:5000/question"
+    URL = "http://127.0.0.1:5000/quizscore"
     data = {
         "EngineerID": 1, 
         "QuizScore": "75", 

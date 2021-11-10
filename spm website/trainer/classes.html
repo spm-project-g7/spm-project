@@ -89,7 +89,7 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
-        <a href="../Homepage.html" class="get-started-btn">Logout</a>
+        <a href="../index.html" class="get-started-btn">Logout</a>
 
         </div>
     </header>
@@ -129,7 +129,7 @@
             var courseID = GetURLParameter('course');
 
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5000/class/course/" + courseID;
+                var serviceURL = "http://13.214.112.93:5000/class/course/" + courseID;
                 try {
                     const response =
                     await fetch(

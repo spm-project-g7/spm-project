@@ -5,7 +5,7 @@ import requests
 class TestQuestion(unittest.TestCase):
     URL = "http://127.0.0.1:5000/question"
     data = {
-        "QuizID": 4, 
+        
         "QuestionID": 1, 
         "Options": "True,False", 
         "Answer": 0, 
@@ -26,7 +26,7 @@ class TestQuestion(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
     def testDeleteQuestion(self):
-        response = requests.post(self.URL + '/delete/9' , json = self.data)
+        response = requests.delete(self.URL + '/delete/9' , json = self.data)
         self.assertEqual(response.status_code, 200)
 
 

@@ -5,7 +5,6 @@ import requests
 class TestLesson(unittest.TestCase):
     URL = "http://127.0.0.1:5000"
     data = {
-        "LessonID": 1, 
         "TrainerID": 2, 
         "ClassID": 1, 
         "PrerequisiteLessonID": "", 
@@ -22,7 +21,7 @@ class TestLesson(unittest.TestCase):
         self.assertEqual(len(response.json()), 2)
 
     def testCreateLesson(self):
-        response = requests.post(self.URL + '/9' , json = self.data)
+        response = requests.post(self.URL + '/lesson/9' , json = self.data)
         self.assertEqual(response.status_code, 201)
 
     def testGetLessonListByClass(self):
