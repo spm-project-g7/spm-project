@@ -61,7 +61,7 @@
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
                     <li><a href="learner-homepage.html">Home</a></li>
-                    <li><a href="quiz.html">Quizzes</a></li>
+                    <li><a href="learner-quiz.html">Quizzes</a></li>
                     <li><a href="#">Learning Materials</a></li>
                     <li><a href="#">Forum</a></li>
                     <li><a href="#">Chats</a></li>
@@ -70,8 +70,8 @@
                     <li class="dropdown"><a class="active" href="#"><span>Courses</span> <i
                                 class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="all-courses.html">My Courses</a></li>
-                            <li><a href="current-courses.html">Self Enroll Courses</a></li>
+                            <li><a href="learner-current-courses.html">My Courses</a></li>
+                            <li><a href="learner-selfenroll.html">Self Enroll Courses</a></li>
                         </ul>
                     </li>
                     <li class="dropdown"><a href="#"><span>My Profile</span> <i class="bi bi-chevron-down"></i></a>
@@ -180,10 +180,11 @@
         var selectedCourseStartDate = ""
         var selectedCourseEndDate = ""
         var trainerId = ""
+        var classId = ""
         function loadCourses() {
 
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5004/course";
+                var serviceURL = "http://127.0.0.1:5000/course";
                 try {
                     const response =
                         await fetch(
@@ -238,7 +239,7 @@
         function showLabel() {
             //Get Class by selected course
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5005/class/course/" + selectedValue;
+                var serviceURL = "http://127.0.0.1:5000/class/course/" + selectedValue;
                 try {
                     const response =
                         await fetch(
@@ -257,6 +258,7 @@
                             document.getElementById("endDate").innerHTML = String(formatDate(classobj.EndDate));
                             document.getElementById("classSize").innerHTML = String(classobj.ClassSize);
                             document.getElementById("trainerName").innerHTML = String(classobj.TrainerID);
+                            classId = classobj.ClassID;
                             selectedCourseStartDate = classobj.StartDate;
                             selectedCourseEndDate = classobj.EndDate;
                         }
@@ -272,7 +274,7 @@
             });
             //Get Course By Selected ID
             $(async () => {
-                var serviceURL = "http://127.0.0.1:5004/course/" + selectedValue;
+                var serviceURL = "http://127.0.0.1:5000/course/" + selectedValue;
                 try {
                     const response =
                         await fetch(
@@ -344,8 +346,8 @@
                     var courseID = selectedValue;
                     var courseStart = formatDate(selectedCourseStartDate);
                     var courseEnd = formatDate(selectedCourseEndDate);
-                    var engineerID = 3
-                    var serviceURL = "http://127.0.0.1:5006/enrol/" + courseID + "/" + engineerID;
+                    var engineerID = 3;
+                    var serviceURL = "http://127.0.0.1:5000/enrolself/" + courseID + "/" + String(engineerID) + "/" + classId;
                     var jsondata = JSON.stringify({
                         StartDate: courseStart, EndDate: courseEnd,
                         AssignedHR: null, CourseCompleteRate: 0, CompleteStatus: "Not Complete", FinalQuizScore: 0
@@ -363,7 +365,7 @@
                         if (response.ok) {
                             alert("Engineer successfully enrolled!");
                         } else {
-                            alert("An error occurred.");
+                            alert("You have already enrolled.");
                         }
 
                     }

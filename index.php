@@ -1,0 +1,1 @@
+<?php header('Location: spm website/Homepage.html'); ?>
