@@ -127,7 +127,7 @@
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
 
-            <a href="../Homepage.html" class="get-started-btn">Logout</a>
+            <a href="../index.html" class="get-started-btn">Logout</a>
 
         </div>
     </header>
@@ -265,7 +265,7 @@
 
             //get courseID from enrollment by engineerID
             $(async () => {
-                var serviceURL = "http://54.255.62.181:5000/enrollment/" + engineerID;
+                var serviceURL = "http://13.214.112.93:5000/enrollment/" + engineerID;
                 try {
                     const response =
                         await fetch(
@@ -293,7 +293,7 @@
         function getCourseDetail() {
             //get course detail from courseID
             $(async () => {
-                var serviceURL = "http://54.255.62.181:5000/course/" + courseId;
+                var serviceURL = "http://13.214.112.93:5000/course/" + courseId;
                 try {
                     const response =
                         await fetch(
@@ -317,7 +317,7 @@
         //get class detail(classID) from courseID
         function getClassDetail() {
             $(async () => {
-                var serviceURL = "http://54.255.62.181:5000/class/singleclass/" + courseId;
+                var serviceURL = "http://13.214.112.93:5000/class/singleclass/" + courseId;
                 try {
                     const response =
                         await fetch(
@@ -356,7 +356,7 @@
         //get lesson list from classID
         function getLessonDetail() {
             $(async () => {
-                var serviceURL = "http://54.255.62.181:5000/lessonlist/" + classId;
+                var serviceURL = "http://13.214.112.93:5000/lessonlist/" + classId;
                 try {
                     const response =
                         await fetch(
@@ -410,7 +410,7 @@
         function showLabel() {
             //Get Class by selected course
             $(async () => {
-                var serviceURL = "http://54.255.62.181:5000/materialSingle/" + selectedLessonIndex;
+                var serviceURL = "http://13.214.112.93:5000/materialSingle/" + selectedLessonIndex;
                 try {
                     const response =
                         await fetch(
@@ -437,7 +437,7 @@
             });
             //Get Quiz Detail By LessonID
             $(async () => {
-                var serviceURL = "http://54.255.62.181:5000/quiz/" + selectedLessonIndex;
+                var serviceURL = "http://13.214.112.93:5000/quiz/" + selectedLessonIndex;
                 try {
                     const response =
                         await fetch(
@@ -503,7 +503,8 @@
         //Replace trainerName with trainerID in label
         function replacetrainerName() {
             $(async () => {
-                var serviceURL = "http://54.255.62.181:5000/trainer/" + String(document.getElementById("trainerName").innerHTML);
+                var serviceURL = "http://13.214.112.93:5000/trainer/" + String(document.getElementById("trainerName").innerHTML);
+
                 try {
                     const response =
                         await fetch(
