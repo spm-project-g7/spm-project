@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
@@ -6,7 +6,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://admin:admin123@database-1.cb88dyjs5ggm.ap-southeast-1.rds.amazonaws.com/spm'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 
@@ -1070,4 +1071,4 @@ def create_quizscore():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
