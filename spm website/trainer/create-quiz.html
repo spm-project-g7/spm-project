@@ -79,7 +79,7 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
-        <a href="../Homepage.html" class="get-started-btn">Logout</a>
+        <a href="../index.html" class="get-started-btn">Logout</a>
 
         </div>
     </header>
@@ -259,7 +259,7 @@
 
                 // get classes for course
                 $(async () => {
-                    var serviceURL = "http://54.255.62.181/:5000/course";
+                    var serviceURL = "http://13.214.112.93:5000/course";
                     try {
                         const response =
                         await fetch(
@@ -287,7 +287,7 @@
                 function getClasses() {
                     $(async () => {
                         var courseID = document.getElementById('selectcourse').value;
-                        var serviceURL = "http://54.255.62.18:5000/class/course/" + courseID;
+                        var serviceURL = "http://13.214.112.93:5000/class/course/" + courseID;
                         try {
                             const response =
                             await fetch(
@@ -378,7 +378,7 @@
                             var data = total[i];
                             var qnsID = i + 1;
                             var jsondata = JSON.stringify({ QuestionID: qnsID, Options: data.options.toString(), Question: data.question, Answer: data.answer });
-                            var serviceURL = "http://54.255.62.18:5000/question/create/" + quizID;
+                            var serviceURL = "http://13.214.112.93:5000/question/create/" + quizID;
                             try {
                                 const response =
                                 await fetch(
@@ -432,7 +432,7 @@
                         var quizName = $('#quiz-name').val();
                         var quizScore = $('#quiz-score').val();
                         var quizTime = parseInt( $('#quiz-time').val());
-                        var serviceURL = "http://54.255.62.18:5000/quiz/create/" + lessonID;
+                        var serviceURL = "http://13.214.112.93:5000/quiz/create/" + lessonID;
                         var jsondata = JSON.stringify({ LastUpdated: lastUpdated, GradedQuiz: graded, PassingGrade: passing, LessonID: lessonID, 
                                                         QuizScore: quizScore, QuizName: quizName, QuizTime: quizTime });
                         try {

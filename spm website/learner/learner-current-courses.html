@@ -504,6 +504,7 @@
         function replacetrainerName() {
             $(async () => {
                 var serviceURL = "http://13.214.112.93:5000/trainer/" + String(document.getElementById("trainerName").innerHTML);
+
                 try {
                     const response =
                         await fetch(
