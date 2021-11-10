@@ -114,7 +114,7 @@
 
   <script>
     $(async () => {
-        var serviceURL = "http://127.0.0.1:5000/engineer";
+        var serviceURL = "http://54.255.62.181:5000/engineer";
         try {
             const response =
             await fetch(
@@ -145,7 +145,7 @@
     }
 
     $(async () => {
-      var serviceURL = "http://127.0.0.1:5000/course";
+      var serviceURL = "http://54.255.62.181:5000/course";
       try {
         const response =
           await fetch(
@@ -180,7 +180,7 @@
         $(async () => {
             var courseval = $('#courseval').val().split(",");
             var courseID = courseval[1].trim().slice(-2);
-            var serviceURL = "http://127.0.0.1:5000/class/course/" + courseID;
+            var serviceURL = "http://54.255.62.181:5000/class/course/" + courseID;
             try {
                 const response =
                 await fetch(
@@ -210,7 +210,7 @@
         $(async () => {
             // course = course.replace(/ /g, "%20");
             // alert(course);
-            var serviceURL = "http://127.0.0.1:5000/course/" + courseID;
+            var serviceURL = "http://54.255.62.181:5000/course/" + courseID;
             alert(serviceURL);
             try {
                 const response =
@@ -247,7 +247,7 @@
             var engineerID = engineerval[1].slice(-2).trim();
             var classID = $('#classval').val();
             console.log(courseID, engineerID, classID);
-            var serviceURL = "http://127.0.0.1:5000/enrol" + "/" + courseID + "/" + engineerID + "/" + classID;
+            var serviceURL = "http://54.255.62.181:5000/enrol" + "/" + courseID + "/" + engineerID + "/" + classID;
             console.log(serviceURL);
             var jsondata = JSON.stringify({ StartDate: courseStart, EndDate: courseEnd, 
                                         AssignedHR: null, CourseCompleteRate: 0, CompleteStatus: "Not Complete", FinalQuizScore: 0 })
