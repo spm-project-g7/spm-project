@@ -166,7 +166,7 @@
 
             function deleteQuiz(quizID) {
                 $(async () => {
-                    var serviceURL = "http://127.0.0.1:5000/quiz/delete/" + quizID;
+                    var serviceURL = "http://54.255.62.18:5000/quiz/delete/" + quizID;
                     try {
                         const response =
                         await fetch(
@@ -186,7 +186,7 @@
                     } // error
                 });
                 $(async () => {
-                    var serviceURL = "http://127.0.0.1:5000/question/delete/" + quizID;
+                    var serviceURL = "http://54.255.62.18:5000/question/delete/" + quizID;
                     try {
                         const response =
                         await fetch(

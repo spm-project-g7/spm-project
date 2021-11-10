@@ -173,96 +173,6 @@
        
  <!-- INTERNAL JS -->
  <script>
-    // Check position
-    // const vm = new Vue({
-    //     el: '#form',
-    //     data: {
-    //         selected: '',
-    //     },
-    //     methods: {
-    //         upload: function(event) {
-    //             $(async () => {
-    //                 var lessonID = $('#LessonID').val();
-    //                 var matTitle = $('#MaterialTitle').val();
-    //                 var matDescr = $('#MaterialDescription').val();
-    //                 var matType = $('#MaterialType').val();
-    //                 var matHyperlink = $('#MaterialURL').val();
-    //                 var today = new Date();
-    //                 var dd = String(today.getDate()).padStart(2, '0');
-    //                 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    //                 var yyyy = today.getFullYear();
-    //                 today = yyyy + '/' + mm + '/' + dd;
-    //                 var serviceURL = "http://127.0.0.1:5000/material/" + lessonID;
-    //                 var jsondata = JSON.stringify({ MaterialTitle: matTitle, MaterialDescription: matDescr, LessonID: lessonID, 
-    //                                             LastUpdated: today, MaterialURL: matHyperlink, MaterialType: matType, CompleteStatus: null })
-    //                 console.log(jsondata);
-    //                 try {
-    //                     const response =
-    //                     await fetch(
-    //                         serviceURL, {
-    //                         method: 'POST',
-    //                         headers: { "Content-Type": "application/json" },
-    //                         body: jsondata,
-    //                     });
-    //                     const data = await response.json();
-    //                     const information = await data;
-    //                     if(response.ok){
-    //                         alert("Material successfully uploaded!");
-    //                     } else {
-    //                         // alert(data.message);
-    //                         alert("An error occurred.");
-    //                     }
-                        
-    //                 }
-    //                 catch (error) {
-    //                     // Errors when calling the service; such as network error, 
-    //                     // service offline, etc
-    //                     console.log(error);
-    //                     alert('There is a problem uploading the material, please try again later.');
-    //                 } // error
-    //             });
-
-    //         }
-    //     }
-    // });
-
-
-    // // Example starter JavaScript for disabling form submissions if there are invalid fields
-    // (function() {
-    //     'use strict';
-    //     window.addEventListener('load', function() {
-    //         // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    //         var forms = document.getElementsByClassName('needs-validation');
-    //         // Loop over them and prevent submission
-    //         var validation = Array.prototype.filter.call(forms, function(form) {
-    //             form.addEventListener('submit', function(event) {
-    //                 console.log(event);
-    //                 if (form.checkValidity() === false) {
-    //                     event.preventDefault();
-    //                     event.stopPropagation();
-    //                     //   console.log(form)
-    //                 }
-    //                 form.classList.add('was-validated');
-    //             }, false);
-    //         });
-            
-    //     }, false);
-    // });
-
-    // function fileValidation() {
-    //     var fileInput = 
-    //         document.getElementById('MaterialURL');
-        
-    //     var filePath = fileInput.value;
-    //     // Allowing file type
-    //     var allowedExtensions = /(\.pptx|\.docx|\.mpeg|\.pdf|\.mp4)$/i;
-        
-    //     if (!allowedExtensions.exec(filePath)) {
-    //         alert('Invalid file type. Please upload .docx, .pptx, .mpeg, .mp4 or .pdf');
-    //         fileInput.value = '';
-    //         return false;
-    //     } 
-    // }
 
     function hyperlink() {
         var matType = $('#MaterialType').val();
@@ -297,7 +207,7 @@
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
             today = yyyy + '/' + mm + '/' + dd;
-            var serviceURL = "http://127.0.0.1:5000/material/" + lessonID;
+            var serviceURL = "http://54.255.62.18:5000/material/" + lessonID;
             var jsondata = JSON.stringify({ MaterialTitle: matTitle, MaterialDescription: matDescr, LessonId: lessonID, 
                                         LastUpdated: today, MaterialURL: matHyperlink, MaterialType: matType, CompleteStatus: null })
             console.log(jsondata);
