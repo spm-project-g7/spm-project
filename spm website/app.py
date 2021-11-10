@@ -516,7 +516,7 @@ def find_by_class(ClassID):
 # create lesson
 
 
-@app.route("/lesson/<string:lessonID>", methods=['POST'])
+@app.route("/lesson/<string:LessonID>", methods=['POST'])
 def create_class(LessonID):
     if (Lesson.query.filter_by(LessonID=LessonID).first()):
         return jsonify(
