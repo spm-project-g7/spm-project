@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 09, 2021 at 10:24 AM
+-- Generation Time: Nov 09, 2021 at 10:38 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.4.0
 
@@ -243,7 +243,9 @@ INSERT INTO `question` (`QuizID`, `QuestionID`, `Options`, `Answer`, `Question`)
 (2, 1, 'Yes,No,I dont know', '2', '“Stderr” is a standard error.'),
 (3, 1, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '1', 'Which of the following header file can be used to define the NULL macro?'),
 (4, 1, 'True,False', '0', 'The size of both stack and heap remains the same during run time.'),
-(4, 2, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '2', 'Which of the following header file can be used to define the NULL macro?');
+(4, 2, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '2', 'Which of the following header file can be used to define the NULL macro?'),
+(5, 1, 'True,False', '0', 'The size of both stack and heap remains the same during run time.'),
+(5, 2, 'stdio.h, locale.h, stddef.h, stdlib.h, string.h', '2', 'Which of the following header file can be used to define the NULL macro?');
 
 -- --------------------------------------------------------
 
@@ -290,14 +292,15 @@ CREATE TABLE IF NOT EXISTS `quizscore` (
   `QuizScoreID` int(255) NOT NULL AUTO_INCREMENT,
   `QuizID` int(255) NOT NULL,
   PRIMARY KEY (`QuizScoreID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `quizscore`
 --
 
 INSERT INTO `quizscore` (`EngineerID`, `QuizScore`, `LessonID`, `QuizScoreID`, `QuizID`) VALUES
-(1, '75', 1, 1, 1);
+(1, '75', 1, 1, 1),
+(3, '50', 4, 3, 4);
 
 -- --------------------------------------------------------
 
