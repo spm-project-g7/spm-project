@@ -5,7 +5,6 @@ import requests
 class TestLesson(unittest.TestCase):
     URL = "http://127.0.0.1:5000"
     data = {
-
         "TrainerID": 2, 
         "ClassID": 1, 
         "PrerequisiteLessonID": "", 
