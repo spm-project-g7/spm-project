@@ -30,7 +30,7 @@ class TestLearningMaterial(unittest.TestCase):
         self.assertEqual(len(response.json()), 2)
 
     def testPostCreateLearningMaterial(self):
-        response = requests.post(self.URL + '/6' , json = self.data)
+        response = requests.post(self.URL + '/7' , json = self.data)
         self.assertEqual(response.status_code, 201)
 
     
